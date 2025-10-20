@@ -39,11 +39,11 @@ namespace Humanity.View
             return (Console.ReadLine() ?? "").Trim();
         }
 
-        public void DarkCyan(string line)
+        public void DarkCyan(string line, int delay)
         {
             var prev = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Type($"\"{line}\"", 30);
+            Type($"\"{line}\"", delay);
             Console.ForegroundColor = prev;
         }
 

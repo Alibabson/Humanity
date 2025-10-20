@@ -24,15 +24,15 @@ namespace Humanity.Controller
             if (!_state.IntroPlayed)
             {
                 // SCENA: awaria eksperymentu
-                _view.Type("> EXPERIMENT 13 – NEURAL SEPARATION: START", 6);
-                _view.Type("> Subject: Adrian Holloway", 6);
-                _view.Type("> Pulse: 180 bpm", 6);
-                _view.Type("> Synaptic link: ACTIVE", 6);
+                _view.Type("> EXPERIMENT 13 – NEURAL SEPARATION: START", 50);
+                _view.Type("> Subject: Adrian Holloway", 50);
+                _view.Type("> Pulse: 180 bpm", 50);
+                _view.Type("> Synaptic link: ACTIVE", 50);
                 _view.Separator();
 
-                _view.DarkCyan("It hurts… why can’t I wake up…?");
-                _view.DarkCyan("He said we’d see the light… I only see red…");
-                _view.DarkCyan("Daddy? Why did you put me in the chair?");
+                _view.DarkCyan("It hurts… why can’t I wake up…?", 150);
+                _view.DarkCyan("He said we’d see the light… I only see red…", 150);
+                _view.DarkCyan("Daddy? Why did you put me in the chair?", 150);
 
                 _view.Separator();
                 _view.Red("WARNING: Consciousness integrity compromised.");
@@ -85,9 +85,9 @@ namespace Humanity.Controller
                     return true;
 
                 case "listen":
-                    _view.DarkCyan("We trusted you...");
-                    _view.DarkCyan("You said we'd wake up...");
-                    _view.DarkCyan("Why did you leave us here?");
+                    _view.DarkCyan("We trusted you...", 150);
+                    _view.DarkCyan("You said we'd wake up...", 150);
+                    _view.DarkCyan("Why did you leave us here?", 150);
                     _view.Red("[WARNING] Emotional interference detected.");
                     return true;
 
