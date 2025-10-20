@@ -1,8 +1,7 @@
-﻿using HauntedTerminal.Controller;
-using HauntedTerminal.Model;
-using HauntedTerminal.View;
+﻿using Humanity.Model;
+using Humanity.View;
 
-namespace HauntedTerminal.Scenes
+namespace Humanity.Controller
 {
     public class IntroScene : IGameScene
     {
@@ -31,12 +30,12 @@ namespace HauntedTerminal.Scenes
                 _view.Type("> Synaptic link: ACTIVE", 6);
                 _view.Separator();
 
-                _view.Ghost("It hurts… why can’t I wake up…?");
-                _view.Ghost("He said we’d see the light… I only see red…");
-                _view.Ghost("Daddy? Why did you put me in the chair?");
+                _view.DarkCyan("It hurts… why can’t I wake up…?");
+                _view.DarkCyan("He said we’d see the light… I only see red…");
+                _view.DarkCyan("Daddy? Why did you put me in the chair?");
 
                 _view.Separator();
-                _view.SystemError("WARNING: Consciousness integrity compromised.");
+                _view.Red("WARNING: Consciousness integrity compromised.");
                 _view.Type("> Consciousness fragmentation detected.", 10);
                 _view.Type("> REASON... lost.", 14);
                 _view.Type("> EMOTION... lost.", 14);
@@ -86,10 +85,10 @@ namespace HauntedTerminal.Scenes
                     return true;
 
                 case "listen":
-                    _view.Ghost("We trusted you...");
-                    _view.Ghost("You said we'd wake up...");
-                    _view.Ghost("Why did you leave us here?");
-                    _view.SystemWarn("[WARNING] Emotional interference detected.");
+                    _view.DarkCyan("We trusted you...");
+                    _view.DarkCyan("You said we'd wake up...");
+                    _view.DarkCyan("Why did you leave us here?");
+                    _view.Red("[WARNING] Emotional interference detected.");
                     return true;
 
                 case "recall":

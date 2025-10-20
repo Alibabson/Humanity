@@ -1,11 +1,10 @@
-﻿namespace HauntedTerminal.Model
+﻿namespace Humanity.Model
 {
     public class GameState
     {
-        // Moduły człowieczeństwa
-        public bool ReasonOnline { get; set; } = false;
-        public bool EmotionOnline { get; set; } = false;
-        public bool MoralityOnline { get; set; } = false;
+        public bool Reason { get; set; } = false;
+        public bool Emotion { get; set; } = false;
+        public bool Morality { get; set; } = false;
 
         // Stan ogólny
         public string CurrentSceneId { get; set; } = "";
@@ -22,6 +21,6 @@
         public int MemoryIndex { get; set; } = 0;
 
         public string StatusLine =>
-            $"Status — Reason: {(ReasonOnline ? "ONLINE" : "offline")} | Emotion: {(EmotionOnline ? "ONLINE" : "offline")} | Morality: {(MoralityOnline ? "ONLINE" : "offline")}";
+            $"Status — Reason: {(Reason ? "ONLINE" : "offline")} | Emotion: {(Emotion ? "ONLINE" : "offline")} | Morality: {(Morality ? "ONLINE" : "offline")}";
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace HauntedTerminal.View
+namespace Humanity.View
 {
     public class ConsoleView
     {
@@ -8,7 +8,7 @@ namespace HauntedTerminal.View
 
         public void Line(string text = "") => Console.WriteLine(text);
 
-        public void Type(string text, int delayMs = 18)
+        public void Type(string text, int delayMs)
         {
             foreach (char c in text)
             {
@@ -18,19 +18,20 @@ namespace HauntedTerminal.View
             Console.WriteLine();
         }
 
-        public void Pulse(string text, int pulses = 3, int on = 220, int off = 120)
+        public void Pulse(string text, int pulses = 6, int on = 220, int off = 120)
         {
             for (int i = 0; i < pulses; i++)
             {
                 Console.Write("\r" + text);
                 Thread.Sleep(on);
+                Console.Beep(250,on);
                 Console.Write("\r" + new string(' ', text.Length));
                 Thread.Sleep(off);
             }
             Console.Write("\r" + text + "\n");
         }
 
-        public string Prompt(string prefix = "\n> ")
+        public string Narrator(string prefix = "\n> ")
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write(prefix);
@@ -38,7 +39,7 @@ namespace HauntedTerminal.View
             return (Console.ReadLine() ?? "").Trim();
         }
 
-        public void Ghost(string line)
+        public void DarkCyan(string line)
         {
             var prev = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.DarkCyan;
@@ -46,7 +47,7 @@ namespace HauntedTerminal.View
             Console.ForegroundColor = prev;
         }
 
-        public void SystemWarn(string text)
+        public void Yellow(string text)
         {
             var prev = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -54,7 +55,7 @@ namespace HauntedTerminal.View
             Console.ForegroundColor = prev;
         }
 
-        public void SystemError(string text)
+        public void Red(string text)
         {
             var prev = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.Red;

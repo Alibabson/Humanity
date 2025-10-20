@@ -1,8 +1,7 @@
-﻿using HauntedTerminal.Model;
-using HauntedTerminal.View;
-using HauntedTerminal.Scenes;
+﻿using Humanity.Model;
+using Humanity.View;
 
-namespace HauntedTerminal.Controller
+namespace Humanity.Controller
 {
     public interface IGameScene
     {
@@ -30,7 +29,7 @@ namespace HauntedTerminal.Controller
         {
             if (!_scenes.ContainsKey(id))
             {
-                _view.SystemError($"[ENGINE] Scene '{id}' not found.");
+                _view.Red($"[ENGINE] Scene '{id}' not found.");
                 return;
             }
             _state.CurrentSceneId = id;
@@ -42,7 +41,7 @@ namespace HauntedTerminal.Controller
             while (_running)
             {
                 var scene = _scenes[_state.CurrentSceneId];
-                var input = _view.Prompt();
+                var input = _view.Narrator();
                 if (input.Equals("quit", StringComparison.OrdinalIgnoreCase) ||
                     input.Equals("exit", StringComparison.OrdinalIgnoreCase))
                 {
