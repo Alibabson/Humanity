@@ -32,9 +32,9 @@
             return "Available commands:\n" +
                    "- HELP: Show this help message.\n" +
                    "- LOOK: Observe your surroundings.\n" +
-                   "- CHECK [ITEM]: Describe item or room. \n" +
-                   "OPEN [DOOR]: Open the door or a gate and move to the next room." +
-                   "- QUIT/EXIT: Terminate the session.";
+                   "- EXAMINE [ITEM]: Describe item or room. \n" +
+                   "- GO TO [ROOM]: move to the next room. \n" +
+                   "- QUIT/EXIT: Terminate the session and give up on your H U M A N I T Y. \n";
         }
         public void pickLook(int idx)
         {
