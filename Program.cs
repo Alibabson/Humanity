@@ -8,20 +8,37 @@ namespace Humanity
     {
         private static void Main()
         {
-            Console.Title = "H U M A N I T Y";
-            Console.OutputEncoding = System.Text.Encoding.UTF8;   // Tytuł i znaki specjalne
+            Console.OutputEncoding = System.Text.Encoding.UTF8; //znaki specjalne
+            BootUp();
 
-            var state = new GameState();
+
+            var model = new GameModel();
             var view = new ConsoleView();
-            var ctrl = new GameController(state, view);   //pobieranie stanu widoku i kontrolera
+            var ctrl = new GameController(model, view);   //pobieranie stanu widoku i kontrolera
 
-            // Rejestracja scen
-            ctrl.Register(new IntroScene(ctrl, state, view));         //cokolwiek to jest
-          //  ctrl.Register(new ReasonChamberScene(ctrl, state, view));
-
-            // Start
-            ctrl.SwitchScene(IntroScene.IdStatic);
             ctrl.Run();
+        }
+        private static void BootUp()
+        {
+
+            try
+            {
+                Console.WindowHeight = 1;
+                Console.WindowWidth = 1;
+            }
+            catch { }
+            Console.Title = string.Empty;
+            const string word = "HUMANITY";
+            var title = new System.Text.StringBuilder();
+
+            for (int i = 0; i < word.Length; i++)
+            {
+                if (i > 0) title.Append(' ');
+                title.Append(word[i]);
+                Console.Title = title.ToString();
+                Thread.Sleep(750);
+            }
+            return;
         }
     }
 }
