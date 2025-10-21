@@ -10,7 +10,7 @@ namespace Humanity.View
         public void Clear() => Console.Clear();
 
         public void Line(string text = "") => Console.WriteLine(text);
-
+        public void LineNoEnter(string text = "") => Console.Write(text);
         public void Type(string text, int delayMs)
         {
             foreach (char c in text)
@@ -60,14 +60,24 @@ namespace Humanity.View
             return (Console.ReadLine() ?? "").Trim();
         }
 
-        public void DarkCyan(string line, int delay)
+        public void DarkCyan(string text)
+        {
+            var prev = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            LineNoEnter(text);
+            Console.ForegroundColor = prev;
+        }
+        public void Ghost(string line, int delay)
         {
             var prev = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Type($"\"{line}\"", delay);
             Console.ForegroundColor = prev;
         }
-
+        public void AwaitKey()
+        {
+            Console.ReadKey();
+        }
         public void Yellow(string text)
         {
             var prev = Console.ForegroundColor;
@@ -75,7 +85,17 @@ namespace Humanity.View
             Line(text);
             Console.ForegroundColor = prev;
         }
-
+        public void Loading()
+        {
+            Line("Loading");
+            Thread.Sleep(500);
+            Line("\rLoading.");
+            Thread.Sleep(500);
+            Line("\rLoading..");
+            Thread.Sleep(500);
+            Line("\rLoading...");
+            Clear();
+        }
         public void Red(string text)
         {
             var prev = Console.ForegroundColor;
