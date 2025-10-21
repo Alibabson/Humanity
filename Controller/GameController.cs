@@ -26,7 +26,7 @@ namespace Humanity.Controller
 
             if (!_model.IntroPlayed)
             {
-                // SCENA: awaria eksperymentu
+               // // SCENA: awaria eksperymentu
              /*   _view.Type("> EXPERIMENT 13 – NEURAL SEPARATION: START", 50);
                 _view.Type("> Subject: Adrian Holloway", 50);
                 _view.Type("> Pulse: 180 bpm", 50);
