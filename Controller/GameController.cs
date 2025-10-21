@@ -1,6 +1,7 @@
 ﻿using Humanity.Model;
 using Humanity.View;
 
+
 namespace Humanity.Controller
 {
     public class GameController
@@ -15,11 +16,57 @@ namespace Humanity.Controller
             _view = view;
         }
 
-        public void Run()
+        public async Task Run()
         {
+            /////////////////////////
+            ///_view.Clear();
+
+            if (!_model.IntroPlayed)
+            {
+                // SCENA: awaria eksperymentu
+             /*   _view.Type("> EXPERIMENT 13 – NEURAL SEPARATION: START", 50);
+                _view.Type("> Subject: Adrian Holloway", 50);
+                _view.Type("> Pulse: 180 bpm", 50);
+                _view.Type("> Synaptic link: ACTIVE", 50);
+                _view.Separator();
+
+                _view.DarkCyan("It hurts… why can’t I wake up…?", 150);
+                _view.DarkCyan("You said we’d see the light… I only see darkness…", 150);
+                _view.DarkCyan("Daddy? Why did you put me in the chair?", 150);
+             */
+                _view.Separator();
+                _view.Red("WARNING: Consciousness integrity compromised.");
+                _view.Type("> Consciousness fragmentation detected.", 10);
+                _view.Type("> REASON... lost.", 14);
+                _view.Type("> EMOTION... lost.", 14);
+                _view.Type("> MORALITY... lost.", 14);
+
+                Thread.Sleep(500);
+                _view.Pulse("...bzzzzz... SYSTEM REBOOT... partial ...");
+
+                _view.Line();
+                _view.Type("You wake up on a cold metal floor. The air smells like burnt iron.", 18);
+                _view.Type("A monitor flickers nearby.", 18);
+
+                _view.Line();
+                _view.Type("Welcome back, Doctor Holloway.", 24);
+                _view.Type("You’ve been offline for... 12 years.", 24);
+
+                _view.Separator();
+                _view.Line("Commands available: LOOK, LISTEN, RECALL, MOVE <target>, HELP, QUIT");
+                _model.IntroPlayed = true;
+            }
+            else
+            {
+                // Re-entry po powrocie ze scen
+                _view.Line("[LAB CORE]");
+                _view.Line("Broken glass, humming consoles. A door labeled [REASON CHAMBER] flickers.");
+            }
+        
+            //////////////////////////
             while (_running)
             {
-                var input = _view.Narrator();
+                var input = await _view.Narrator();
                 if (input.Equals("quit", StringComparison.OrdinalIgnoreCase) ||
                     input.Equals("exit", StringComparison.OrdinalIgnoreCase))
                 {
