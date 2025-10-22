@@ -146,8 +146,7 @@ namespace Humanity.Controller
 
                 case "check":
                     idx = _model.room_idx;
-
-                    _view.Type(_model.checkItem(idx,argument), 15);
+                    _model.checkItem(idx, argument);
                     return true;
 
 

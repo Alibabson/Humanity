@@ -103,6 +103,20 @@ namespace Humanity.View
             Line(text);
             Console.ForegroundColor = prev;
         }
+        public void Green(string text, bool checked)
+        {
+            var prev = Console.ForegroundColor;
+            if (checked){
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.BackgroundColor = ConsoleColor.Green;
+            }
+            else {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
+            Line(text);
+            Console.ForegroundColor = prev;
+        }
 
         public void Separator() => Line(new string('─', 64));
     }
