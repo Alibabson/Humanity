@@ -47,25 +47,41 @@
             switch (idx)
             {
                 case 0:
-                    if (part == 1)
-                    {
-                        look.Add("You are in a ");
-                        look.Add("LAB");   //this is blue
-                        look.Add(". The room is filled with scientific equipment, ");
-                        look.Add("monitors "); //and this
-                        look.Add("displaying data, and an unsolved equation scribbled on a ");
-                        look.Add("whiteboard"); //and this
-                        look.Add(".\nBehind you there are stairs leading upstairs to the ");
-                        look.Add("hallway.");
-                        look.Add("\n \nYou remember this place.");
-                        
-                    }
+                    look.Add("You are in a ");
+                    look.Add("LAB");   //this is blue
+                    look.Add(". The room is filled with scientific equipment, ");
+                    look.Add("monitors "); //and this
+                    look.Add("displaying data, and an unsolved equation scribbled on a ");
+                    look.Add("whiteboard"); //and this
+                    look.Add(".\nBehind you there are stairs leading upstairs to the ");
+                    look.Add("hallway.");
+                    look.Add("\n \nYou remember this place.");                   
+                return;
 
-
-                    return;
                 case 1:
-                    return;
+                    look.Add("You are currently in the ");
+                    look.Add("hallway"); //blue
+                    look.Add(" on the first floor. You can see the stairs leading down to the ");
+                    look.Add("lab"); //blue
+                    look.Add(" and a couple of closed doors leading to various rooms.\nYou don't know why but you know where every door leads: ");
+                    look.Add("kitchen"); //blue
+                    look.Add(", ");
+                    look.Add("bathroom"); //blue
+                    look.Add(" and ");
+                    look.Add("living room"); //blue
+                    look.Add(".\n  \n There are some words scraped on the left");
+                    look.Add(" wall"); //blue
+                    look.Add(", as well as some ");
+                    look.Add("notes "); //blue
+                    look.Add("lying on the ground.");
+                return;
                 case 2:
+                    look.Add("You are in the ");
+                    look.Add("kitchen"); //blue
+                    look.Add(". The room is fancy, but dusty, with a modern design. \nSuprisingly, stairs leading to the");
+                    look.Add(" second floor"); //blue
+                    look.Add("are located here. Doors behind you lead to the ");
+                    look.Add("hall"); //blue
                     return;
                 case 3:
                     return;
@@ -200,7 +216,7 @@
                     return next_idx;
 
                 case "F2 hallway":
-                case "Floor 2 hallway":
+                case "second floor":
                 case "second floor hallway":
                 case "Floor2 hallway":
                     next_idx = 5;
