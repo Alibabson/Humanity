@@ -2,6 +2,7 @@
 using Humanity.View;
 using System;
 using System.Globalization;
+using System.Reflection.PortableExecutable;
 
 namespace Humanity.Controller
 {
@@ -51,10 +52,12 @@ namespace Humanity.Controller
                 _view.Type("You wake up on a cold metal floor. The air smells like burnt iron.", 18);
                 _view.Type("A monitor flickers nearby.", 18);
 
-                _view.Line();
-                _view.Type("Welcome back, Doctor Holloway.", 24);
-                _view.Type("You’ve been offline for... 12 years.", 24);
-
+            /*    _view.Line();
+                _view.Type("Welcome, Doctor Holloway.", 24);
+                _view.Type("The machines remember you, even if you no longer remember yourself.", 24);
+                _view.Type("You dug too deep into the human mind...", 24);
+                _view.Type("...and now you’re buried inside it.", 24);
+            */
                 _view.Separator();
                 _view.Line(_model.Help());
                 _model.IntroPlayed = true;
@@ -105,8 +108,10 @@ namespace Humanity.Controller
             var command = parts.Length > 0 ? parts[0] : "";
             var argument = parts.Length > 1 ? parts[1] : "";
 
+            _view.Clear();
             switch (command)
             {
+               
                 case "help":
                     _view.Line(_model.Help());
                     return true;
@@ -142,7 +147,7 @@ namespace Humanity.Controller
                 case "check":
                     idx = _model.room_idx;
 
-                    _view.LineNoEnter(_model.checkItem(idx,argument));
+                    _view.Type(_model.checkItem(idx,argument), 15);
                     return true;
 
 

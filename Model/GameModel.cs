@@ -52,8 +52,8 @@
                         look.Add("You are in a ");
                         look.Add("LAB");   //this is blue
                         look.Add(". The room is filled with scientific equipment, ");
-                        look.Add("monitors displaying data"); //and this
-                        look.Add(", and an unsolved equation scribbled on a ");
+                        look.Add("monitors "); //and this
+                        look.Add("displaying data, and an unsolved equation scribbled on a ");
                         look.Add("whiteboard"); //and this
                         look.Add(".\nBehind you there are stairs leading upstairs to the ");
                         look.Add("hallway.");
@@ -85,86 +85,89 @@
         }
         public string checkItem(int idx, string item)
         {
-            /*switch (idx)
+            switch (idx)
             {
                 case 0:
                     switch (item)
                     {
                         case "monitor":
-                            return;
-                        case "floor":
-                            return;
+                            return "Subject 01: neural separation... failure.\nSubject 02: heart rate zero. \nSubject 03: consciousness transfer: ERROR.\n...\nSubject 13: active.";
+
+                        case "whiteboard":
+                            return "The board flickers — not solid, but digital, projected on the air.\r\nThe equations shift like living veins.";
                         default:
-                            return;
+                            return "";
                     }
-                case 1:
-                    switch (item)
-                    {
-                        case "":
-                            return;
-                        default:
-                            return;
-                    }
-                case 2:
-                    switch (item)
-                    {
-                        case "":
-                            return;
-                        default:
-                            return;
-                    }
-                case 3:
-                    switch (item)
-                    {
-                        case "":
-                            return;
-                        default:
-                            return;
-                    }
-                case 4:
-                    switch (item)
-                    {
-                        case "":
-                            return;
-                        default:
-                            return;
-                    }
-                case 5:
-                    switch (item)
-                    {
-                        case "":
-                            return;
-                        default:
-                            return;
-                    }
-                case 6:
-                    switch (item)
-                    {
-                        case "":
-                            return;
-                        default:
-                            return;
-                    }
-                case 7:
-                    switch (item)
-                    {
-                        case "":
-                            return;
-                        default:
-                            return;
-                    }
-                case 8:
-                    switch (item)
-                    {
-                        case "":
-                            return;
-                        default:
-                            return;
-                    }
+                /*     case 1:
+                         switch (item)
+                         {
+                             case "":
+                                 return;
+                             default:
+                                 return;
+                         }
+                     case 2:
+                         switch (item)
+                         {
+                             case "":
+                                 return;
+                             default:
+                                 return;
+                         }
+                     case 3:
+                         switch (item)
+                         {
+                             case "":
+                                 return;
+                             default:
+                                 return;
+                         }
+                     case 4:
+                         switch (item)
+                         {
+                             case "":
+                                 return;
+                             default:
+                                 return;
+                         }
+                     case 5:
+                         switch (item)
+                         {
+                             case "":
+                                 return;
+                             default:
+                                 return;
+                         }
+                     case 6:
+                         switch (item)
+                         {
+                             case "":
+                                 return;
+                             default:
+                                 return;
+                         }
+                     case 7:
+                         switch (item)
+                         {
+                             case "":
+                                 return;
+                             default:
+                                 return;
+                         }
+                     case 8:
+                         switch (item)
+                         {
+                             case "":
+                                 return;
+                             default:
+                                 return;
+                         }
+                     default:
+                         return;
+                 } */
                 default:
-                    return;
-            } */
-            return "";
+                    return "";
+            }
         }
         public int NextRoomIdx(string room)
         {

@@ -21,7 +21,7 @@ namespace Humanity.View
             lock (_consoleLock) Console.WriteLine();
         }
 
-        public Task Pulse(string text, int pulses = 6, int on = 220, int off = 120)
+        public Task Pulse(string text, int pulses = 3, int on = 220, int off = 120)
         {
             // Uruchamiamy pętlę w tle tak, by nie blokować wątku wywołującego.
             lock (_consoleLock)
