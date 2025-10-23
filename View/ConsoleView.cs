@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
+using System.Media;
 
 namespace Humanity.View
 {
@@ -119,5 +120,42 @@ namespace Humanity.View
         }
 
         public void Separator() => Line(new string('─', 64));
+
+
+
+        public void PlaySound(string fileName)
+        {
+            try
+            {
+                // Pełna ścieżka do pliku w folderze Sounds/
+                string path = Path.Combine(AppContext.BaseDirectory, "Sounds", fileName);
+
+                if (!File.Exists(path))
+                {
+                    Console.WriteLine($"[Sound not found: {fileName}]");
+                    return;
+                }
+        // Windows – używa systemowego Media Playera (wmplayer) w tle
+        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+        {
+            FileName = "powershell",
+            Arguments = $"-c (New-Object Media.SoundPlayer '{path}').PlaySync()",
+            CreateNoWindow = true,
+            UseShellExecute = false
+        });
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[Sound error: {ex.Message}]");
+            }
+        }
+
+
+
+
     }
+
+
+
 }

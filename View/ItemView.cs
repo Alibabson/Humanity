@@ -1,6 +1,7 @@
 using Humanity.Model;
-using System.Text;
+using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Humanity.View
 {
@@ -10,6 +11,28 @@ namespace Humanity.View
         public ItemView(ConsoleView view)
         {
             _View = view;
+        }
+        private void updown(int a, int b, ref int choice, ref bool active)
+        {
+            ConsoleKeyInfo key = Console.ReadKey(true);
+            if (key.Key == ConsoleKey.UpArrow)
+            {
+
+                choice--;
+                if (choice < a) choice = b;
+                _View.Clear();
+            }
+            else if (key.Key == ConsoleKey.DownArrow)
+            {
+
+                choice++;
+                if (choice > b) choice = a;
+                _View.Clear();
+            }
+            else if (key.Key == ConsoleKey.Enter)
+            {
+                active = false;
+            }
         }
         public void MonitorItem(List<string> text)
         {
@@ -37,25 +60,7 @@ namespace Humanity.View
                         _View.Green(text[3], true);
                         break;
                 }
-                ConsoleKeyInfo key = Console.ReadKey(true);
-                if (key.Key == ConsoleKey.UpArrow)
-                {
-                 
-                    choice--;
-                    if (choice < 1) choice = 3;
-                    _View.Clear();
-                }
-                else if (key.Key == ConsoleKey.DownArrow)
-                {
-                   
-                    choice++;
-                    if (choice > 3) choice = 1;
-                    _View.Clear();
-                }
-                else if (key.Key == ConsoleKey.Enter)
-                {
-                    active = false;
-                }
+           updown(1, 3, ref choice, ref active);
             }
             if (choice == 1)
             {

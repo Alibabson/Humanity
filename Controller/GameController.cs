@@ -40,6 +40,7 @@ namespace Humanity.Controller
                 _view.Ghost("You said we’d see the light… I only see darkness…", 150);
                 _view.Ghost("Daddy? Why did you put me in the chair?", 150);
              */
+                _view.PlaySound("comp.wav");
                 _view.Separator();
                 _view.Red("WARNING: Consciousness integrity compromised.");
                 _view.Type("> Consciousness fragmentation detected.", 10);

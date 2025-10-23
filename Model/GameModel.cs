@@ -11,11 +11,6 @@
 
         public int room_idx { get; set; } = 0;
        
-
-
-
-
-
         // Prosty dziennik wspomnień (do komendy RECALL)
         /* public List<string> MemoryLogs { get; } = new()
          {
@@ -28,7 +23,7 @@
          public string StatusLine =>
              $"Status — Reason: {(Reason ? "ONLINE" : "offline")} | Emotion: {(Emotion ? "ONLINE" : "offline")} | Morality: {(Morality ? "ONLINE" : "offline")}";
         */
-        public List<string> look = new();
+        
         public string Uknown()
         {
             return "Unknown command. Type HELP for a list of commands.";
@@ -42,6 +37,7 @@
                    "- GO TO [ROOM]: move to the next room. \n" +
                    "- QUIT/EXIT: Terminate the session and give up on your H U M A N I T Y. \n";
         }
+        public List<string> look = new();
         public void pickLook(int idx, int part)
         {
             look.Clear();
@@ -49,8 +45,8 @@
             {
                 case 0:
                     look.Add("You are in a ");
-                    look.Add("LAB\n");   //this is blue
-                    look.Add(". The room is filled with scientific equipment, ");
+                    look.Add("LAB");   //this is blue
+                    look.Add(".\n The room is filled with scientific equipment, ");
                     look.Add("monitors "); //and this
                     if(Reason==false)
                         look.Add("displaying data, and an unsolved, barely recognizible equation scribbled on a ");
@@ -71,7 +67,7 @@
 
                 case 1:
                     look.Add("You are currently in the ");
-                    look.Add("hallway\n"); //blue
+                    look.Add("hallway"); //blue
                     look.Add(" on the first floor. You can see the stairs leading down to the ");
                     look.Add("lab"); //blue
                     look.Add(" and a couple of closed doors leading to various rooms.\nYou don't know why but you know where every door leads: ");
@@ -89,8 +85,8 @@
 
                 case 2:
                     look.Add("You are in the ");
-                    look.Add("kitchen\n"); //blue
-                    look.Add(". The room is fancy, but dusty, with a modern design. \nSuprisingly, stairs leading to the");
+                    look.Add("kitchen"); //blue
+                    look.Add(".\nThe room is fancy, but dusty, with a modern design. \nSuprisingly, stairs leading to the");
                     look.Add(" second floor"); //blue
                     look.Add("are located here. Doors behind you lead to the ");
                     look.Add("hall"); //blue
@@ -101,8 +97,8 @@
 
                 case 3:
                     look.Add("You are currently in the ");
-                    look.Add("bathroom\n"); //blue
-                    look.Add(" on the first floor. The room is small but clean, seems unused for quite a moment, like this place was abandoned decades ago. \nThere is a door which you entered, leading to the ");
+                    look.Add("library"); //blue
+                    look.Add(".\nThe room is small but clean, seems unused for quite a moment, like this place was abandoned decades ago. \nThere is a door which you entered, leading to the ");
                     look.Add("hallway"); //blue
                     look.Add("The only thing is a ");
                     look.Add("mirror"); //blue
@@ -111,8 +107,8 @@
 
                 case 4:
                     look.Add("You are now in the ");
-                    look.Add("living room\n"); //blue
-                    look.Add(": the place that you find the most comfortable here. The room is spacious, with a large sofa and a TV. \nThere is a door leading to the ");
+                    look.Add("living room"); //blue
+                    look.Add(".\nThe place that you find the most comfortable here. The room is spacious, with a large sofa and a TV. \nThere is a door leading to the ");
                     look.Add("hallway"); //blue
                     look.Add(" and another one to the ");
                     look.Add("kitchen"); //blue
@@ -126,14 +122,14 @@
 
                 case 5:
                     look.Add("You are now in the ");
-                    look.Add("second floor hallway\n"); //blue
-                    look.Add(". This corridor looks nothing like that one downstairs. Someone lit the ");
+                    look.Add("second floor hallway"); //blue
+                    look.Add(".\nThis corridor looks nothing like that one downstairs. Someone lit the ");
                     look.Add("candles"); //blue
                     look.Add(" placed on the floor, giving the place a warm, but ocultic atmosphere. \nThere are doors leading to the ");
                     look.Add("bedroom"); //blue
-                    look.Add(" , ");
-                    look.Add("F2 bathroom"); //blue
-                    look.Add(" , ");
+                    look.Add(", ");
+                    look.Add("bathroom"); //blue
+                    look.Add(", ");
                     look.Add("kitchen"); //blue
                     look.Add("downstairs and the ");
                     look.Add("office"); //blue
@@ -142,8 +138,8 @@
 
                 case 6:
                     look.Add("You are currently in the ");
-                    look.Add("second floor bathroom\n"); //blue
-                    look.Add(". The room is dimly lit by the candles placed on the sink. \nThere is a door behind you leading back to the ");
+                    look.Add("bathroom"); //blue
+                    look.Add(".\nThe room is dimly lit by the candles placed on the sink. \nThere is a door behind you leading back to the ");
                     look.Add("F2 hallway"); //blue
                     look.Add(".\n \nThe mirror is broken, but someone left a message - just for you. On the floor there are");
                     look.Add(" notes");
@@ -152,8 +148,8 @@
 
                 case 7:
                     look.Add("You are now in the ");
-                    look.Add("bedroom\n"); //blue
-                    look.Add(". The room is a mess, with a large broken bed and a wardrobe. The stench is making it unbearable to stay. Did someone die here? \nThere is a door leading back to the ");
+                    look.Add("bedroom"); //blue
+                    look.Add(".\nThe room is a mess, with a large broken bed and a wardrobe. The stench is making it unbearable to stay. Did someone die here? \nThere is a door leading back to the ");
                     look.Add("F2 hallway"); //blue
                     look.Add(".\n On the dusty desk you can see a ");
                     look.Add("diary ");
@@ -165,8 +161,8 @@
                     return;
                 case 8:
                     look.Add("You are now in the ");
-                    look.Add("office\n"); //blue
-                    look.Add(". The room is filled with bookshelves, a large desk and a comfortable chair. \nThere is a door leading back to the ");
+                    look.Add("office"); //blue
+                    look.Add(".\nThe room is filled with bookshelves, a large desk and a comfortable chair. \nThere is a door leading back to the ");
                     look.Add("F2 hallway"); //blue
                     look.Add(".\n On the desk you can see a ");
                     look.Add("laptop ");
@@ -180,7 +176,7 @@
         }
             }
         //  public List<string> itemDesc = new();
-        // private readonly ItemView _itemView;
+     
         public List<string> checkItem(int idx, string item)
         {
             List<string> itemDesc = new(); // lokalna lista zamiast pola publicznego
