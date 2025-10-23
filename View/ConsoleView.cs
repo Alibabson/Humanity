@@ -103,10 +103,10 @@ namespace Humanity.View
             Line(text);
             Console.ForegroundColor = prev;
         }
-        public void Green(string text, bool checked)
+        public void Green(string text, bool good)
         {
             var prev = Console.ForegroundColor;
-            if (checked){
+            if (good){
                 Console.ForegroundColor = ConsoleColor.Black;
                 Console.BackgroundColor = ConsoleColor.Green;
             }

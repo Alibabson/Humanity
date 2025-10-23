@@ -10,6 +10,7 @@
         public bool IntroPlayed { get; set; } = false;
 
         public int room_idx { get; set; } = 0;
+       
 
 
 
@@ -48,7 +49,7 @@
             {
                 case 0:
                     look.Add("You are in a ");
-                    look.Add("LAB");   //this is blue
+                    look.Add("LAB\n");   //this is blue
                     look.Add(". The room is filled with scientific equipment, ");
                     look.Add("monitors "); //and this
                     if(Reason==false)
@@ -70,7 +71,7 @@
 
                 case 1:
                     look.Add("You are currently in the ");
-                    look.Add("hallway"); //blue
+                    look.Add("hallway\n"); //blue
                     look.Add(" on the first floor. You can see the stairs leading down to the ");
                     look.Add("lab"); //blue
                     look.Add(" and a couple of closed doors leading to various rooms.\nYou don't know why but you know where every door leads: ");
@@ -88,7 +89,7 @@
 
                 case 2:
                     look.Add("You are in the ");
-                    look.Add("kitchen"); //blue
+                    look.Add("kitchen\n"); //blue
                     look.Add(". The room is fancy, but dusty, with a modern design. \nSuprisingly, stairs leading to the");
                     look.Add(" second floor"); //blue
                     look.Add("are located here. Doors behind you lead to the ");
@@ -100,7 +101,7 @@
 
                 case 3:
                     look.Add("You are currently in the ");
-                    look.Add("bathroom"); //blue
+                    look.Add("bathroom\n"); //blue
                     look.Add(" on the first floor. The room is small but clean, seems unused for quite a moment, like this place was abandoned decades ago. \nThere is a door which you entered, leading to the ");
                     look.Add("hallway"); //blue
                     look.Add("The only thing is a ");
@@ -110,7 +111,7 @@
 
                 case 4:
                     look.Add("You are now in the ");
-                    look.Add("living room"); //blue
+                    look.Add("living room\n"); //blue
                     look.Add(": the place that you find the most comfortable here. The room is spacious, with a large sofa and a TV. \nThere is a door leading to the ");
                     look.Add("hallway"); //blue
                     look.Add(" and another one to the ");
@@ -125,7 +126,7 @@
 
                 case 5:
                     look.Add("You are now in the ");
-                    look.Add("second floor hallway"); //blue
+                    look.Add("second floor hallway\n"); //blue
                     look.Add(". This corridor looks nothing like that one downstairs. Someone lit the ");
                     look.Add("candles"); //blue
                     look.Add(" placed on the floor, giving the place a warm, but ocultic atmosphere. \nThere are doors leading to the ");
@@ -141,7 +142,7 @@
 
                 case 6:
                     look.Add("You are currently in the ");
-                    look.Add("second floor bathroom"); //blue
+                    look.Add("second floor bathroom\n"); //blue
                     look.Add(". The room is dimly lit by the candles placed on the sink. \nThere is a door behind you leading back to the ");
                     look.Add("F2 hallway"); //blue
                     look.Add(".\n \nThe mirror is broken, but someone left a message - just for you. On the floor there are");
@@ -151,7 +152,7 @@
 
                 case 7:
                     look.Add("You are now in the ");
-                    look.Add("bedroom"); //blue
+                    look.Add("bedroom\n"); //blue
                     look.Add(". The room is a mess, with a large broken bed and a wardrobe. The stench is making it unbearable to stay. Did someone die here? \nThere is a door leading back to the ");
                     look.Add("F2 hallway"); //blue
                     look.Add(".\n On the dusty desk you can see a ");
@@ -164,7 +165,7 @@
                     return;
                 case 8:
                     look.Add("You are now in the ");
-                    look.Add("office"); //blue
+                    look.Add("office\n"); //blue
                     look.Add(". The room is filled with bookshelves, a large desk and a comfortable chair. \nThere is a door leading back to the ");
                     look.Add("F2 hallway"); //blue
                     look.Add(".\n On the desk you can see a ");
@@ -178,11 +179,12 @@
                     return;
         }
             }
-        public List<string> itemDesc = new();
-        private ItemView _itemView;
-        public void checkItem(int idx, string item)
+        //  public List<string> itemDesc = new();
+        // private readonly ItemView _itemView;
+        public List<string> checkItem(int idx, string item)
         {
-            itemDesc.Clear();
+            List<string> itemDesc = new(); // lokalna lista zamiast pola publicznego
+
             switch (idx)
             {
                 case 0:
@@ -190,17 +192,23 @@
                     {
                         case "monitor":
                             itemDesc.Add("Welcome, Dr. Hallaway. What would you like to do?\n");
-                            itemDesc.Add("1. ");
-                            itemDesc.Add("2. ");
-                            itemDesc.Add("3. ");
-                            _itemView.MonitorItem(itemDesc);
-                            return;
+                            itemDesc.Add("1. Option A");
+                            itemDesc.Add("2. Option B");
+                            itemDesc.Add("3. Option C");
+                            break;
+                        //   _itemView.MonitorItem(itemDesc);
+                        //   return;
 
                         case "whiteboard":
-                            return "The board flickers — not solid, but digital, projected on the air.\r\nThe equations shift like living veins.";
+                            itemDesc.Add("The board flickers — not solid, but digital, projected on the air.\r\nThe equations shift like living veins.");
+                            break;
+                        // return;
                         default:
-                            return "";
+                            itemDesc.Add("You see nothing special.");
+                            break;
+                            //   return;
                     }
+                    break;
                 /*     case 1:
                          switch (item)
                          {
@@ -268,9 +276,13 @@
                      default:
                          return;
                  } */
+
                 default:
-                    return "";
+                    itemDesc.Add("Unknown");
+                    break;
+                    //  return; 
             }
+            return itemDesc;
         }
         public int NextRoomIdx(string room)
         {

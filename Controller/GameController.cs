@@ -10,6 +10,7 @@ namespace Humanity.Controller
     {
         private readonly GameModel _model;
         private readonly ConsoleView _view;
+        private readonly ItemView _itemView;
         private bool _running = true;
         public int idx;
         public int nextRoomIdx;
@@ -18,6 +19,7 @@ namespace Humanity.Controller
         {
             _model = model;
             _view = view;
+            _itemView = new ItemView(view);
         }
 
         public async Task Run()
@@ -146,7 +148,8 @@ namespace Humanity.Controller
 
                 case "check":
                     idx = _model.room_idx;
-                    _model.checkItem(idx, argument);
+                    List<string> desc = _model.checkItem(idx, argument);
+                    _itemView.MonitorItem(desc);
                     return true;
 
 

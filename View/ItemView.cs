@@ -1,21 +1,26 @@
+using Humanity.Model;
 using System.Text;
+using System.Collections.Generic;
 
 namespace Humanity.View
 {
     public class ItemView
     {
         private readonly ConsoleView _View;
-        private readonly ConsoleModel _model;
-
-        public void MonitorItem(list<string> text)
+        public ItemView(ConsoleView view)
         {
-            _View.Clear();
-            int active = 1;
+            _View = view;
+        }
+        public void MonitorItem(List<string> text)
+        {
+            bool active = true;
             int choice = 1;
+            Console.BackgroundColor = ConsoleColor.Black;
             while (active)
             {
                 _View.Green(text[0], false);
-                switch (choice) {
+                switch (choice)
+                {
                     case 1:
                         _View.Green(text[1], true);
                         _View.Green(text[2], false);
@@ -25,26 +30,31 @@ namespace Humanity.View
                         _View.Green(text[1], false);
                         _View.Green(text[2], true);
                         _View.Green(text[3], false);
+                        break;
                     case 3:
                         _View.Green(text[1], false);
                         _View.Green(text[2], false);
                         _View.Green(text[3], true);
                         break;
                 }
-                Console.KeyInfo key = Console.ReadKey(true);
-                if(key == ConsoleKey.UpArrow)
+                ConsoleKeyInfo key = Console.ReadKey(true);
+                if (key.Key == ConsoleKey.UpArrow)
                 {
+                 
                     choice--;
                     if (choice < 1) choice = 3;
+                    _View.Clear();
                 }
-                else if (key == ConsoleKey.DownArrow)
+                else if (key.Key == ConsoleKey.DownArrow)
                 {
+                   
                     choice++;
                     if (choice > 3) choice = 1;
+                    _View.Clear();
                 }
-                else if (key == ConsoleKey.Enter)
+                else if (key.Key == ConsoleKey.Enter)
                 {
-                    active = 0;
+                    active = false;
                 }
             }
             if (choice == 1)
@@ -64,4 +74,5 @@ namespace Humanity.View
             }
             return;
         }
+    }
 }
