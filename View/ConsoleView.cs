@@ -13,19 +13,25 @@ namespace Humanity.View
         public void Clear() => Console.Clear();
         public void Line(string text = "") => Console.WriteLine(text);
         public void LineNoEnter(string text = "") => Console.Write(text);
-        public void Type(string text, int delayMs)
+        public void Type(string text, int delayMs, bool isIntro = false)
         {
+            if (isIntro)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+            }
             foreach (char c in text)
             {
                 lock (_consoleLock) Console.Write(c);
+                Console.Beep(400, 3);
                 Thread.Sleep(delayMs);
             }
             lock (_consoleLock) Console.WriteLine();
+            Console.ResetColor();
         }
 
         public Task Pulse(string text, int pulses = 3, int on = 220, int off = 120)
         {
-            // Uruchamiamy pętlę w tle tak, by nie blokować wątku wywołującego.
+            Console.ForegroundColor = ConsoleColor.Red;
             lock (_consoleLock)
             {
                 for (int i = 0; i < pulses; i++)
@@ -38,16 +44,17 @@ namespace Humanity.View
                     Console.Write("\r" + new string(' ', text.Length));
                     Thread.Sleep(off);
                 }
-                Console.Write("\r" + text + "\n");
+                Console.Write("\r" + text);
             }
+            Console.ResetColor();
 
             return Task.Run(async () =>
             {
                 for (int i = 0; i < pulses; i++)
                 {
-                  
+
                     Thread.Sleep(on);
-                    try { Console.Beep(250, on); } catch { /* Console.Beep może nie działać wszędzie */ }
+                    try { Console.Beep(250, on); } catch { /* Console.Beep może nie wszędzie działac, zwlaszcza na Mac'ach */ }
                     await Task.Delay(off);
                     Thread.Sleep(off);
                 }
@@ -56,7 +63,7 @@ namespace Humanity.View
 
         public async Task<string> Narrator(string prefix = "\n> ")
         {
-            Console.ForegroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.Write(prefix);
             Console.ResetColor();
             return (Console.ReadLine() ?? "").Trim();
@@ -108,7 +115,7 @@ namespace Humanity.View
         public void Green(string text, bool good)
         {
             var prev = Console.ForegroundColor;
-            if (good){
+            if (good) {
                 Console.ForegroundColor = ConsoleColor.Black;
                 Console.BackgroundColor = ConsoleColor.Green;
             }
@@ -128,7 +135,6 @@ namespace Humanity.View
         {
             try
             {
-                // Pełna ścieżka do pliku w folderze Sounds/
                 string path = Path.Combine(AppContext.BaseDirectory, "Sounds", fileName);
 
                 if (!File.Exists(path))
@@ -136,14 +142,13 @@ namespace Humanity.View
                     Console.WriteLine($"[Sound not found: {fileName}]");
                     return;
                 }
-        // Windows – używa systemowego Media Playera (wmplayer) w tle
-        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
-        {
-            FileName = "powershell",
-            Arguments = $"-c (New-Object Media.SoundPlayer '{path}').PlaySync()",
-            CreateNoWindow = true,
-            UseShellExecute = false
-        });
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = "powershell",
+                    Arguments = $"-c (New-Object Media.SoundPlayer '{path}').PlaySync()",
+                    CreateNoWindow = true,
+                    UseShellExecute = false
+                });
 
             }
             catch (Exception ex)
@@ -156,19 +161,41 @@ namespace Humanity.View
         {
             AnsiConsole.Markup(text);
         }
+
         public void SpectreFiglet(string text)
         {
-                var figlet = new FigletText(text)
-                .Centered()
-                .Color(Color.Red);
-                
- 
+            var figlet = new FigletText(text)
+            .Centered()
+            .Color(Color.Red);
+
+
             AnsiConsole.Write(figlet);
         }
 
+        public void FakeLoad()
+        {
+            AnsiConsole.MarkupLine("[bold green]Loading...[/]");
 
+            AnsiConsole.Status()
+                .Start("Initializing...", ctx =>
+                {
+                    Thread.Sleep(1000);
+                    ctx.Status("Loading assets...");
+                    Thread.Sleep(1000);
+                    ctx.Status("Connecting...");
+                    Thread.Sleep(1000);
+                    ctx.Status("Almost done...");
+                    Thread.Sleep(1000);
+                });
+
+            AnsiConsole.MarkupLine("[bold yellow]Ready![/]");
+        }
+
+        public void Image(string url)
+        {
+            var image = new CanvasImage(url);
+            image.MaxWidth(90);
+            AnsiConsole.Write(image);
+        }
     }
-
-
-
 }

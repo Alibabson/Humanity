@@ -21,63 +21,106 @@ namespace Humanity.Controller
             _view = view;
             _itemView = new ItemView(view);
         }
+        public async Task GameStart()
+        {
+            {
+                Console.Title = string.Empty;
+                _=Task.Run(async () =>
+                {
+                        const string word = "HUMANITY";
+                        var title = new System.Text.StringBuilder();
+                        for (int i = 0; i < word.Length; i++)
+                        {
+                        _view.Clear();
+                        if (i > 0) title.Append(' ');
+                          title.Append(word[i]);
+                          Console.Title = title.ToString();
+                        _view.SpectreFiglet(title.ToString());
+                        Console.Beep(500, 20);
+                          await Task.Delay(750);
+                        }
+                });            
 
+                int rep = 0;
+                while (Console.Title != "H U M A N I T Y")                    
+                {
+                    if (rep < 0)
+                    {
+                        _view.Spectre_Text("\n [italic slowblink olive]Loading... [/]");
+                        Task.Delay(750);
+                        rep++;
+                    }
+                }
+                _view.Spectre_Text("\r[italic slowblink olive]Press any button to start... [/]  \n \n");
+                _view.AwaitKey();
+                _model.IntroPlayed = false;
+                return;
+            }
+        }
+        public void FakeLoad()
+        {
+            _view.Clear();
+           _view.FakeLoad();
+        }
         public async Task Run()
         {
-            /////////////////////////
-            ///_view.Clear();
-
+            
+            _view.Clear();
             if (!_model.IntroPlayed)
             {
-               // // SCENA: awaria eksperymentu
-             /*   _view.Type("> EXPERIMENT 13 – NEURAL SEPARATION: START", 50);
-                _view.Type("> Subject: Adrian Holloway", 50);
-                _view.Type("> Pulse: 180 bpm", 50);
-                _view.Type("> Synaptic link: ACTIVE", 50);
-                _view.Separator();
+                // // SCENA: awaria eksperymentu
+                /*   _view.Type("> EXPERIMENT 13 – NEURAL SEPARATION: START", 50);
+                   _view.Type("> Subject: Adrian Holloway", 50);
+                   _view.Type("> Pulse: 180 bpm", 50);
+                   _view.Type("> Synaptic link: ACTIVE", 50);
+                   _view.Separator();
 
-                _view.Ghost("It hurts… why can’t I wake up…?", 150);
-                _view.Ghost("You said we’d see the light… I only see darkness…", 150);
-                _view.Ghost("Daddy? Why did you put me in the chair?", 150);
-             */
-                _view.PlaySound("comp.wav");
-                _view.Separator();
+                   _view.Ghost("It hurts… why can’t I wake up…?", 150);
+                   _view.Ghost("You said we’d see the light… I only see darkness…", 150);
+                   _view.Ghost("Daddy? Why did you put me in the chair?", 150);
+                */
+                //wkurwia to usune na moment
+                //dotnet add package Spectre.Console.ImageSharp_view.PlaySound("comp.wav");   //trwa 23 sekundy
+
                 _view.Red("WARNING: Consciousness integrity compromised.");
-                _view.Type("> Consciousness fragmentation detected.", 10);
-                _view.Type("> REASON... lost.", 14);
-                _view.Type("> EMOTION... lost.", 14);
-                _view.Type("> MORALITY... lost.", 14);
+                _view.Type("> Consciousness fragmentation detected.", 10, true);
+                _view.Type("> REASON... lost.", 14, true);
+                _view.Type("> EMOTION... lost.", 14, true);
+                _view.Type("> MORALITY... lost.", 14, true);
 
                 Thread.Sleep(500);
-                _view.Pulse("...bzzzzz... SYSTEM REBOOT... partial ...");
+
+                Thread.Sleep(500);
+                _view.Type("> Awaiting system reboot...", 14, true);
+                _view.Pulse("----- SYSTEM REBOOT -----");
+                _view.Type("\r----- SYSTEM REBOOT ----- PARTIAL", 14, true);
+                Thread.Sleep(500);
 
                 _view.Line();
-                _view.Type("You wake up on a cold metal floor. The air smells like burnt iron.", 18);
-                _view.Type("A monitor flickers nearby.", 18);
+                _view.Type("> Backup data loaded", 14,true);
+                _view.Type("> Experiment database - inclomplete", 14,true);
+                _view.Type("> Neural map - incomplete", 14,true);
+                _view.Type("> Sensory input - offline", 14,true);
+                Thread.Sleep(500);
+                _view.Line();
+                _view.Type("> Scanning patient identity", 14, true);
+                _view.Line();
+                _view.Type("Welcome back, Doctor Holloway.", 40);
 
-            /*    _view.Line();
-                _view.Type("Welcome, Doctor Holloway.", 24);
-                _view.Type("The machines remember you, even if you no longer remember yourself.", 24);
-                _view.Type("You dug too deep into the human mind...", 24);
-                _view.Type("...and now you’re buried inside it.", 24);
-            */
+
+                /*    _view.Line();
+                    _view.Type("Welcome, Doctor Holloway.", 24);
+                    _view.Type("The machines remember you, even if you no longer remember yourself.", 24);
+                    _view.Type("You dug too deep into the human mind...", 24);
+                    _view.Type("...and now you’re buried inside it.", 24);
+                */
                 _view.Separator();
                 _view.Line(_model.Help());
                 _model.IntroPlayed = true;
             }
             else
             {
-                // Re-entry po powrocie ze scen
-                //_view.Line("[LAB CORE]");
-                //_view.Line("Broken glass, humming consoles. A door labeled [REASON CHAMBER] flickers.");
-
-                //ZMIENIĆ PÓŹNIEJ
-                _view.Red("dobra kurwa cierpliwości nie mam\n \n");
-                _view.SpectreFiglet("H U M A N I T Y");
-                _view.DarkCyan("\n nacisnij cos aby kontynuowac \n \n");
-                _view.AwaitKey();
-                _view.Type(_model.Help(),1);
-
+                _view.Line(_model.Help());
             }
         
             //////////////////////////

@@ -73,7 +73,7 @@
                     look.Add(" and a couple of doors \nleading to various rooms.\nYou don't know why but you know where every door leads: ");
                     look.Add("[palegreen1_1]kitchen[/]"); 
                     look.Add(", ");
-                    look.Add("[palegreen1_1]bathroom[/]");
+                    look.Add("[palegreen1_1]library[/]");
                     look.Add(" and ");
                     look.Add("[palegreen1_1]living room[/]");
                     look.Add(".\n  \n There are some words scraped on the left ");
@@ -121,25 +121,25 @@
 
                 case 5:
                     look.Add("You are now in the ");
-                    look.Add("[yellow]second floor hallway[/]"); //blue
+                    look.Add("[yellow]second floor hallway[/]"); 
                     look.Add(".\nThis corridor looks nothing like that one downstairs. Someone lit the ");
-                    look.Add("[teal]candles[/]"); //blue
+                    look.Add("[teal]candles[/]"); 
                     look.Add(" placed on the floor, giving the place a warm, but ocultic atmosphere. \nThere are doors leading to the ");
-                    look.Add("[palegreen1_1]bedroom[/]"); //blue
+                    look.Add("[palegreen1_1]bedroom[/]"); 
                     look.Add(", ");
-                    look.Add("[palegreen1_1]bathroom[/]"); //blue
+                    look.Add("[palegreen1_1]bathroom[/]"); 
                     look.Add(", ");
-                    look.Add("[palegreen1_1]kitchen[/]"); //blue
+                    look.Add("[palegreen1_1]kitchen[/]"); 
                     look.Add("downstairs and the ");
-                    look.Add("[palegreen1_1]office[/]"); //blue
+                    look.Add("[palegreen1_1]office[/]"); 
                     look.Add(".\n \n[bold red]You feel a strange sense of someone's presence. \n[/]");
                     return;
 
                 case 6:
                     look.Add("You are currently in the ");
-                    look.Add("[yellow]bathroom[/]"); //blue
+                    look.Add("[yellow]bathroom[/]"); 
                     look.Add(".\nThe room is dimly lit by the candles placed on the sink. \nThere is a door behind you leading back to the ");
-                    look.Add("[palegreen1_1]F2 hallway[/]"); //blue
+                    look.Add("[palegreen1_1]F2 hallway[/]"); 
                     look.Add(".\n \nThe mirror is broken, but someone left a message - just for you. On the floor there are");
                     look.Add("[teal] notes[/]");
                     look.Add(" scattered around just for you, some of them are slightly burnt. ");
@@ -147,9 +147,9 @@
 
                 case 7:
                     look.Add("You are now in the ");
-                    look.Add("[yellow]bedroom[/]"); //blue
+                    look.Add("[yellow]bedroom[/]"); 
                     look.Add(".\nThe room is a mess, with a large broken bed and a wardrobe. The stench is making it unbearable to stay. Did someone die here? \nThere is a door leading back to the ");
-                    look.Add("[palegreen1_1]F2 hallway[/]"); //blue
+                    look.Add("[palegreen1_1]F2 hallway[/]");
                     look.Add(".\n On the dusty desk you can see a ");
                     look.Add("[teal]diary [/]");
                     look.Add("with the initials [bold red]'A. H.'[/] ");
@@ -160,9 +160,9 @@
                     return;
                 case 8:
                     look.Add("You are now in the ");
-                    look.Add("[yellow]office[/]"); //blue
+                    look.Add("[yellow]office[/]"); 
                     look.Add(".\nThe room is filled with bookshelves, a large desk and a comfortable chair. \nThere is a door leading back to the ");
-                    look.Add("[palegreen1_1]F2 hallway[/]"); //blue
+                    look.Add("[palegreen1_1]F2 hallway[/]"); 
                     look.Add(".\n On the desk you can see a ");
                     look.Add("[teal]laptop [/]");
                     if(Morality==false)
@@ -298,9 +298,7 @@
                     next_idx = 2;
                     return next_idx;
 
-                    
-                case "bathroom":
-                case "bath":
+                case "library":
                     next_idx = 3;
                     return next_idx;
 
@@ -320,6 +318,7 @@
                 case "floor 2 bathroom":
                 case "second floor bathroom":
                 case "floor2 bathroom":
+                case "bathroom":
                     next_idx = 6;
                     return next_idx;
 
