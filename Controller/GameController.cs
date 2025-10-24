@@ -68,8 +68,16 @@ namespace Humanity.Controller
             else
             {
                 // Re-entry po powrocie ze scen
-                _view.Line("[LAB CORE]");
-                _view.Line("Broken glass, humming consoles. A door labeled [REASON CHAMBER] flickers.");
+                //_view.Line("[LAB CORE]");
+                //_view.Line("Broken glass, humming consoles. A door labeled [REASON CHAMBER] flickers.");
+
+                //ZMIENIĆ PÓŹNIEJ
+                _view.Red("dobra kurwa cierpliwości nie mam\n \n");
+                _view.SpectreFiglet("H U M A N I T Y");
+                _view.DarkCyan("\n nacisnij cos aby kontynuowac \n \n");
+                _view.AwaitKey();
+                _view.Type(_model.Help(),1);
+
             }
         
             //////////////////////////
@@ -129,28 +137,19 @@ namespace Humanity.Controller
                     }
                     idx = _model.room_idx;
                     _model.pickLook(idx, part);
-                    int count = 0;
                     foreach (string x in _model.look)
                     {
-                        if(count %2 ==0)
-                        {
-                            _view.LineNoEnter(x);
-                            count++;                       
-                        }
-                        else
-                        {
-                            _view.DarkCyan(x);
-                            count++;
-                        }
+                        _view.Spectre_Text(x);
                     }
-                    part = 2;
-
                     return true;
 
                 case "check":
                     idx = _model.room_idx;
                     List<string> desc = _model.checkItem(idx, argument);
-                    _itemView.MonitorItem(desc);
+                    if (argument == "monitor")
+                    {
+                        _itemView.MonitorItem2(desc);
+                    }
                     return true;
 
 

@@ -2,6 +2,7 @@ using Humanity.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Spectre.Console;
 
 namespace Humanity.View
 {
@@ -77,6 +78,18 @@ namespace Humanity.View
                 //modu³ wybór 3
                 _View.Red("Modu³ w budowie");
             }
+            return;
+        }
+        public void MonitorItem2(List<string> text)
+        {
+           var command = AnsiConsole.Prompt(
+            new SelectionPrompt<string>()
+                .Title(text[0])
+                .HighlightStyle(new Style(foreground: Color.Black, background:Color.Green))
+                .PageSize(4)
+                .AddChoices(text.GetRange(1, text.Count - 1))
+            );
+            
             return;
         }
     }

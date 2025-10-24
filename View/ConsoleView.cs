@@ -1,6 +1,8 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
 using System.Media;
+using Spectre.Console;
+
 
 namespace Humanity.View
 {
@@ -9,7 +11,6 @@ namespace Humanity.View
         private static readonly object _consoleLock = new();
 
         public void Clear() => Console.Clear();
-
         public void Line(string text = "") => Console.WriteLine(text);
         public void LineNoEnter(string text = "") => Console.Write(text);
         public void Type(string text, int delayMs)
@@ -77,7 +78,7 @@ namespace Humanity.View
         }
         public void AwaitKey()
         {
-            Console.ReadKey();
+            ConsoleKeyInfo key = Console.ReadKey(true);
         }
         public void Yellow(string text)
         {
@@ -151,7 +152,19 @@ namespace Humanity.View
             }
         }
 
-
+        public void Spectre_Text(string text)
+        {
+            AnsiConsole.Markup(text);
+        }
+        public void SpectreFiglet(string text)
+        {
+                var figlet = new FigletText(text)
+                .Centered()
+                .Color(Color.Red);
+                
+ 
+            AnsiConsole.Write(figlet);
+        }
 
 
     }
