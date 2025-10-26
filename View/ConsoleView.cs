@@ -83,9 +83,14 @@ namespace Humanity.View
             Type($"\"{line}\"", delay);
             Console.ForegroundColor = prev;
         }
-        public void AwaitKey()
+        public void AwaitKey()  //wcisnij dowolny klawisz
         {
             ConsoleKeyInfo key = Console.ReadKey(true);
+        }
+        public ConsoleKey CheckKey()  //wcisnij konkretny klawisz
+        {
+            ConsoleKeyInfo key = Console.ReadKey(true);
+            return key.Key;
         }
         public void Yellow(string text)
         {

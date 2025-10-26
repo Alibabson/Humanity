@@ -16,9 +16,12 @@ namespace Humanity
 
             var model = new GameModel();
             var view = new ConsoleView();
-            var ctrl = new GameController(model, view);
+            var itemModel = new ItemModel();
+            var ctrl = new GameController(model, view, itemModel);
+
+
             await ctrl.GameStart();
-            ctrl.FakeLoad();
+            // ctrl.FakeLoad();
             await ctrl.Run();
         }
 

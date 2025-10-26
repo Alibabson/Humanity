@@ -7,7 +7,7 @@
         public bool Morality { get; set; } = false;
 
         // Stan ogólny
-        public bool IntroPlayed { get; set; } = true;  /// ZMIENIĆ NA false;
+        public bool IntroPlayed { get; set; } = false;  /// ZMIENIĆ NA false;
 
         public int room_idx { get; set; } = 0;
        
@@ -174,110 +174,42 @@
                     return;
         }
             }
-        //  public List<string> itemDesc = new();
-     
+        private string wrongItem(string item)
+        {
+            string wrong = "There is no such item as" + item;
+            return wrong;
+        }
         public List<string> checkItem(int idx, string item)
         {
-            List<string> itemDesc = new(); // lokalna lista zamiast pola publicznego
-
-            switch (idx)
+            List<string> itemDesc = new();
+            switch (item)
             {
-                case 0:
-                    switch (item)
+                case "monitor":
+                    if (idx == 0)
                     {
-                        case "monitor":
-                            itemDesc.Add("[lime]Welcome, Dr. Hallaway. What would you like to do?\n[/]");
-                            itemDesc.Add("[lime]1. Option A[/]");
-                            itemDesc.Add("[lime]2. Option B[/]");
-                            itemDesc.Add("[lime]3. Option C[/]");
-                            break;
-                        //   _itemView.MonitorItem(itemDesc);
-                        //   return;
-
-                        case "whiteboard":
-                            itemDesc.Add("The board flickers — not solid, but digital, projected on the air.\r\nThe equations shift like living veins.");
-                            break;
-                        // return;
-                        default:
-                            itemDesc.Add("You see nothing special.");
-                            break;
-                            //   return;
+                        itemDesc.Add("[lime]Welcome, Dr. Hallaway. What would you like to do?\n[/]");
+                        itemDesc.Add("[lime]CHECK CURRENT PATIENT STATUS[/]");
+                        itemDesc.Add("[lime]OPEN TEST LOGS[/]");
+                        itemDesc.Add("[lime]QUIT TERMINAL[/]");
                     }
+                    else itemDesc.Add(wrongItem(item));
                     break;
-                /*     case 1:
-                         switch (item)
-                         {
-                             case "":
-                                 return;
-                             default:
-                                 return;
-                         }
-                     case 2:
-                         switch (item)
-                         {
-                             case "":
-                                 return;
-                             default:
-                                 return;
-                         }
-                     case 3:
-                         switch (item)
-                         {
-                             case "":
-                                 return;
-                             default:
-                                 return;
-                         }
-                     case 4:
-                         switch (item)
-                         {
-                             case "":
-                                 return;
-                             default:
-                                 return;
-                         }
-                     case 5:
-                         switch (item)
-                         {
-                             case "":
-                                 return;
-                             default:
-                                 return;
-                         }
-                     case 6:
-                         switch (item)
-                         {
-                             case "":
-                                 return;
-                             default:
-                                 return;
-                         }
-                     case 7:
-                         switch (item)
-                         {
-                             case "":
-                                 return;
-                             default:
-                                 return;
-                         }
-                     case 8:
-                         switch (item)
-                         {
-                             case "":
-                                 return;
-                             default:
-                                 return;
-                         }
-                     default:
-                         return;
-                 } */
 
-                default:
-                    itemDesc.Add("Unknown");
+
+                case "whiteboard":
+                    if (idx == 0)
+                    {
+                        itemDesc.Add("The board flickers — not solid, but digital, projected on the air.\r\nThe equations shift like living veins.");
+                    } else wrongItem(item);
                     break;
-                    //  return; 
+                    
+
+                default: wrongItem(item);
+                    break;
             }
             return itemDesc;
+
+
         }
         public int NextRoomIdx(string room)
         {
@@ -364,5 +296,27 @@
                     return "UNKNOWN LOCATION";
             }
         }
+        public List<string> statusLines = new();
+        public List<string> Status()
+        {
+            statusLines.Clear();
+            statusLines.Add("[lime bold]SYSTEM STATUS:[/]");
+            statusLines.Add($"[lime]- REASON: {(Reason ? "ONLINE[/]" : "[/][red]OFFLINE[/]")}");
+            statusLines.Add($"[lime]- EMOTION: {(Emotion ? "ONLINE[/]" : "[/][red]OFFLINE[/]")}");
+            statusLines.Add($"[lime]- MORALITY: {(Morality ? "ONLINE[/]" : "[/][red]OFFLINE[/]")}");
+            return statusLines;
+        }
+
+        //DAAAAMN ALE AI NAGOTOWAŁO TEKSTU
+        /*public List<string> Quit()
+        {
+            List<string> quitLines = new();
+            quitLines.Add("You feel a sudden wave of relief as you decide to give up.");
+            quitLines.Add("The weight of uncertainty lifts off your shoulders, replaced by a strange sense of calm.");
+            quitLines.Add("As you step away from the challenge, a part of you wonders what could have been achieved.");
+            quitLines.Add("But for now, you choose peace over the unknown.");
+            return quitLines;
+        }
+        */
     }
 }

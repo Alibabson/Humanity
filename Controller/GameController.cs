@@ -15,11 +15,11 @@ namespace Humanity.Controller
         public int idx;
         public int nextRoomIdx;
         public int part;
-        public GameController(GameModel model, ConsoleView view)
+        public GameController(GameModel model, ConsoleView view, ItemModel itemModel)
         {
             _model = model;
             _view = view;
-            _itemView = new ItemView(view);
+            _itemView = new ItemView(view, model, itemModel);
         }
         public async Task GameStart()
         {
@@ -51,6 +51,7 @@ namespace Humanity.Controller
                         rep++;
                     }
                 }
+                _view.Spectre_Text("\n[italic bold olive]A game by [/][magenta]OnyxMoonStar. [/]\n");
                 _view.Spectre_Text("\r[italic slowblink olive]Press any button to start... [/]  \n \n");
                 _view.AwaitKey();
                 _model.IntroPlayed = false;
@@ -64,7 +65,8 @@ namespace Humanity.Controller
         }
         public async Task Run()
         {
-            
+            //to skasować
+            _model.IntroPlayed = true;
             _view.Clear();
             if (!_model.IntroPlayed)
             {
@@ -189,12 +191,22 @@ namespace Humanity.Controller
                 case "check":
                     idx = _model.room_idx;
                     List<string> desc = _model.checkItem(idx, argument);
-                    if (argument == "monitor")
+                    switch (argument)
                     {
-                        _itemView.MonitorItem2(desc);
-                    }
-                    return true;
+                        case "":
+                            _view.Red("Error: CHECK command requires an item name as an argument. Try again.\n");
+                            return false;
+                        case "monitor":
+                            _itemView.Monitor(desc);
+                            return true;
+                        case "whiteboard":
+                            _itemView.Whiteboard(desc);
+                            return true;
 
+                        default:
+                            _view.Red("Error: There is no item named '" + argument + "' in this room. Try again.\n");
+                            return false;
+                    }
 
                 default:            
                     return false;
