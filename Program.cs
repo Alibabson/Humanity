@@ -21,7 +21,7 @@ namespace Humanity
 
 
             await ctrl.GameStart();
-            // ctrl.FakeLoad();
+            ctrl.FakeLoad();
             await ctrl.Run();
         }
 
