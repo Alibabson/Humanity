@@ -13,6 +13,53 @@ namespace Humanity.View
         public void Clear() => Console.Clear();
         public void Line(string text = "") => Console.WriteLine(text);
         public void LineNoEnter(string text = "") => Console.Write(text);
+
+
+
+        public async Task GameStart()
+        {
+            {
+                Console.Title = string.Empty;
+                _ = Task.Run(async () =>
+                {
+                    const string word = "HUMANITY";
+                    var title = new System.Text.StringBuilder();
+                    for (int i = 0; i < word.Length; i++)
+                    {
+                        Clear();
+                        if (i > 0) title.Append(' ');
+                        title.Append(word[i]);
+                        Console.Title = title.ToString();
+                        SpectreFiglet(title.ToString());
+                        Console.Beep(500, 20);
+                        await Task.Delay(750);
+                    }
+                });
+
+                int rep = 0;
+                while (Console.Title != "H U M A N I T Y")
+                {
+                    if (rep < 0)
+                    {
+                        Spectre_Text("\n [italic slowblink olive]Loading... [/]");
+                        Task.Delay(750);
+                        rep++;
+                    }
+                }
+                Spectre_Text("\n[italic bold olive]A game by [/][magenta]OnyxMoonStar. [/]\n");
+                Spectre_Text("\r[italic slowblink olive]Press any button to start... [/]  \n \n");
+                AwaitKey();
+                return;
+            }
+        }
+
+
+
+
+
+
+
+
         public void Type(string text, int delayMs, bool isIntro = false)
         {
             if (isIntro)
@@ -22,7 +69,7 @@ namespace Humanity.View
             foreach (char c in text)
             {
                 lock (_consoleLock) Console.Write(c);
-                Console.Beep(400, 3);
+                //Console.Beep(400, 3);
                 Thread.Sleep(delayMs);
             }
             lock (_consoleLock) Console.WriteLine();

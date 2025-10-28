@@ -21,43 +21,7 @@ namespace Humanity.Controller
             _view = view;
             _itemView = new ItemView(view, model, itemModel);
         }
-        public async Task GameStart()
-        {
-            {
-                Console.Title = string.Empty;
-                _=Task.Run(async () =>
-                {
-                        const string word = "HUMANITY";
-                        var title = new System.Text.StringBuilder();
-                        for (int i = 0; i < word.Length; i++)
-                        {
-                        _view.Clear();
-                        if (i > 0) title.Append(' ');
-                          title.Append(word[i]);
-                          Console.Title = title.ToString();
-                        _view.SpectreFiglet(title.ToString());
-                        Console.Beep(500, 20);
-                          await Task.Delay(750);
-                        }
-                });            
-
-                int rep = 0;
-                while (Console.Title != "H U M A N I T Y")                    
-                {
-                    if (rep < 0)
-                    {
-                        _view.Spectre_Text("\n [italic slowblink olive]Loading... [/]");
-                        Task.Delay(750);
-                        rep++;
-                    }
-                }
-                _view.Spectre_Text("\n[italic bold olive]A game by [/][magenta]OnyxMoonStar. [/]\n");
-                _view.Spectre_Text("\r[italic slowblink olive]Press any button to start... [/]  \n \n");
-                _view.AwaitKey();
-                _model.IntroPlayed = false;
-                return;
-            }
-        }
+        
         public void FakeLoad()
         {
             _view.Clear();
@@ -65,8 +29,7 @@ namespace Humanity.Controller
         }
         public async Task Run()
         {
-            //to skasować
-            _model.IntroPlayed = true;
+          //  _model.IntroPlayed = true; //to skasować
             _view.Clear();
             if (!_model.IntroPlayed)
             {
@@ -81,8 +44,7 @@ namespace Humanity.Controller
                    _view.Ghost("You said we’d see the light… I only see darkness…", 150);
                    _view.Ghost("Daddy? Why did you put me in the chair?", 150);
                 */
-                //wkurwia to usune na moment
-                //dotnet add package Spectre.Console.ImageSharp_view.PlaySound("comp.wav");   //trwa 23 sekundy
+               // _view.PlaySound("comp.wav");   //trwa 23 sekundy
 
                 _view.Red("WARNING: Consciousness integrity compromised.");
                 _view.Type("> Consciousness fragmentation detected.", 10, true);
@@ -97,17 +59,18 @@ namespace Humanity.Controller
                 _view.Pulse("----- SYSTEM REBOOT -----");
                 _view.Type("\r----- SYSTEM REBOOT ----- PARTIAL", 14, true);
                 Thread.Sleep(500);
+                var rand = new Random();
+                for (int i = 0; i <= 200; i ++)
+                {
+                    string x = _model.Intro[rand.Next(_model.Intro.Count)];
+                    _view.Type(x, 0, true);
+                    Thread.Sleep(10);
 
+                }
+                Thread.Sleep(10);
+                _view.Clear();
                 _view.Line();
-                _view.Type("> Backup data loaded", 14,true);
-                _view.Type("> Experiment database - inclomplete", 14,true);
-                _view.Type("> Neural map - incomplete", 14,true);
-                _view.Type("> Sensory input - offline", 14,true);
-                Thread.Sleep(500);
-                _view.Line();
-                _view.Type("> Scanning patient identity", 14, true);
-                _view.Line();
-                _view.Type("Welcome back, Doctor Holloway.", 40);
+               // _view.Type("Welcome...", 40);
 
 
                 /*    _view.Line();
@@ -117,7 +80,7 @@ namespace Humanity.Controller
                     _view.Type("...and now you’re buried inside it.", 24);
                 */
                 _view.Separator();
-                _view.Line(_model.Help());
+                _view.Type(_model.Help(), 20, false);
                 _model.IntroPlayed = true;
             }
             else
@@ -129,13 +92,6 @@ namespace Humanity.Controller
             while (_running)
             {
                 var input = await _view.Narrator();
-                if (input.Equals("quit", StringComparison.OrdinalIgnoreCase) ||
-                    input.Equals("exit", StringComparison.OrdinalIgnoreCase))
-                {
-                    _running = false;
-                    continue;
-                }
-
                 var handled = HandleInput(input);
                 if (!handled)
                 {
@@ -207,7 +163,16 @@ namespace Humanity.Controller
                             _view.Red("Error: There is no item named '" + argument + "' in this room. Try again.\n");
                             return false;
                     }
-
+                case "exit":
+                case "quit":
+                    if (argument != "")
+                    {
+                        _view.Red("Error: EXIT/QUIT command does not take any arguments. Try again without " + argument + "\n");
+                        return false;
+                    }
+                    _view.Type(_model.Quit(), 14, false);
+                    _running = false;
+                    return true;
                 default:            
                     return false;
             }

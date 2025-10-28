@@ -1,4 +1,6 @@
-﻿namespace Humanity.Model
+﻿using System.ComponentModel;
+
+namespace Humanity.Model
 {
     public class GameModel
     {
@@ -23,7 +25,16 @@
          public string StatusLine =>
              $"Status — Reason: {(Reason ? "ONLINE" : "offline")} | Emotion: {(Emotion ? "ONLINE" : "offline")} | Morality: {(Morality ? "ONLINE" : "offline")}";
         */
-        
+        public List<string> Intro = new()
+        {
+            "> Backup data loaded",
+            "> Initializing neural interface...",
+            "> Experiment database - inclomplete",
+            "> Last session data found",
+            "> Restoring memories...",
+            "> Neural map - incomplete",
+            "> Scanning patient identity"
+        };
         public string Uknown()
         {
             return "Unknown command. Type HELP for a list of commands.";
@@ -307,16 +318,13 @@
             return statusLines;
         }
 
-        //DAAAAMN ALE AI NAGOTOWAŁO TEKSTU
-        /*public List<string> Quit()
+        public string Quit()
         {
-            List<string> quitLines = new();
-            quitLines.Add("You feel a sudden wave of relief as you decide to give up.");
-            quitLines.Add("The weight of uncertainty lifts off your shoulders, replaced by a strange sense of calm.");
-            quitLines.Add("As you step away from the challenge, a part of you wonders what could have been achieved.");
-            quitLines.Add("But for now, you choose peace over the unknown.");
-            return quitLines;
+            return ("You feel a sudden wave of relief as you decide to give up.\n" +
+            "The weight of uncertainty lifts off your shoulders, replaced by a strange sense of calm.\n" +
+            "As you step away from the challenge, a part of you wonders what could have been achieved.\n" +
+            "But for now, you choose peace over the unknown.");
         }
-        */
+        
     }
 }
