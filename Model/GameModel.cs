@@ -32,6 +32,7 @@ namespace Humanity.Model
             "> Experiment database - inclomplete",
             "> Last session data found",
             "> Restoring memories...",
+            "> ~$ apt-sudo install get coffee", 
             "> Neural map - incomplete",
             "> Scanning patient identity"
         };
@@ -41,12 +42,14 @@ namespace Humanity.Model
         }
         public string Help()
         {
-            return "Available commands:\n" +
-                   "- HELP: Show this help message.\n" +
-                   "- LOOK: Observe your surroundings.\n" +
-                   "- CHECK [ITEM]: Describe item or room. \n" +
-                   "- GO TO [ROOM]: move to the next room. \n" +
-                   "- QUIT/EXIT: Terminate the session and give up on your H U M A N I T Y. \n";
+            return "-------------------------------------------------------------------------\n" +
+                   "|Available commands:                                                     |\n" +
+                   "|- HELP: Show this help message.                                         |\n" +
+                   "|- LOOK: Observe your surroundings.                                      |\n" +
+                   "|- CHECK [ITEM]: Describe item or room.                                  |\n" +
+                   "|- GO TO [ROOM]: move to the next room.                                  |\n" +
+                   "|- QUIT/EXIT: Terminate the session and give up on your H U M A N I T Y. |\n" +
+                   "-------------------------------------------------------------------------";
         }
         public List<string> look = new();
         public void pickLook(int idx, int part)

@@ -46,6 +46,16 @@ namespace Humanity.Controller
                 */
                // _view.PlaySound("comp.wav");   //trwa 23 sekundy
 
+               
+                var rand = new Random();
+                for (int i = 0; i <= 200; i ++)
+                {
+                    string x = _model.Intro[rand.Next(_model.Intro.Count)];
+                    _view.Type(x, 0, true);
+                    Thread.Sleep(15);
+
+                }
+                Thread.Sleep(10);
                 _view.Red("WARNING: Consciousness integrity compromised.");
                 _view.Type("> Consciousness fragmentation detected.", 10, true);
                 _view.Type("> REASON... lost.", 14, true);
@@ -58,29 +68,17 @@ namespace Humanity.Controller
                 _view.Type("> Awaiting system reboot...", 14, true);
                 _view.Pulse("----- SYSTEM REBOOT -----");
                 _view.Type("\r----- SYSTEM REBOOT ----- PARTIAL", 14, true);
-                Thread.Sleep(500);
-                var rand = new Random();
-                for (int i = 0; i <= 200; i ++)
-                {
-                    string x = _model.Intro[rand.Next(_model.Intro.Count)];
-                    _view.Type(x, 0, true);
-                    Thread.Sleep(10);
-
-                }
-                Thread.Sleep(10);
+                Thread.Sleep(2000);
                 _view.Clear();
                 _view.Line();
-               // _view.Type("Welcome...", 40);
 
-
-                /*    _view.Line();
+                /*  _view.Line();
                     _view.Type("Welcome, Doctor Holloway.", 24);
                     _view.Type("The machines remember you, even if you no longer remember yourself.", 24);
                     _view.Type("You dug too deep into the human mind...", 24);
                     _view.Type("...and now you’re buried inside it.", 24);
                 */
-                _view.Separator();
-                _view.Type(_model.Help(), 20, false);
+                _view.TypeText(_model.Help(), 2, "[fuchsia]"); 
                 _model.IntroPlayed = true;
             }
             else

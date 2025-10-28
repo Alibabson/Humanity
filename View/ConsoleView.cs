@@ -36,28 +36,13 @@ namespace Humanity.View
                     }
                 });
 
-                int rep = 0;
-                while (Console.Title != "H U M A N I T Y")
-                {
-                    if (rep < 0)
-                    {
-                        Spectre_Text("\n [italic slowblink olive]Loading... [/]");
-                        Task.Delay(750);
-                        rep++;
-                    }
-                }
+                Task.Delay(6000).Wait();
                 Spectre_Text("\n[italic bold olive]A game by [/][magenta]OnyxMoonStar. [/]\n");
                 Spectre_Text("\r[italic slowblink olive]Press any button to start... [/]  \n \n");
                 AwaitKey();
                 return;
             }
         }
-
-
-
-
-
-
 
 
         public void Type(string text, int delayMs, bool isIntro = false)
@@ -75,6 +60,18 @@ namespace Humanity.View
             lock (_consoleLock) Console.WriteLine();
             Console.ResetColor();
         }
+
+       public void TypeText(string text, int delay, string color)
+        {
+            foreach (char c in text)
+            {
+                // każda litera idzie przez markup — nie psuje stylu
+                AnsiConsole.Markup($"{color}{Markup.Escape(c.ToString())}[/]");
+                Thread.Sleep(delay);
+            }
+            Console.WriteLine();
+        }
+
 
         public Task Pulse(string text, int pulses = 3, int on = 220, int off = 120)
         {
