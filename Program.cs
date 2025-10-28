@@ -20,8 +20,8 @@ namespace Humanity
             var ctrl = new GameController(model, view, itemModel);
 
 
-           // await view.GameStart();
-            // ctrl.FakeLoad();
+            await ctrl.GameStart();
+            ctrl.FakeLoad();
             await ctrl.Run();
         }
 

@@ -114,8 +114,8 @@ namespace Humanity.View
             }
             else if(command == text[3])
             {
-                //modu³ wybór 3
-                _View.Red("Modu³ w budowie");
+                _View.Spectre_Text("[grey underline]You left the console. [/]");
+                return;
             }
             return;
         }
