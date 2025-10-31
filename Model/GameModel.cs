@@ -8,8 +8,9 @@ namespace Humanity.Model
         public bool Emotion { get; set; } = false;
         public bool Morality { get; set; } = false;
 
+        public int sanity { get; set; } = 100;
         // Stan ogólny
-        public bool IntroPlayed { get; set; } = false;  /// ZMIENIĆ NA false;
+        public bool IntroPlayed { get; set; } = true;  /// ZMIENIĆ NA false;
 
         public int room_idx { get; set; } = 0;
        
@@ -36,6 +37,35 @@ namespace Humanity.Model
             "> Neural map - incomplete",
             "> Scanning patient identity"
         };
+        public class PrologueLine
+        {
+            public string Text { get; set; }
+            public string Color { get; set; }
+            public int DelayMs { get; set; }
+
+            public PrologueLine(string text, int delay, string color) {
+                Text = text;
+                DelayMs = delay;
+                Color = color;
+            }
+        }
+        public List<PrologueLine> Prologue = new()
+        {
+           new PrologueLine( "You shouldn’t have woken up.\n", 45 ,"[italic teal]"),
+            new PrologueLine("\nA sharp, high-pitched noise pierces the silence.\nThe light above you flickers, buzzing faintly, washing the room in a cold, sterile glow.\nMetal. Concrete. The faint smell of chemicals and ozone.\nYou’re lying on a metal table, surrounded by shattered glass and dark stains that look too much like blood.\n", 15, "[italic silver]"),
+            new PrologueLine("\nYou don’t remember how you got here.\nYou don’t remember why you’re here.\nYou don’t even remember your name.\n", 15, "[italic yellow4]"),
+            new PrologueLine("\nBeside you, a monitor flickers to life, spilling pale light across the room.\n For a second, shapes and words flash across the screen — too fast to read —\n then everything freezes.\nOne of the machines is connected straight to your body. The heart rate monitor flickers, as if it can’t decide whether there’s a heartbeat to find, but you’re not dead,\n", 15, "[italic silver]"),
+            new PrologueLine("Are you?\n", 45, "[italic red]"),
+            new PrologueLine("\nSomewhere behind you, a faint echo — a breath, or maybe a whisper.\n", 15, "[italic silver]"),
+            new PrologueLine("You promised…\n", 45, "[italic teal]"),
+            new PrologueLine("It’s hard to tell if it came from the room... or from inside your head.\nYour heartbeat — slow, irregular… fills the silence again.\n", 15, "[italic silver]"),
+            new PrologueLine("\nYou can’t form a single coherent thought in your brain - like someone’s rewiring your thoughts from the inside.\n", 15, "[italic silver]"),
+            new PrologueLine("You can’t feel anything…\n", 15, "[italic red]"),
+            new PrologueLine("You were part of a scheme you know nothing about. Seems like you were just a disposable element…\n", 15, "[italic silver]"),
+            new PrologueLine("\nThe hum of dying machines and the atmosphere of a room feels too familiar to be a stranger’s.\nAfter brief confusion, you realize that whatever you were before...", 15, "[italic silver]"),
+            new PrologueLine(" you are not anymore.\n", 45, "[italic red]")
+        };
+        
         public string Uknown()
         {
             return "Unknown command. Type HELP for a list of commands.";
@@ -328,6 +358,8 @@ namespace Humanity.Model
             "As you step away from the challenge, a part of you wonders what could have been achieved.\n" +
             "But for now, you choose peace over the unknown.");
         }
+
+
         
     }
 }

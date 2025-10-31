@@ -72,6 +72,15 @@ namespace Humanity.Controller
                 _view.Clear();
                 _view.Line();
 
+
+                foreach (var line in _model.Prologue)
+                {
+                    _view.TypeText(line.Text, line.DelayMs, line.Color);
+                }
+                _view.Spectre_Text("[olive slowblink]\nPress any button to continue...[/]");
+                _view.AwaitKey();
+                //_view.TypeText(_model.prologue(), 2, "[italic teal]");
+
                 /*  _view.Line();
                     _view.Type("Welcome, Doctor Holloway.", 24);
                     _view.Type("The machines remember you, even if you no longer remember yourself.", 24);
@@ -85,11 +94,12 @@ namespace Humanity.Controller
             {
                 _view.Line(_model.Help());
             }
-        
             //////////////////////////
             while (_running)
             {
+               
                 var input = await _view.Narrator();
+               
                 var handled = HandleInput(input);
                 if (!handled)
                 {
@@ -98,19 +108,24 @@ namespace Humanity.Controller
             }
 
             _view.Line("\nSession terminated.");
+            success = !success;
         }
         public bool HandleInput(string s)
         {
             var input = (s ?? "").Trim().ToLowerInvariant();
+
             if(input.StartsWith("go to "))
             {
+                
                 string room = input.Substring("go to ".Length).Trim();
                 nextRoomIdx =_model.NextRoomIdx(room);
                 if(nextRoomIdx == -1)
                 {
                     _view.Red("Error: Unknown room '"+ room + "'. Try again.\n");
+                    success = !success;
                     return false;
                 }
+
                 checkPossible(nextRoomIdx);
                 return true;
             }
@@ -119,10 +134,13 @@ namespace Humanity.Controller
             var argument = parts.Length > 1 ? parts[1] : "";
 
             _view.Clear();
+      
             switch (command)
             {
                
                 case "help":
+                    success = true;
+                    HUD();
                     _view.Line(_model.Help());
                     return true;
 
@@ -132,8 +150,11 @@ namespace Humanity.Controller
                     if (argument!="")
                     {
                         _view.Red("Error: LOOK command does not take any arguments. Try again without "+argument +"\n");
+                        success = !success;
                         return false;
                     }
+                    success = true;
+                    HUD();
                     idx = _model.room_idx;
                     _model.pickLook(idx, part);
                     foreach (string x in _model.look)
@@ -149,16 +170,22 @@ namespace Humanity.Controller
                     {
                         case "":
                             _view.Red("Error: CHECK command requires an item name as an argument. Try again.\n");
+                            success = !success;
                             return false;
                         case "monitor":
                             _itemView.Monitor(desc);
+                            _view.AwaitKey();
+                            _view.Clear();
+                            HUD();
                             return true;
                         case "whiteboard":
                             _itemView.Whiteboard(desc);
+                            HUD();
                             return true;
 
                         default:
                             _view.Red("Error: There is no item named '" + argument + "' in this room. Try again.\n");
+                            success = !success;
                             return false;
                     }
                 case "exit":
@@ -166,6 +193,7 @@ namespace Humanity.Controller
                     if (argument != "")
                     {
                         _view.Red("Error: EXIT/QUIT command does not take any arguments. Try again without " + argument + "\n");
+                        success = !success;
                         return false;
                     }
                     _view.Type(_model.Quit(), 14, false);
@@ -183,9 +211,7 @@ namespace Humanity.Controller
                 case 0: //LABORATORIUM   [Można tylko do F1 HALLWAY]
                     if (nextRoomIdx == 1)
                     {
-                        _model.GoTo_Possible(nextRoomIdx);
-                        ok(nextRoomIdx);
-                        _view.Loading();
+                        NextRoomProcess(nextRoomIdx);
                     }
                     else
                     {
@@ -195,9 +221,7 @@ namespace Humanity.Controller
                 case 1: //F1 HALLWAY   [Można do F1 BATHROOM lub LIVING ROOM lub LAB lub KITCHEN]
                     if (nextRoomIdx == 2 || nextRoomIdx == 3 || nextRoomIdx == 4 || nextRoomIdx==0)
                     {
-                        _model.GoTo_Possible(nextRoomIdx);
-                        ok(nextRoomIdx);
-                        _view.Loading();
+                        NextRoomProcess(nextRoomIdx);
                     }
                     else
                     {
@@ -207,9 +231,7 @@ namespace Humanity.Controller
                 case 2: //KITCHEN   [Można do LIVING ROOM lub F2 HALLWAY lub F1 HALLWAY]
                     if  (nextRoomIdx == 1 || nextRoomIdx == 4 || nextRoomIdx==5)
                     {
-                        _model.GoTo_Possible(nextRoomIdx);
-                        ok(nextRoomIdx);
-                        _view.Loading();
+                        NextRoomProcess(nextRoomIdx);
                     }
                     else
                     {
@@ -219,9 +241,7 @@ namespace Humanity.Controller
                 case 3: //F1 BATHROOM   [Można tylko do F1 HALLWAY]
                     if (nextRoomIdx == 1)
                     {
-                        _model.GoTo_Possible(nextRoomIdx);
-                        ok(nextRoomIdx);
-                        _view.Loading();
+                        NextRoomProcess(nextRoomIdx);
                     }
                     else
                     {
@@ -231,9 +251,7 @@ namespace Humanity.Controller
                 case 4: //LIVING ROOM   [Można do KITCHEN lub F1 HALLWAY]
                     if (nextRoomIdx == 2 || nextRoomIdx==1)
                     {
-                        _model.GoTo_Possible(nextRoomIdx);
-                        ok(nextRoomIdx);
-                        _view.Loading();
+                        NextRoomProcess(nextRoomIdx);
                     }
                     else
                     {
@@ -243,9 +261,7 @@ namespace Humanity.Controller
                  case 5: //F2 HALLWAY   [Można do F2 BATHROOM lub BEDROOM lub KITCHEN lub OFFICE] 
                     if (nextRoomIdx == 6 || nextRoomIdx == 7 || nextRoomIdx == 8 || nextRoomIdx==2)
                     {
-                        _model.GoTo_Possible(nextRoomIdx);
-                        ok(nextRoomIdx);
-                        _view.Loading();
+                        NextRoomProcess(nextRoomIdx);
                     }
                     else
                     {
@@ -255,9 +271,7 @@ namespace Humanity.Controller
                  case 6: //F2 BATHROOM   [Można tylko do F2 HALLWAY]
                     if (nextRoomIdx == 5)
                     {
-                        _model.GoTo_Possible(nextRoomIdx);
-                        ok(nextRoomIdx);
-                        _view.Loading();
+                        NextRoomProcess(nextRoomIdx);
                     }
                     else
                     {
@@ -267,9 +281,7 @@ namespace Humanity.Controller
                  case 7: //BEDROOM   [Można tylko do F2 HALLWAY]
                     if (nextRoomIdx == 5)
                     {
-                        _model.GoTo_Possible(nextRoomIdx);
-                        ok(nextRoomIdx);
-                        _view.Loading();
+                        NextRoomProcess(nextRoomIdx);
                     }
                     else
                     {
@@ -279,9 +291,7 @@ namespace Humanity.Controller
                  case 8: //OFFICE   [Można tylko do F2 HALLWAY]
                     if (nextRoomIdx == 5)
                     {
-                        _model.GoTo_Possible(nextRoomIdx);
-                        ok(nextRoomIdx);
-                        _view.Loading();
+                        NextRoomProcess(nextRoomIdx);
                     }
                     else
                     {
@@ -294,13 +304,34 @@ namespace Humanity.Controller
             }
 
         }
+        public void NextRoomProcess(int nextRoomIdx)
+        {
+            _model.GoTo_Possible(nextRoomIdx);
+            ok(nextRoomIdx);
+            _view.Loading();
+            Thread.Sleep(10);
+            HUD();
+        }
         public void ok(int nextRoomIdx)
         {
             _view.Line("\nYou move to the " + _model.RoomName(nextRoomIdx) + ".\n");
+            _model.sanity=_model.sanity - 5;
         }
         public void notOk()
         {
             _view.Red("Error: You can't go to that room from here. Try again.\n");
+            success = !success;
+        }
+
+        public bool success = true;
+    public void HUD()
+        {
+            if (success)
+            {
+                int idx = _model.room_idx;
+                int sanity = _model.sanity;
+                _view.Panel("[bold]CURRRENT ROOM: [/][aqua]" + _model.RoomName(idx) + "[/]\n \n", "[bold]SANITY: [/]", sanity);
+            }
         }
     }
 }

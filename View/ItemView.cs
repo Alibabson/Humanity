@@ -114,7 +114,7 @@ namespace Humanity.View
             }
             else if(command == text[3])
             {
-                _View.Spectre_Text("[grey underline]You left the console. [/]");
+                _View.Spectre_Text("[grey underline]You left the console. \n Press any button to continue[/]");
                 return;
             }
             return;

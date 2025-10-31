@@ -153,6 +153,16 @@ namespace Humanity.View
             Thread.Sleep(500);
             Line("\rLoading...");
             Clear();
+            
+        }
+        public void Panel(string currRoom, string currSanity, int meter)
+        {
+            var sanityBar = new BarChart()
+            .AddItem(currSanity, meter, Color.Green)
+             .Width(40);
+
+            var left = new Markup(currRoom);
+            AnsiConsole.Write(new Columns(left, sanityBar).Expand());
         }
         public void Red(string text)
         {
