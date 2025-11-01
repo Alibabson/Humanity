@@ -43,6 +43,27 @@ namespace Humanity.Model
 
             }
         }
-
+        public class Mathematics
+        {
+          public string question { get; set; }
+           public int answer { get; set; }
+        }
+       /* public Mathematics(string q , int a)
+        {
+            question = q;
+            answer = a;
+        }
+        public List<Math> mathQuestions = new List<Math>()
+        {
+            new Math("What is 5 + 3?", 8),
+            new Math("What is 12 - 4?", 8),
+            new Math("What is 2 * 6?", 12),
+            new Math("What is 16 / 2?", 8),
+            new Math("What is 9 + 10?", 19)
+        };
+        public void WhiteBoard_Minigame()
+        {
+            //to be implemented
+        } */
     }
 }

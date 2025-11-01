@@ -61,12 +61,24 @@ namespace Humanity.View
             Console.ResetColor();
         }
 
-       public void TypeText(string text, int delay, string color)
+       public void TypeText(string text, int delay, string color, bool beep=false)
         {
+            int count = 0;
             foreach (char c in text)
             {
                 // każda litera idzie przez markup — nie psuje stylu
+
                 AnsiConsole.Markup($"{color}{Markup.Escape(c.ToString())}[/]");
+                if (beep)
+                {
+                    try { 
+                        if(count % 2 == 0)  Console.Beep(200, delay/2);
+                    } 
+                    catch 
+                    { }
+
+                }
+                count++;
                 Thread.Sleep(delay);
             }
             Console.WriteLine();
@@ -256,5 +268,6 @@ namespace Humanity.View
             image.MaxWidth(90);
             AnsiConsole.Write(image);
         }
-    }
+        
+        }
 }

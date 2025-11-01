@@ -37,6 +37,14 @@ namespace Humanity.Model
             "> Neural map - incomplete",
             "> Scanning patient identity"
         };
+        public List<string> Ghosts = new()
+        {
+            "Y O U\nS H O U L D\nK E E P\nR O T T I N G",
+            "O N C E\nH U M A N\n\nN E V E R\nH U M A N",
+            "Y O U\nT O O K\nH U M A N I T Y\n\nY O U\nL O S T\nH U M A N I T Y",
+            "F A L S E\nH U M A N\n\nT R U E\nM O N S T E R",
+            "L I E S\n\nY O U\nC A L L E D\nT H E M\nP R O M I S E S",
+        };
         public class PrologueLine
         {
             public string Text { get; set; }
@@ -139,14 +147,14 @@ namespace Humanity.Model
                     look.Add(".\n \n[red]You feel a strange sense of familiarity.[/]");
                     return;
 
-                case 3:
+                case 3:  //zmienic bathroom na library
                     look.Add("You are currently in the ");
                     look.Add("[yellow]library[/]");
-                    look.Add(".\nThe room is small but clean, seems unused for quite a moment, like this place was abandoned decades ago. \nThere is a door which you entered, leading to the ");
+                    look.Add(".\nThe room is spacious and clean, seems unused for quite a moment, like this place was abandoned decades ago. \nThere is a door which you entered, leading to the ");
                     look.Add("[palegreen1_1]hallway[/]"); 
-                    look.Add(". The only thing there is a ");
-                    look.Add("[teal]mirror[/]"); 
-                    look.Add(" you noticed. \n \n[red]You feel a strange sense of familiarity.[/]");
+                    look.Add(". The only interesting things here are the ");
+                    look.Add("[teal]books[/]"); 
+                    look.Add(". \n \n[red]You feel a strange sense of familiarity.[/]");
                     return;
 
                 case 4:
@@ -243,7 +251,10 @@ namespace Humanity.Model
                 case "whiteboard":
                     if (idx == 0)
                     {
-                        itemDesc.Add("The board flickers — not solid, but digital, projected on the air.\r\nThe equations shift like living veins.");
+                        itemDesc.Add("The whiteboard flickers — not solid, but digital, projected on the air.\nThe equations shift like living veins.");
+                        itemDesc.Add("\nYou can try solving some of the mathematical questions... \nDo you want to try?\n");
+                        itemDesc.Add("[lime]YES[/]");
+                        itemDesc.Add("[lime]NO[/]");
                     } else wrongItem(item);
                     break;
                     
@@ -325,7 +336,7 @@ namespace Humanity.Model
                 case 2:
                     return "KITCHEN";
                 case 3:
-                    return "F1 BATHROOM";
+                    return "LIBRARY";
                 case 4:
                     return "LIVING ROOM";
                 case 5:

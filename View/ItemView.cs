@@ -154,9 +154,28 @@ namespace Humanity.View
             }
         }
 
-        public void Whiteboard(List<string> text)
+        public bool Whiteboard(List<string> text)
         {
-
+            _View.Spectre_Text(text[0] + "\n");
+            _View.Spectre_Text(text[1]);
+            var command = AnsiConsole.Prompt(
+            new SelectionPrompt<string>()
+                .Title("")
+                .HighlightStyle(new Style(foreground: Color.White, background: Color.Grey))
+                .PageSize(4)
+                .AddChoices(text[2],text[3])
+            );
+            if (command == text[2])   
+            {
+                //_itemModel.WhiteBoard_Minigame();
+                return true;
+            }
+            else if (command == text[3])
+            {
+                _View.Spectre_Text("[grey underline]You left the whiteboard. \n Press any button to continue[/]");
+                return false;
+            }
+            return false;
         }
     }
 }
