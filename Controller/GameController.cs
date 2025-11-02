@@ -228,7 +228,7 @@ namespace Humanity.Controller
             int idx = _model.room_idx;
             switch (idx)
             {
-                case 0: //LABORATORIUM   [Można tylko do F1 HALLWAY]
+                case 0: //LABORATORIUM   [Można tylko do STAIRS]
                     if (nextRoomIdx == 1)
                     {
                         NextRoomProcess(nextRoomIdx);
@@ -238,8 +238,8 @@ namespace Humanity.Controller
                         notOk();
                     }
                     break;
-                case 1: //F1 HALLWAY   [Można do F1 BATHROOM lub LIVING ROOM lub LAB lub KITCHEN]
-                    if (nextRoomIdx == 2 || nextRoomIdx == 3 || nextRoomIdx == 4 || nextRoomIdx == 0)
+                case 1: //STAIRS   [Można do LAB lub LIVING ROOM ]
+                    if ( nextRoomIdx == 0 || nextRoomIdx == 4)
                     {
                         NextRoomProcess(nextRoomIdx);
                     }
@@ -248,8 +248,8 @@ namespace Humanity.Controller
                         notOk();
                     }
                     break;
-                case 2: //KITCHEN   [Można do LIVING ROOM lub F2 HALLWAY lub F1 HALLWAY]
-                    if (nextRoomIdx == 1 || nextRoomIdx == 4 || nextRoomIdx == 5)
+                case 2: //KITCHEN   [Można do LIVING ROOM lub HALLWAY lub STAIRS]
+                    if (nextRoomIdx == 4)
                     {
                         NextRoomProcess(nextRoomIdx);
                     }
@@ -258,8 +258,8 @@ namespace Humanity.Controller
                         notOk();
                     }
                     break;
-                case 3: //LIBRARY   [Można tylko do F1 HALLWAY]
-                    if (nextRoomIdx == 1)
+                case 3: //LIBRARY   [Można tylko do LIVING ROOM]
+                    if (nextRoomIdx == 4)
                     {
                         NextRoomProcess(nextRoomIdx);
                     }
@@ -268,8 +268,8 @@ namespace Humanity.Controller
                         notOk();
                     }
                     break;
-                case 4: //LIVING ROOM   [Można do KITCHEN lub F1 HALLWAY]
-                    if (nextRoomIdx == 2 || nextRoomIdx == 1)
+                case 4: //LIVING ROOM   [Można do KITCHEN lub HALLWAY lub STAIRS lub LIBRARY]
+                    if (nextRoomIdx == 2 || nextRoomIdx == 1 ||nextRoomIdx== 5 || nextRoomIdx == 3)
                     {
                         NextRoomProcess(nextRoomIdx);
                     }
@@ -278,8 +278,8 @@ namespace Humanity.Controller
                         notOk();
                     }
                     break;
-                case 5: //F2 HALLWAY   [Można do F2 BATHROOM lub BEDROOM lub KITCHEN lub OFFICE] 
-                    if (nextRoomIdx == 6 || nextRoomIdx == 7 || nextRoomIdx == 8 || nextRoomIdx == 2)
+                case 5: //HALLWAY   [Można do BATHROOM lub BEDROOM lub OFFICE lub LIVING ROOM lub STAIRS] 
+                    if (nextRoomIdx == 6 || nextRoomIdx == 7 || nextRoomIdx == 8 || nextRoomIdx == 4 || nextRoomIdx == 1)
                     {
                         NextRoomProcess(nextRoomIdx);
                     }
@@ -288,8 +288,8 @@ namespace Humanity.Controller
                         notOk();
                     }
                     break;
-                case 6: // BATHROOM   [Można tylko do F2 HALLWAY]
-                    if (nextRoomIdx == 5)
+                case 6: // BATHROOM   [Można do HALLWAY lub BEDROOM]
+                    if (nextRoomIdx == 5 || nextRoomIdx == 7)   
                     {
                         NextRoomProcess(nextRoomIdx);
                     }
@@ -298,8 +298,8 @@ namespace Humanity.Controller
                         notOk();
                     }
                     break;
-                case 7: //BEDROOM   [Można tylko do F2 HALLWAY]
-                    if (nextRoomIdx == 5)
+                case 7: //BEDROOM   [Można do HALLWAY lub BATHROOM]
+                    if (nextRoomIdx == 5 || nextRoomIdx == 6)
                     {
                         NextRoomProcess(nextRoomIdx);
                     }
@@ -308,7 +308,7 @@ namespace Humanity.Controller
                         notOk();
                     }
                     break;
-                case 8: //OFFICE   [Można tylko do F2 HALLWAY]
+                case 8: //OFFICE   [Można tylko do HALLWAY]
                     if (nextRoomIdx == 5)
                     {
                         NextRoomProcess(nextRoomIdx);

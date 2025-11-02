@@ -92,7 +92,7 @@ namespace Humanity.Model
         public List<string> look = new();
         public void pickLook(int idx, int part)
         {
-            look.Clear();
+          look.Clear();
             switch (idx)
             {
                 case 0:
@@ -108,18 +108,19 @@ namespace Humanity.Model
                     }
                         look.Add("[teal]whiteboard [/]"); 
                     if(Reason==false)
-                    look.Add("- as if [orchid]REASON[/] itself was lost here.\nBehind you there are stairs leading upstairs to the ");
+                    look.Add("- as if [orchid]REASON[/] itself was lost here.\nBehind you there are");
                     else
                     {
-                        look.Add("- but you regained your [orchid]REASON[/].\nBehind you there are stairs leading upstairs to the ");
+                        look.Add("- but you regained your [orchid]REASON[/].\nBehind you there are");
                     }
-                    look.Add("[palegreen1_1]hallway. [/]");
+                    look.Add(" [palegreen1_1]stairs [/]");
+                    look.Add("leading upstairs.");
                     look.Add("\n \n[red]You remember this place.[/]");                   
                 return;
 
                 case 1:
-                    look.Add("You are currently in the ");
-                    look.Add("[yellow]hallway[/]"); 
+                    look.Add("You are currently on the ");
+                    look.Add("[yellow]stairs[/]"); 
                     look.Add(" on the first floor. You can see the stairs leading down to the ");
                     look.Add("[palegreen1_1]lab[/]"); 
                     look.Add(" and a couple of doors \nleading to various rooms.\nYou don't know why but you know where every door leads: ");
@@ -138,8 +139,8 @@ namespace Humanity.Model
                 case 2:
                     look.Add("You are in the ");
                     look.Add("[yellow]kitchen[/]");
-                    look.Add(".\nThe room is fancy, but dusty, with a modern design. \nSuprisingly, stairs leading to the");
-                    look.Add("[palegreen1_1] second floor[/] ");
+                    look.Add(".\nThe room is fancy, but dusty, with a modern design. \n ");
+                    look.Add("[palegreen1_1] living room[/] ");
                     look.Add("are located here. Doors behind you lead to the ");
                     look.Add("[palegreen1_1]hall[/]");
                     look.Add(" and the");
@@ -147,7 +148,7 @@ namespace Humanity.Model
                     look.Add(".\n \n[red]You feel a strange sense of familiarity.[/]");
                     return;
 
-                case 3:  //zmienic bathroom na library
+                case 3:  
                     look.Add("You are currently in the ");
                     look.Add("[yellow]library[/]");
                     look.Add(".\nThe room is spacious and clean, seems unused for quite a moment, like this place was abandoned decades ago. \nThere is a door which you entered, leading to the ");
@@ -173,7 +174,7 @@ namespace Humanity.Model
 
                 case 5:
                     look.Add("You are now in the ");
-                    look.Add("[yellow]second floor hallway[/]"); 
+                    look.Add("[yellow]hallway[/]"); 
                     look.Add(".\nThis corridor looks nothing like that one downstairs. Someone lit the ");
                     look.Add("[teal]candles[/]"); 
                     look.Add(" placed on the floor, giving the place a warm, but ocultic atmosphere. \nThere are doors leading to the ");
@@ -275,9 +276,7 @@ namespace Humanity.Model
                     next_idx = 0;
                     return next_idx;
 
-                case "hallway":
-                case "hall":
-                case "F1 hallway":
+                case "stairs":
                     next_idx = 1;
                     return next_idx;
 
@@ -294,17 +293,13 @@ namespace Humanity.Model
                     next_idx = 4;
                     return next_idx;
 
-                case "f2 hallway":
+                case "hallway":
                 case "second floor":
-                case "second floor hallway":
-                case "floor2 hallway":
+                case "hall":
                     next_idx = 5;
                     return next_idx;
 
-                case "f2 bathroom":
-                case "floor 2 bathroom":
-                case "second floor bathroom":
-                case "floor2 bathroom":
+                case "bath":    
                 case "bathroom":
                     next_idx = 6;
                     return next_idx;
@@ -332,7 +327,7 @@ namespace Humanity.Model
                 case 0:
                     return "LABORATORY";
                 case 1:
-                    return "F1 HALLWAY";
+                    return "STAIRS";
                 case 2:
                     return "KITCHEN";
                 case 3:
@@ -340,9 +335,9 @@ namespace Humanity.Model
                 case 4:
                     return "LIVING ROOM";
                 case 5:
-                    return "F2 HALLWAY";
+                    return "HALLWAY";
                 case 6:
-                    return "F2 BATHROOM";
+                    return "BATHROOM";
                 case 7:
                     return "BEDROOM";
                 case 8:
