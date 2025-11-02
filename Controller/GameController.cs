@@ -112,29 +112,31 @@ namespace Humanity.Controller
         }
         public bool HandleInput(string s)
         {
-            var input = (s ?? "").Trim().ToLowerInvariant();
+            var command= "";
+            var argument= "";
+                var input = (s ?? "").Trim().ToLowerInvariant();
 
-            if (input.StartsWith("go to "))
-            {
-
-                string room = input.Substring("go to ".Length).Trim();
-                nextRoomIdx = _model.NextRoomIdx(room);
-                if (nextRoomIdx == -1)
+                if (input.StartsWith("go to "))
                 {
-                    _view.Red("Error: Unknown room '" + room + "'. Try again.\n");
-                    success = !success;
-                    return false;
+
+                    string room = input.Substring("go to ".Length).Trim();
+                    nextRoomIdx = _model.NextRoomIdx(room);
+                    if (nextRoomIdx == -1)
+                    {
+                        _view.Red("Error: Unknown room '" + room + "'. Try again.\n");
+                        success = !success;
+                        return false;
+                    }
+
+                    checkPossible(nextRoomIdx);
+                    return true;
                 }
+                var parts = input.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
+                command = parts.Length > 0 ? parts[0] : "";
+                argument = parts.Length > 1 ? parts[1] : "";
 
-                checkPossible(nextRoomIdx);
-                return true;
-            }
-            var parts = input.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
-            var command = parts.Length > 0 ? parts[0] : "";
-            var argument = parts.Length > 1 ? parts[1] : "";
-
-            _view.Clear();
-
+                _view.Clear();
+            
             switch (command)
             {
 
@@ -146,22 +148,16 @@ namespace Humanity.Controller
 
 
                 case "look":
-                    //part = 1;
-                    if (argument != "")
+                    if(LookFunction(argument))
                     {
-                        _view.Red("Error: LOOK command does not take any arguments. Try again without " + argument + "\n");
-                        success = !success;
+                        return true;
+                    }
+                    else
+                    {
                         return false;
                     }
-                    success = true;
-                    HUD();
-                    idx = _model.room_idx;
-                    _model.pickLook(idx, part);
-                    foreach (string x in _model.look)
-                    {
-                        _view.Spectre_Text(x);
-                    }
-                    return true;
+
+
 
                 case "check":
                     idx = _model.room_idx;
@@ -238,8 +234,8 @@ namespace Humanity.Controller
                         notOk();
                     }
                     break;
-                case 1: //STAIRS   [Można do LAB lub LIVING ROOM ]
-                    if ( nextRoomIdx == 0 || nextRoomIdx == 4)
+                case 1: //STAIRS   [Można do LAB lub LIVING ROOM lub HALLWAY]
+                    if ( nextRoomIdx == 0 || nextRoomIdx == 4 || nextRoomIdx==5)
                     {
                         NextRoomProcess(nextRoomIdx);
                     }
@@ -248,7 +244,7 @@ namespace Humanity.Controller
                         notOk();
                     }
                     break;
-                case 2: //KITCHEN   [Można do LIVING ROOM lub HALLWAY lub STAIRS]
+                case 2: //KITCHEN   [Można tylko ldo LIVING ROOM]
                     if (nextRoomIdx == 4)
                     {
                         NextRoomProcess(nextRoomIdx);
@@ -331,11 +327,13 @@ namespace Humanity.Controller
             _view.Loading();
             Thread.Sleep(10);
             RandomGhost();
-            HUD();
+           // HUD();
+            LookFunction("");
         }
         public void ok(int nextRoomIdx)
         {
             _view.Line("\nYou move to the " + _model.RoomName(nextRoomIdx) + ".\n");
+            success = true;
 
         }
         public void notOk()
@@ -375,5 +373,24 @@ namespace Humanity.Controller
             _view.Red("Error: There is no item named '" + argument + "' in this room. Try again.\n");
             success = !success;
         }
+        private bool LookFunction(string argument)
+        {
+            if (argument != "")
+            {
+                _view.Red("Error: LOOK command does not take any arguments. Try again without " + argument + "\n");
+                success = !success;
+                return false;
+            }
+            success = true;
+            HUD();
+            idx = _model.room_idx;
+            _model.pickLook(idx, part);
+            foreach (string x in _model.look)
+            {
+                _view.Spectre_Text(x);
+            }
+            return true;
+        }
+        }
     }
-}
+

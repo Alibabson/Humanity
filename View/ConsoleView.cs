@@ -171,7 +171,7 @@ namespace Humanity.View
         {
             var sanityBar = new BarChart()
             .AddItem(currSanity, meter, Color.Green)
-             .Width(40);
+             .Width(meter/2);
 
             var left = new Markup(currRoom);
             AnsiConsole.Write(new Columns(left, sanityBar).Expand());
