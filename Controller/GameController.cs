@@ -148,8 +148,10 @@ namespace Humanity.Controller
 
 
                 case "look":
-                    if(LookFunction(argument))
+                    _model.LookedRoom[_model.room_idx] = true;
+                    if (LookFunction(argument))
                     {
+                       
                         return true;
                     }
                     else
@@ -185,10 +187,7 @@ namespace Humanity.Controller
                         case "whiteboard":
                             if (idx == 0)
                             {
-                                if (_itemView.Whiteboard(desc))
-                                {
-                                    
-                                }
+                                _itemView.Whiteboard(desc);                           
                                 _view.Clear();
                                 HUD();
                             }
@@ -384,10 +383,13 @@ namespace Humanity.Controller
             success = true;
             HUD();
             idx = _model.room_idx;
+            if(_model.LookedRoom[idx] == true)
+            {              
             _model.pickLook(idx, part);
             foreach (string x in _model.look)
             {
                 _view.Spectre_Text(x);
+            }
             }
             return true;
         }

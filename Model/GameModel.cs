@@ -11,9 +11,9 @@ namespace Humanity.Model
         public int sanity { get; set; } = 100;
         // Stan ogólny
         public bool IntroPlayed { get; set; } = true;  /// ZMIENIĆ NA false;
-
+        public bool RemindWorks { get; set; } = false;
         public int room_idx { get; set; } = 0;
-       
+
         // Prosty dziennik wspomnień (do komendy RECALL)
         /* public List<string> MemoryLogs { get; } = new()
          {
@@ -26,6 +26,7 @@ namespace Humanity.Model
          public string StatusLine =>
              $"Status — Reason: {(Reason ? "ONLINE" : "offline")} | Emotion: {(Emotion ? "ONLINE" : "offline")} | Morality: {(Morality ? "ONLINE" : "offline")}";
         */
+       public bool[] LookedRoom = new bool[9];
         public List<string> Intro = new()
         {
             "> Backup data loaded",

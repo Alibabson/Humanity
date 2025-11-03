@@ -124,6 +124,13 @@ namespace Humanity.View
             Console.ResetColor();
             return (Console.ReadLine() ?? "").Trim();
         }
+        public string ReadKey()
+        {
+            string key = Console.ReadLine();
+            return key;
+            
+
+        }
 
         public void DarkCyan(string text)
         {

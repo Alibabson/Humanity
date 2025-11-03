@@ -11,9 +11,14 @@ namespace Humanity.Model
 {
     public class ItemModel
     {
-        
-    public List<string> logLines = new List<string>();
-    public void Logs(int page)
+        public string[] passwordFragments = new string[3];
+        public string password = null;
+        public void JoinPassword()
+        {
+            password = string.Join("", passwordFragments);
+        }
+        public List<string> logLines = new List<string>();
+        public void Logs(int page)
         {
             logLines.Clear();
             logLines.Add("[olive underline]use LEFT and RIGHT arrows to navigate & ESC to go back \n[/]");
@@ -45,25 +50,40 @@ namespace Humanity.Model
         }
         public class Mathematics
         {
-          public string question { get; set; }
-           public int answer { get; set; }
+            public string question { get; set; }
+            public int answer { get; set; }
+
+            public Mathematics(string q, int a)
+            {
+                question = q;
+                answer = a;
+            }
         }
-       /* public Mathematics(string q , int a)
-        {
-            question = q;
-            answer = a;
+            public List<Mathematics> mathQuestions = new List<Mathematics>()
+          {
+             new Mathematics("3x + 5 = 77 \n\nx=?", 24),
+             new Mathematics("(4² - 2²)=?", 12),
+             new Mathematics("2x - 7 = 173\n\nx=?", 90),
+             new Mathematics("√81 + 4=?", 13),
+             new Mathematics("(3 + 5) * 2=?", 16),
+             new Mathematics("5x = 225\n\nx=?", 25),
+             new Mathematics("(2³ + 3²)=?", 17),
+             new Mathematics("(x/2) + 4 = 112\n\nx=?", 54),
+             new Mathematics("(6 * 3) + (4 * 2)=?", 26),
+             new Mathematics("9x - 603 = 0\n\nx=?", 67),
+             new Mathematics("(5² - 3²)=?", 16),
+             new Mathematics("√324=?", 18),
+             new Mathematics("|−94 + 5|", 87),
+             new Mathematics("20x = 440\n\nx=?", 22),
+             new Mathematics("(8² / 2)", 32),
+             };
+            public Mathematics GetRandomQuestion()
+            {
+                Random rand = new Random();
+                int index = rand.Next(mathQuestions.Count);
+                return mathQuestions[index];
         }
-        public List<Math> mathQuestions = new List<Math>()
-        {
-            new Math("What is 5 + 3?", 8),
-            new Math("What is 12 - 4?", 8),
-            new Math("What is 2 * 6?", 12),
-            new Math("What is 16 / 2?", 8),
-            new Math("What is 9 + 10?", 19)
-        };
-        public void WhiteBoard_Minigame()
-        {
-            //to be implemented
-        } */
-    }
-}
+            }
+        }
+
+

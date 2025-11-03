@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using static System.Net.Mime.MediaTypeNames;
-
 namespace Humanity.View
 {
     public class ItemView
@@ -13,6 +12,8 @@ namespace Humanity.View
         private readonly ConsoleView _View;
         private readonly GameModel _Model;
         private readonly ItemModel _itemModel;
+
+        
         public ItemView(ConsoleView view, GameModel g_model, ItemModel itemModel)
         {
             _View = view;
@@ -153,29 +154,69 @@ namespace Humanity.View
                 Monitor(text);
             }
         }
-
+        public bool passed= false;
         public bool Whiteboard(List<string> text)
         {
-            _View.Spectre_Text(text[0] + "\n");
-            _View.Spectre_Text(text[1]);
-            var command = AnsiConsole.Prompt(
-            new SelectionPrompt<string>()
-                .Title("")
-                .HighlightStyle(new Style(foreground: Color.White, background: Color.Grey))
-                .PageSize(4)
-                .AddChoices(text[2],text[3])
-            );
-            if (command == text[2])   
+            if (!passed)
             {
-                //_itemModel.WhiteBoard_Minigame();
-                return true;
-            }
-            else if (command == text[3])
-            {
-                _View.Spectre_Text("[grey underline]You left the whiteboard. \n Press any button to continue[/]");
+                _View.Spectre_Text(text[0] + "\n");
+                _View.Spectre_Text(text[1]);
+                var command = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                    .Title("")
+                    .HighlightStyle(new Style(foreground: Color.White, background: Color.Grey))
+                    .PageSize(4)
+                    .AddChoices(text[2], text[3])
+                );
+                if (command == text[2])
+                {
+                    _View.Clear();
+                    _View.Spectre_Text("[red]Remember your answers carefully, you might need them...[/]\n\n");
+                    for (int i = 0; i < 3; i++)
+                    {
+                        int number = i + 1;
+                        _View.Spectre_Text("[green]QUESTION[/] [yellow]" + number + " out of[/][yellow] 3[/]\n\n");
+                        var randomMath = _itemModel.GetRandomQuestion();
+                        string question = randomMath.question;
+                        string answer = randomMath.answer.ToString();
+                        _View.Spectre_Text(question + "\n\n[green]> [/]");
+                        if (_View.ReadKey() == answer)
+                        {
+                            _itemModel.passwordFragments[i] = answer;
+                            _View.Spectre_Text("\n\n[olive]Hmm... seems correct. Press any button to proceed.[/]\n\n");
+                            _View.AwaitKey();
+                            _View.Clear();
+                        }
+                        else
+                        {
+                            _View.Spectre_Text("\n\n[olive]That's not it. Press any button to quit. You can always try again[/]\n\n");
+                            _View.AwaitKey();
+                            return false;
+                        }
+                    }
+                    Whiteboard_passed();
+                    return true;
+                }
+                else if (command == text[3])
+                {
+                    _View.Spectre_Text("[grey underline]You left the whiteboard. \n Press any button to continue[/]");
+                    return false;
+                }
                 return false;
             }
-            return false;
+            else
+            {
+                _View.Spectre_Text("[grey underline]You have already passed this whiteboard. \n Press any button to continue[/]");
+                _View.AwaitKey();
+                return true;
+            }
+        }
+        public void Whiteboard_passed()
+        {
+            passed = true;
+            _itemModel.JoinPassword();
+            _View.Spectre_Text("[lime]You successfully completed every equation. I hope you remembered your answers.\n[/][grey underline]Press any key to exit[/]");
+            _View.AwaitKey();
         }
     }
 }
