@@ -12,7 +12,7 @@ namespace Humanity.Model
         // Stan ogólny
         public bool IntroPlayed { get; set; } = true;  /// ZMIENIĆ NA false;
         public bool RemindWorks { get; set; } = false;
-        public int room_idx { get; set; } = 0;
+        public int room_idx { get; set; } = 4;
 
         // Prosty dziennik wspomnień (do komendy RECALL)
         /* public List<string> MemoryLogs { get; } = new()
@@ -174,6 +174,8 @@ namespace Humanity.Model
                     look.Add("[teal]map[/] ");
                     look.Add("of the house. On the wall there is a bunch of");
                     look.Add("[teal] photos [/]");
+                    look.Add("and a big");
+                    look.Add("[teal] clock[/]");
                     look.Add("of a happy family. \n \n[bold red]W H O ' S  F A M I L Y  I S  T H A T  ,  A D R I A N ? [/]\n \n ");
                     return;
 
@@ -269,8 +271,13 @@ namespace Humanity.Model
                         itemDesc.Add("[lime]NO[/]");
                     } else wrongItem(item);
                     break;
-                    
 
+                case "clock":
+                    if (idx == 4)
+                    {
+                        itemDesc.Add("The clock on the wall is broken, its hands frozen.\nA faint inscription reads: 'Time is an illusion.'");
+                    }
+                    break;
                 default: wrongItem(item);
                     break;
             }

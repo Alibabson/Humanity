@@ -159,8 +159,6 @@ namespace Humanity.Controller
                         return false;
                     }
 
-
-
                 case "check":
                     idx = _model.room_idx;
                     List<string> desc = _model.checkItem(idx, argument);
@@ -197,7 +195,20 @@ namespace Humanity.Controller
                                 return false;
                             }
                                 return true;
-
+                        case "clock":
+                            if (idx == 4)
+                            {
+                                _itemView.ShowClock();
+                                _itemView.Clock(desc);
+                                _view.Clear();
+                                HUD();
+                            }
+                            else
+                            {
+                                checkError(argument);
+                                return false;
+                            }
+                            return true;
                         default:
                             _view.Red("Error: There is no item named '" + argument + "' in this room. Try again.\n");
                             success = !success;
