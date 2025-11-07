@@ -243,5 +243,34 @@ namespace Humanity.View
                 }
             }
         }
+        public void ShowClock()
+        {
+            var asciiClock = @"
+        _____
+     _.'_____`._
+   .'.-'  12 `-.`.
+  /,' 11      1 `.\
+ // 10      /   2 \\
+;;         /       ::
+|| 9  ----O      3 ||
+::                 ;;
+ \\ 8           4 //
+  \`. 7       5 ,'/
+   '.`-.__6__.-'.'
+    ((-._____.-))
+    _))       ((_
+   '--'    '--'
+
+";
+            _View.Line(asciiClock);
+        }
+
+        public void Clock(List<string> text)
+        {
+            _View.Spectre_Text(text[0] + "\n");
+            _View.Spectre_Text("\n\n[grey underline]Press any button to continue[/]");
+            _View.AwaitKey();
+        }
+
     }
 }
