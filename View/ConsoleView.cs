@@ -116,7 +116,19 @@ namespace Humanity.View
                 }
             });
         }
-
+        public void IncorrectBeep()
+        {
+            try
+            {
+                Console.Beep(400, 150);
+                Thread.Sleep(100);
+                Console.Beep(300, 150);
+            }
+            catch
+            {
+                // Console.Beep może nie wszędzie działać, zwłaszcza na Mac'ach
+            }
+        }
         public async Task<string> Narrator(string prefix = "\n> ")
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
@@ -130,6 +142,11 @@ namespace Humanity.View
             return key;
             
 
+        }
+        public string ReadLine()
+        {
+            string key = Console.ReadLine();
+            return key;
         }
 
         public void DarkCyan(string text)

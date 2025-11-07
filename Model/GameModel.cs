@@ -12,7 +12,7 @@ namespace Humanity.Model
         // Stan ogólny
         public bool IntroPlayed { get; set; } = true;  /// ZMIENIĆ NA false;
         public bool RemindWorks { get; set; } = false;
-        public int room_idx { get; set; } = 4;
+        public int room_idx { get; set; } = 0;
 
         // Prosty dziennik wspomnień (do komendy RECALL)
         /* public List<string> MemoryLogs { get; } = new()
@@ -265,8 +265,8 @@ namespace Humanity.Model
                 case "whiteboard":
                     if (idx == 0)
                     {
-                        itemDesc.Add("The whiteboard flickers — not solid, but digital, projected on the air.\nThe equations shift like living veins.");
-                        itemDesc.Add("\nYou can try solving some of the mathematical questions... \nDo you want to try?\n");
+                        itemDesc.Add("The whiteboard is filled with confusing conclusions. Seems like someone figured out how Human brain functions on the emotional and spiritual level");
+                        itemDesc.Add("\nYou can try solving this scientific riddle... \nDo you want to try?\n");
                         itemDesc.Add("[lime]YES[/]");
                         itemDesc.Add("[lime]NO[/]");
                     } else wrongItem(item);

@@ -154,11 +154,16 @@ namespace Humanity.View
                 Monitor(text);
             }
         }
+
+        // WHITEBOARD //
         public bool passed= false;
+        private int guesses = 0;
         public bool Whiteboard(List<string> text)
         {
+            var txt = text;
             if (!passed)
             {
+                
                 _View.Spectre_Text(text[0] + "\n");
                 _View.Spectre_Text(text[1]);
                 var command = AnsiConsole.Prompt(
@@ -168,34 +173,48 @@ namespace Humanity.View
                     .PageSize(4)
                     .AddChoices(text[2], text[3])
                 );
+                
                 if (command == text[2])
                 {
                     _View.Clear();
-                    _View.Spectre_Text("[red]Remember your answers carefully, you might need them...[/]\n\n");
-                    for (int i = 0; i < 3; i++)
+                    while (!passed)
                     {
-                        int number = i + 1;
-                        _View.Spectre_Text("[green]QUESTION[/] [yellow]" + number + " out of[/][yellow] 3[/]\n\n");
-                        var randomMath = _itemModel.GetRandomQuestion();
-                        string question = randomMath.question;
-                        string answer = randomMath.answer.ToString();
-                        _View.Spectre_Text(question + "\n\n[green]> [/]");
-                        if (_View.ReadKey() == answer)
+                        if (guesses >= 2)
                         {
-                            _itemModel.passwordFragments[i] = answer;
-                            _View.Spectre_Text("\n\n[olive]Hmm... seems correct. Press any button to proceed.[/]\n\n");
-                            _View.AwaitKey();
-                            _View.Clear();
+                            AnsiConsole.Write(new Columns(
+                                    new Spectre.Console.Text(_itemModel.newspaperList[0], new Style(Color.Orange3)),
+                                    new Spectre.Console.Text(_itemModel.newspaperList[1], new Style(Color.Pink3))
+
+                                ));
                         }
                         else
                         {
-                            _View.Spectre_Text("\n\n[olive]That's not it. Press any button to quit. You can always try again[/]\n\n");
-                            _View.AwaitKey();
-                            return false;
+                            AnsiConsole.Write(new Columns(
+                                     new Spectre.Console.Text(_itemModel.newspaperList[0], new Style(Color.Orange3))
+                                 //new Spectre.Console.Text(_itemModel.newspaperList[1], new Style(Color.Pink3))
+
+                                 ));
+                        }
+
+                        _View.Spectre_Text("\n[red bold]HUMANITY = ?[/]\n");
+                        _View.Spectre_Text("[green italic]HUMANITY EQUALS: [/]");
+
+                        string ans = _View.ReadLine();
+                        if (ans == "1")
+                        {
+                            _View.Clear();
+                            Whiteboard_passed();
+                            return true;
+                        }
+                        else
+                        {
+                            guesses++;
+                            _View.IncorrectBeep();
+                            _View.Clear();
+                            //Whiteboard(txt);
                         }
                     }
-                    Whiteboard_passed();
-                    return true;
+                        //return false;
                 }
                 else if (command == text[3])
                 {
@@ -206,16 +225,17 @@ namespace Humanity.View
             }
             else
             {
-                _View.Spectre_Text("[grey underline]You have already passed this whiteboard. \n Press any button to continue[/]");
+                _View.Spectre_Text("[grey underline]You have already passed this whiteboard. \n[/][blue italic]HUMANITY NEEDS[/] [green italic] REASON[/][blue italic],[/] [green italic] MORALITY [/][blue italic]and [/][green italic]REASON[/]");
                 _View.AwaitKey();
                 return true;
             }
+            return true;
         }
         public void Whiteboard_passed()
         {
             passed = true;
-            _itemModel.JoinPassword();
-            _View.Spectre_Text("[lime]You successfully completed every equation. I hope you remembered your answers.\n[/][grey underline]Press any key to exit[/]");
+            //_itemModel.JoinPassword();
+            _View.Spectre_Text("[grey underline]You guessed correctly. Press any key to exit[/]");
             _View.AwaitKey();
         }
         public void Newspaper(List<string> text)

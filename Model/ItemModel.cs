@@ -94,45 +94,12 @@ namespace Humanity.Model
                     return;
             }
         }
-        
-        public class Mathematics
+        public List<string> newspaperList = new List<string>()
         {
-            public string question { get; set; }
-            public int answer { get; set; }
-
-            public Mathematics(string q, int a)
-            {
-                question = q;
-                answer = a;
-            }
-        }
-            public List<Mathematics> mathQuestions = new List<Mathematics>()
-          {
-             new Mathematics("3x + 5 = 77 \n\nx=?", 24),
-             new Mathematics("(4² - 2²)=?", 12),
-             new Mathematics("2x - 7 = 173\n\nx=?", 90),
-             new Mathematics("√81 + 4=?", 13),
-             new Mathematics("(3 + 5) * 2=?", 16),
-             new Mathematics("5x = 225\n\nx=?", 25),
-             new Mathematics("(2³ + 3²)=?", 17),
-             new Mathematics("(x/2) + 4 = 112\n\nx=?", 54),
-             new Mathematics("(6 * 3) + (4 * 2)=?", 26),
-             new Mathematics("9x - 603 = 0\n\nx=?", 67),
-             new Mathematics("(5² - 3²)=?", 16),
-             new Mathematics("√324=?", 18),
-             new Mathematics("|−94 + 5|=?", 87),
-             new Mathematics("20x = 440\n\nx=?", 22),
-             new Mathematics("(8² / 2)=?", 32),
-             };
-            public Mathematics GetRandomQuestion()
-            {
-                Random rand = new Random();
-                int index = rand.Next(mathQuestions.Count);
-                return mathQuestions[index];
-             }
-           }
-            
-
-        }
+            "REASON is its share of what they are —\nits very value equals its own part divided by the sum of all three.\n \nEMOTION is the same — its worth \nis measured by how it stands within the whole.\n \nMORALITY, too, holds the same truth — \nit exists in proportion to the total they form together.",
+            "R = R/(R+E+M)\n \n \nE = E/(R+E+M)\n \n \nM = M/(R+E+M)"
+        };
+    }
+}
 
 
