@@ -172,9 +172,11 @@ namespace Humanity.Controller
                             if (idx == 0)
                             {
                                 _itemView.Monitor(desc);
-                                _view.AwaitKey();
+                               // _view.AwaitKey();
                                 _view.Clear();
-                                HUD();
+                                //HUD();
+                                LookFunction("");
+                                
                             }
                             else
                             {

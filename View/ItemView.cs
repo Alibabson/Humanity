@@ -2,6 +2,7 @@ using Humanity.Model;
 using Spectre.Console;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using static System.Net.Mime.MediaTypeNames;
@@ -158,6 +159,7 @@ namespace Humanity.View
         // WHITEBOARD //
         public bool passed= false;
         private int guesses = 0;
+        private bool hint = false;
         public bool Whiteboard(List<string> text)
         {
             var txt = text;
@@ -179,7 +181,7 @@ namespace Humanity.View
                     _View.Clear();
                     while (!passed)
                     {
-                        if (guesses >= 2)
+                        if (hint==true)
                         {
                             AnsiConsole.Write(new Columns(
                                     new Spectre.Console.Text(_itemModel.newspaperList[0], new Style(Color.Orange3)),
@@ -197,12 +199,22 @@ namespace Humanity.View
                         }
 
                         _View.Spectre_Text("\n[red bold]HUMANITY = ?[/]\n");
+                        if (guesses >= 3) _View.Spectre_Text("\n[grey slowblink]Type 'hint' for additional information...[/]\n");
                         _View.Spectre_Text("[green italic]HUMANITY EQUALS: [/]");
 
                         string ans = _View.ReadLine();
+                        if (guesses >= 3)
+                        {
+                            if (ans.ToLower() == "hint")
+                            {
+                                hint = true;
+                                _View.Clear();
+                                continue;
+                            }
+                        }
                         if (ans == "1")
                         {
-                            _View.Clear();
+                            //_View.Clear();
                             Whiteboard_passed();
                             return true;
                         }
@@ -225,7 +237,7 @@ namespace Humanity.View
             }
             else
             {
-                _View.Spectre_Text("[grey underline]You have already passed this whiteboard. \n[/][blue italic]HUMANITY NEEDS[/] [green italic] REASON[/][blue italic],[/] [green italic] MORALITY [/][blue italic]and [/][green italic]REASON[/]");
+                _View.Spectre_Text("[grey underline]You have already passed this whiteboard. \n[/][blue italic]HUMANITY NEEDS[/] [green italic]REASON[/][blue italic],[/] [green italic]MORALITY [/][blue italic]and [/][green italic]REASON[/]");
                 _View.AwaitKey();
                 return true;
             }
@@ -235,7 +247,7 @@ namespace Humanity.View
         {
             passed = true;
             //_itemModel.JoinPassword();
-            _View.Spectre_Text("[grey underline]You guessed correctly. Press any key to exit[/]");
+            _View.Spectre_Text("[grey underline]You answered correctly. Press any key to exit[/]");
             _View.AwaitKey();
         }
         public void Newspaper(List<string> text)
