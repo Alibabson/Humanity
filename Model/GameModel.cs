@@ -269,7 +269,14 @@ namespace Humanity.Model
                         itemDesc.Add("[lime]NO[/]");
                     } else wrongItem(item);
                     break;
-                    
+                case "newspaper":
+                    if (idx == 4)
+                    {
+                        itemDesc.Add("The newspaper is old and blacked out, but the text is still fully readable. Do you want to read it?\n");
+                        itemDesc.Add("[lime]YES[/]");
+                        itemDesc.Add("[lime]NO[/]");
+                    }
+                        break;
 
                 default: wrongItem(item);
                     break;

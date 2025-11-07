@@ -197,6 +197,20 @@ namespace Humanity.Controller
                                 return false;
                             }
                                 return true;
+                        case "newspaper":
+                            if(idx == 4)
+                            {                                
+                                _itemView.Newspaper(desc);
+                                _view.AwaitKey();
+                                _view.Clear();
+                                HUD();
+                            }
+                            else
+                            {
+                                checkError(argument);
+                                return false;
+                            }
+                            return true;
 
                         default:
                             _view.Red("Error: There is no item named '" + argument + "' in this room. Try again.\n");
