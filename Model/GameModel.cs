@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Humanity.Model
 {
@@ -7,7 +8,7 @@ namespace Humanity.Model
         public bool Reason { get; set; } = false;
         public bool Emotion { get; set; } = false;
         public bool Morality { get; set; } = false;
-
+        public bool hasKey { get; set; } = false;
         public int sanity { get; set; } = 100;
         // Stan ogólny
         public bool IntroPlayed { get; set; } = true;  /// ZMIENIĆ NA false;
@@ -278,7 +279,7 @@ namespace Humanity.Model
                         itemDesc.Add("[lime]YES[/]");
                         itemDesc.Add("[lime]NO[/]");
                     }
-                        break;
+                    break;
 
                 case "clock":
                     if (idx == 4)
@@ -287,6 +288,28 @@ namespace Humanity.Model
                     }
                     break;
                 default: wrongItem(item);
+                    break;
+                case "key":
+                    if(idx==1)
+                    {
+                        if (!hasKey)
+                        {
+                            itemDesc.Add("[grey italic]You picked up a old silver [/][lime]key[/] [grey italic]with no engravings. You have no idea what does it open, but might be useful.\n[/]");
+                            hasKey = true;
+                        }
+                        else
+                        {
+                            itemDesc.Add("[grey underline]There's nothing interesting here.[/]\n");
+                        }
+                    }
+                    break;
+                case "bookshelf":
+                    {   if (idx == 3)
+                        {
+                            itemDesc.Add("[magenta2]Tutaj damy caly tekst z bookshelfa :)[/]");
+                        }
+                        else wrongItem(item);
+                    }
                     break;
             }
             return itemDesc;

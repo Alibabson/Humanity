@@ -12,14 +12,14 @@ namespace Humanity.View
 
         public void Clear() => Console.Clear();
         public void Line(string text = "") => Console.WriteLine(text);
-        public void LineNoEnter(string text = "") => Console.Write(text);
+        public void LineNoEnter(string text = "") => Console.Write(text);  
 
 
 
         public async Task GameStart()
         {
             {
-                Console.Title = string.Empty;
+                Console.Title = string.Empty;  //tytuł konsoli jest pusty
                 _ = Task.Run(async () =>
                 {
                     const string word = "HUMANITY";
@@ -27,7 +27,7 @@ namespace Humanity.View
                     for (int i = 0; i < word.Length; i++)
                     {
                         Clear();
-                        if (i > 0) title.Append(' ');
+                        if (i > 0) title.Append(' ');  //dokleja nam spację
                         title.Append(word[i]);
                         Console.Title = title.ToString();
                         SpectreFiglet(title.ToString());
@@ -45,7 +45,7 @@ namespace Humanity.View
         }
 
 
-        public void Type(string text, int delayMs, bool isIntro = false)
+        public void Type(string text, int delayMs, bool isIntro = false) //powolny napis
         {
             if (isIntro)
             {
@@ -61,18 +61,18 @@ namespace Humanity.View
             Console.ResetColor();
         }
 
-       public void TypeText(string text, int delay, string color, bool beep=false)
+       public void TypeText(string text, int delay, string color, bool beep=false) //powolny napis ale z kolorem (Markup)
         {
             int count = 0;
             foreach (char c in text)
             {
-                // każda litera idzie przez markup — nie psuje stylu
+                // każda litera idzie przez markup i dany kolor.
 
                 AnsiConsole.Markup($"{color}{Markup.Escape(c.ToString())}[/]");
                 if (beep)
                 {
                     try { 
-                        if(count % 2 == 0)  Console.Beep(200, delay/2);
+                        if(count % 2 == 0)  Console.Beep(200, delay/2); //to dla duchów żeby pikało (co 2 bo spacje są)
                     } 
                     catch 
                     { }
@@ -85,7 +85,7 @@ namespace Humanity.View
         }
 
 
-        public Task Pulse(string text, int pulses = 3, int on = 220, int off = 120)
+        public Task Pulse(string text, int pulses = 3, int on = 220, int off = 120) 
         {
             Console.ForegroundColor = ConsoleColor.Red;
             lock (_consoleLock)
@@ -116,7 +116,8 @@ namespace Humanity.View
                 }
             });
         }
-        public void IncorrectBeep()
+
+        public void IncorrectBeep() //te 2 beep'y są jak źle dajemy odpowiedź w whiteboard
         {
             try
             {
@@ -125,44 +126,21 @@ namespace Humanity.View
                 Console.Beep(300, 150);
             }
             catch
-            {
-                // Console.Beep może nie wszędzie działać, zwłaszcza na Mac'ach
-            }
+            { }
         }
-        public async Task<string> Narrator(string prefix = "\n> ")
+        public async Task<string> Narrator(string prefix = "\n> ")  // daje znak > po lewej i pozwala na wpisywnaie komend. Możemy zmieniać ten znaczek
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.Write(prefix);
             Console.ResetColor();
-            return (Console.ReadLine() ?? "").Trim();
+            return (Console.ReadLine() ?? "").Trim(); //trim usuwa niepotrzebne spacje które możemy dać przypadkiem
         }
-        public string ReadKey()
-        {
-            string key = Console.ReadLine();
-            return key;
-            
-
-        }
-        public string ReadLine()
+        public string ReadLine() //z jakiegoś powodu ReadKey nie działało to powstało drugie identyczne a jak nie wiem gdzie jest jakie to zostawiłem oba
         {
             string key = Console.ReadLine();
             return key;
         }
 
-        public void DarkCyan(string text)
-        {
-            var prev = Console.ForegroundColor;
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            LineNoEnter(text);
-            Console.ForegroundColor = prev;
-        }
-        public void Ghost(string line, int delay)
-        {
-            var prev = Console.ForegroundColor;
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Type($"\"{line}\"", delay);
-            Console.ForegroundColor = prev;
-        }
         public void AwaitKey()  //wcisnij dowolny klawisz
         {
             ConsoleKeyInfo key = Console.ReadKey(true);
@@ -171,13 +149,6 @@ namespace Humanity.View
         {
             ConsoleKeyInfo key = Console.ReadKey(true);
             return key.Key;
-        }
-        public void Yellow(string text)
-        {
-            var prev = Console.ForegroundColor;
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Line(text);
-            Console.ForegroundColor = prev;
         }
         public void Loading()
         {
@@ -191,42 +162,26 @@ namespace Humanity.View
             Clear();
             
         }
-        public void Panel(string currRoom, string currSanity, int meter)
+        public void Panel(string currRoom, string currSanity, int meter)  //pasek sanity i pokój
         {
-            var sanityBar = new BarChart()
-            .AddItem(currSanity, meter, Color.Green)
-             .Width(meter/2);
+            var sanityBar = new BarChart()  //barChart to pasek
+            .AddItem(currSanity, meter, Color.Green) // wypełnienie zielone, wartość "meter" czyli ile sanity
+             .Width(meter/2); //było za długie
 
-            var left = new Markup(currRoom);
-            AnsiConsole.Write(new Columns(left, sanityBar).Expand());
+            var left = new Markup(currRoom); //na lewej mamy obecny pokój
+            AnsiConsole.Write(new Columns(left, sanityBar).Expand()); //.Expand() - rozciąga na całą szerokość (kolumna 1 to pokój[left], kolumna 2 to pasek sanity). COLUMN rozdziela
         }
-        public void Red(string text)
+        public void Red(string text) //błędy na czerwono był
         {
             var prev = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.Red;
             Line(text);
             Console.ForegroundColor = prev;
         }
-        public void Green(string text, bool good)
-        {
-            var prev = Console.ForegroundColor;
-            if (good) {
-                Console.ForegroundColor = ConsoleColor.Black;
-                Console.BackgroundColor = ConsoleColor.Green;
-            }
-            else {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.BackgroundColor = ConsoleColor.Black;
-            }
-            Line(text);
-            Console.ForegroundColor = prev;
-        }
-
-        public void Separator() => Line(new string('─', 64));
 
 
 
-        public void PlaySound(string fileName)
+        public void PlaySound(string fileName) //muza dźwięki
         {
             try
             {
@@ -252,12 +207,12 @@ namespace Humanity.View
             }
         }
 
-        public void Spectre_Text(string text)
+        public void Spectre_Text(string text)  //tekst z kolorem
         {
             AnsiConsole.Markup(text);
         }
 
-        public void SpectreFiglet(string text)
+        public void SpectreFiglet(string text) //figlet to duży tekst ASCII
         {
             var figlet = new FigletText(text)
             .Centered()
@@ -267,7 +222,7 @@ namespace Humanity.View
             AnsiConsole.Write(figlet);
         }
 
-        public void FakeLoad()
+        public void FakeLoad() //Sztuczne ładowanie ekranu dla fajnego efektu (.Status to taki pasek ładowania)
         {
             AnsiConsole.MarkupLine("[bold green]Loading...[/]");
 
@@ -286,7 +241,7 @@ namespace Humanity.View
             AnsiConsole.MarkupLine("[bold yellow]Ready![/]");
         }
 
-        public void Image(string url)
+        public void Image(string url)  //zdjęcia pixel-art w konsoli
         {
             var image = new CanvasImage(url);
             image.MaxWidth(90);

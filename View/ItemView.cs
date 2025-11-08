@@ -184,21 +184,21 @@ namespace Humanity.View
                         if (hint==true)
                         {
                             AnsiConsole.Write(new Columns(
-                                    new Spectre.Console.Text(_itemModel.newspaperList[0], new Style(Color.Orange3)),
-                                    new Spectre.Console.Text(_itemModel.newspaperList[1], new Style(Color.Pink3))
+                                    new Spectre.Console.Text(_itemModel.whiteboardList[0], new Style(Color.Orange3)),
+                                    new Spectre.Console.Text(_itemModel.whiteboardList[1], new Style(Color.Pink3))
 
                                 ));
                         }
                         else
                         {
                             AnsiConsole.Write(new Columns(
-                                     new Spectre.Console.Text(_itemModel.newspaperList[0], new Style(Color.Orange3))
-                                 //new Spectre.Console.Text(_itemModel.newspaperList[1], new Style(Color.Pink3))
+                                     new Spectre.Console.Text(_itemModel.whiteboardList[0], new Style(Color.Orange3))
+                                 //new Spectre.Console.Text(_itemModel.whiteboardList[1], new Style(Color.Pink3))
 
                                  ));
                         }
 
-                        _View.Spectre_Text("\n[red bold]HUMANITY = ?[/]\n");
+                        _View.Spectre_Text("\n[red bold]HUMANITY = R + E + M = ? [/]\n");
                         if (guesses >= 3) _View.Spectre_Text("\n[grey slowblink]Type 'hint' for additional information...[/]\n");
                         _View.Spectre_Text("[green italic]HUMANITY EQUALS: [/]");
 
@@ -237,7 +237,7 @@ namespace Humanity.View
             }
             else
             {
-                _View.Spectre_Text("[grey underline]You have already passed this whiteboard. \n[/][blue italic]HUMANITY NEEDS[/] [green italic]REASON[/][blue italic],[/] [green italic]MORALITY [/][blue italic]and [/][green italic]REASON[/]");
+                _View.Spectre_Text("[grey underline]You have already passed this whiteboard. \n[/][blue italic]HUMANITY NEEDS[/] [green italic]REASON[/][blue italic],[/] [green italic]EMOTION [/][blue italic]and [/][green italic]MORALITY[/]");
                 _View.AwaitKey();
                 return true;
             }
@@ -304,5 +304,21 @@ namespace Humanity.View
             _View.AwaitKey();
         }
 
+        public void Key(List<string> text)
+        {
+            foreach (var line in text)
+            {
+                _View.Spectre_Text(line + "\n");
+            }
+            _View.AwaitKey();
+        }
+        public void Bookshelf(List<string> text)
+        {
+            foreach (var line in text)
+            {
+                _View.Spectre_Text(line + "\n");
+            }
+            _View.AwaitKey();
+        }
     }
 }

@@ -29,7 +29,7 @@ namespace Humanity.Controller
         }
         public async Task Run()
         {
-            //  _model.IntroPlayed = true; //to skasować
+            //  _model.IntroPlayed = true; //to skasować albo zakomentować
             _view.Clear();
             if (!_model.IntroPlayed)
             {
@@ -54,7 +54,9 @@ namespace Humanity.Controller
                     _view.Type(x, 0, true);
                     Thread.Sleep(15);
 
-                }
+                } // losowe rzeczy z konsoli żeby fajnie wyglądało
+
+
                 Thread.Sleep(10);
                 _view.Red("WARNING: Consciousness integrity compromised.");
                 _view.Type("> Consciousness fragmentation detected.", 10, true);
@@ -78,29 +80,33 @@ namespace Humanity.Controller
                     _view.TypeText(line.Text, line.DelayMs, line.Color);
                 }
                 _view.Spectre_Text("[olive slowblink]\nPress any button to continue...[/]");
-                _view.AwaitKey();
-                //_view.TypeText(_model.prologue(), 2, "[italic teal]");
+                _view.AwaitKey();  //sprawdzmy kolory później
 
+                ///////////////////////////////////////////////////////////////////////////// ruiny jakieś nie pamiętam co to
+                //_view.TypeText(_model.prologue(), 2, "[italic teal]");
                 /*  _view.Line();
                     _view.Type("Welcome, Doctor Holloway.", 24);
                     _view.Type("The machines remember you, even if you no longer remember yourself.", 24);
                     _view.Type("You dug too deep into the human mind...", 24);
                     _view.Type("...and now you’re buried inside it.", 24);
                 */
-                _view.TypeText(_model.Help(), 2, "[fuchsia]");
+                ////////////////////////////////////////////////////////////////////////////////////
+
+                _view.TypeText(_model.Help(), 2, "[fuchsia]");  //albo kolor usunąć albo powolne pojawianie bo średnie
                 _model.IntroPlayed = true;
             }
-            else
+            else // jak nie gramy intro i sprawdzamy program to niech cokolwiek się pokazuje - w grze to się nigdy chyba nie pojawi
             {
                 _view.Line(_model.Help());
             }
-            //////////////////////////
-            while (_running)
+
+
+            while (_running) // prawie nieskończona pętla tylko quitem kończymy granie a wpisywanie komend w nieskończoność. Wygranie/przegranie dodamy
             {
 
-                var input = await _view.Narrator();
+                var input = await _view.Narrator();  //narrator bierze od nas dane i daje ten fioletowy '>'
 
-                var handled = HandleInput(input);
+                var handled = HandleInput(input);  //handleinput obsługuje nam wszystkie komendy
                 if (!handled)
                 {
                     _view.Line(_model.Uknown());
@@ -110,17 +116,17 @@ namespace Humanity.Controller
             _view.Line("\nSession terminated.");
             success = !success;
         }
-        public bool HandleInput(string s)
+        public bool HandleInput(string s)       // bierze od nas komendę (LOOKI HELPY i tak dalej), a jak trzeba to drugi element jak przedmiot i pokój
         {
             var command= "";
             var argument= "";
-                var input = (s ?? "").Trim().ToLowerInvariant();
+                var input = (s ?? "").Trim().ToLowerInvariant(); //zawsze mała litera będzie uznana więc można odaplać capslock
 
-                if (input.StartsWith("go to "))
+                if (input.StartsWith("go to "))  //go to jako że jest ze spacją to inaczej się nim zajmujemy lekko
                 {
 
-                    string room = input.Substring("go to ".Length).Trim();
-                    nextRoomIdx = _model.NextRoomIdx(room);
+                    string room = input.Substring("go to ".Length).Trim();  // bierzemy wszystko po "go to"
+                nextRoomIdx = _model.NextRoomIdx(room);  //sprawdzamy jaki numer ma pokój co wpisaliśmy...
                     if (nextRoomIdx == -1)
                     {
                         _view.Red("Error: Unknown room '" + room + "'. Try again.\n");
@@ -128,16 +134,16 @@ namespace Humanity.Controller
                         return false;
                     }
 
-                    checkPossible(nextRoomIdx);
+                    checkPossible(nextRoomIdx);  //... i czy można przejśc z obecnego
                     return true;
                 }
-                var parts = input.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
+                var parts = input.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);  //rozdzielamy to co wpisaliśmy spacją i jedna część to komenda a druga to item/pokój a jak brak to null
                 command = parts.Length > 0 ? parts[0] : "";
                 argument = parts.Length > 1 ? parts[1] : "";
 
                 _view.Clear();
             
-            switch (command)
+            switch (command) //sprawdzanie co wpisaliśmy
             {
 
                 case "help":
@@ -148,8 +154,8 @@ namespace Humanity.Controller
 
 
                 case "look":
-                    _model.LookedRoom[_model.room_idx] = true;
-                    if (LookFunction(argument))
+                    _model.LookedRoom[_model.room_idx] = true;  //jak wpisujemy ręcznie look to pokój nam uznaje za LOOKED i przy kolejnym wejściu będziemy mieć opis
+                    if (LookFunction(argument)) //lookFunction daje opis właśnie
                     {
                        
                         return true;
@@ -160,23 +166,23 @@ namespace Humanity.Controller
                     }
 
                 case "check":
-                    idx = _model.room_idx;
-                    List<string> desc = _model.checkItem(idx, argument);
-                    switch (argument)
+                    idx = _model.room_idx;  //gdzie jesteśmy
+                    List<string> desc = _model.checkItem(idx, argument); //opis danego przedmiotu z argumentu
+                    switch (argument) //dany przedmiot z argumentu
                     {
                         case "":
-                            _view.Red("Error: CHECK command requires an item name as an argument. Try again.\n");
+                            _view.Red("Error: CHECK command requires an item name as an argument. Try again.\n"); 
                             success = !success;
                             return false;
-                        case "monitor":
-                            if (idx == 0)
-                            {
-                                _itemView.Monitor(desc);
+                        case "monitor":        
+                            if (idx == 0)                                                                   
+                            {                                                                                   
+                                _itemView.Monitor(desc);  //dajemy ItemView się tym bawić i wrzuca opis z _model CheckItem   
                                // _view.AwaitKey();
                                 _view.Clear();
                                 //HUD();
-                                LookFunction("");
-                                
+                                LookFunction("");  //wracamy do głównego ekranu pokoju po funkcji (i LOOK jak już był)
+
                             }
                             else
                             {
@@ -189,7 +195,8 @@ namespace Humanity.Controller
                             {
                                 _itemView.Whiteboard(desc);                           
                                 _view.Clear();
-                                HUD();
+                                //HUD();
+                                LookFunction("");
                             }
                             else
                             {
@@ -197,13 +204,42 @@ namespace Humanity.Controller
                                 return false;
                             }
                                 return true;
+                        case "key":
+                            if(idx==1)
+                            {
+                                _itemView.Key(desc);
+                                _view.Clear();
+                                //HUD();
+                                LookFunction("");
+                            }
+                            else
+                            {
+                                checkError(argument);
+                                return false;
+                            }
+                            return true;
+                        case "bookshelf":
+                            if (idx == 3)
+                            {
+                                _itemView.Bookshelf(desc);
+                                _view.Clear();
+                                //HUD();
+                                LookFunction("");
+                            }
+                            else
+                            {
+                                checkError(argument);
+                                return false;
+                            }
+                            return true;
                         case "newspaper":
                             if (idx == 4)
                             {
                                 _itemView.Newspaper(desc);
                                 _view.AwaitKey();
                                 _view.Clear();
-                                HUD();
+                                //HUD();
+                                LookFunction("");
                             }
                             else
                                                             {
@@ -245,7 +281,7 @@ namespace Humanity.Controller
                     return false;
             }
         }
-        private void checkPossible(int nextRoomIdx)
+        private void checkPossible(int nextRoomIdx)  //Czy z obecnego można iść do wpisanego
         {
             int idx = _model.room_idx;
             switch (idx)
@@ -301,14 +337,27 @@ namespace Humanity.Controller
                     }
                     break;
                 case 5: //HALLWAY   [Można do BATHROOM lub BEDROOM lub OFFICE lub LIVING ROOM lub STAIRS] 
-                    if (nextRoomIdx == 6 || nextRoomIdx == 7 || nextRoomIdx == 8 || nextRoomIdx == 4 || nextRoomIdx == 1)
+                    if (nextRoomIdx == 6 || nextRoomIdx == 7  || nextRoomIdx == 4 || nextRoomIdx == 1)
                     {
                         NextRoomProcess(nextRoomIdx);
+                    }
+                    else if ( nextRoomIdx == 8) //tutaj musimy osobnie sprawdzać bo na klucz jest OFFICE
+                    {
+                        if (_model.hasKey)
+                        {
+                            _view.Spectre_Text("[green]You used the key.[/]");
+                            NextRoomProcess(nextRoomIdx);
+                        }
+                        else
+                        {
+                            locked();
+                        }
                     }
                     else
                     {
                         notOk();
                     }
+                    
                     break;
                 case 6: // BATHROOM   [Można do HALLWAY lub BEDROOM]
                     if (nextRoomIdx == 5 || nextRoomIdx == 7)   
@@ -346,7 +395,7 @@ namespace Humanity.Controller
             }
 
         }
-        public void NextRoomProcess(int nextRoomIdx)
+        public void NextRoomProcess(int nextRoomIdx) //przejście do pokoju, losowanie ducha, wypisanie ładowania, i opis jak potrzebny
         {
             _model.GoTo_Possible(nextRoomIdx);
             ok(nextRoomIdx);
@@ -358,7 +407,7 @@ namespace Humanity.Controller
         }
         public void ok(int nextRoomIdx)
         {
-            _view.Line("\nYou move to the " + _model.RoomName(nextRoomIdx) + ".\n");
+            _view.Line("\nYou move to the " + _model.RoomName(nextRoomIdx) + ".\n"); 
             success = true;
 
         }
@@ -367,55 +416,59 @@ namespace Humanity.Controller
             _view.Red("Error: You can't go to that room from here. Try again.\n");
             success = !success;
         }
+        public void locked()
+        {             _view.Red("Error: The room is locked. You probably need a key...\n");
+            success = !success;
+        }
 
-        public bool success = true;
-        public void HUD()
+        public bool success = true;  //jak się nie uda czegoś zrobić w kodzie to lepiej nie pokazywać HUDa bo 2 razy się pojawi
+        public void HUD() //spisanie obecnego pokoju i licznika SANITY
         {
             if (success)
             {
                 int idx = _model.room_idx;
                 int sanity = _model.sanity;
-                _view.Panel("[bold]CURRRENT ROOM: [/][aqua]" + _model.RoomName(idx) + "[/]\n \n", "[bold]SANITY: [/]", sanity);
+                _view.Panel("[bold]CURRRENT ROOM: [/][aqua]" + _model.RoomName(idx) + "[/]\n \n", "[bold]SANITY: [/]", sanity);  //panel() robi nam miejsce na lewo/prawo i diagram z SANITY
             }
         }
 
-        private void RandomGhost()
+        private void RandomGhost() //losowanie od 0 do 100 i 15% na wypis jednego z duchów
         {
             var rng = new Random();
             int chance = rng.Next(1, 101); // Losowa liczba od 1 do 100
             if (chance <= 15) // 15% szans na pojawienie się ducha
             {
-                int ghostIndex = rng.Next(_model.Ghosts.Count);
+                int ghostIndex = rng.Next(_model.Ghosts.Count);  //losowanie cyfry
                 string ghostMessage = _model.Ghosts[ghostIndex];
                 _view.TypeText(ghostMessage, 200, "[red bold slowblink]", true);
-                _model.sanity = _model.sanity - 10;
-                Task.Delay(2000).Wait();
+                _model.sanity = _model.sanity - 10; //-10 sanity jak duch
+                Task.Delay(2000).Wait(); //czekamy 2s po pełnym napisie
                 _view.Clear();
             }
-            else _model.sanity = _model.sanity - 5;
+            else _model.sanity = _model.sanity - 5; //-5 sanity jak normalne przejście
         }
         private void checkError(string argument)
         {
-            _view.Red("Error: There is no item named '" + argument + "' in this room. Try again.\n");
+            _view.Red("Error: There is no item named '" + argument + "' in this room. Try again.\n");  //problem z checkiem tu się wyjaśnia
             success = !success;
         }
         private bool LookFunction(string argument)
         {
             if (argument != "")
             {
-                _view.Red("Error: LOOK command does not take any arguments. Try again without " + argument + "\n");
+                _view.Red("Error: LOOK command does not take any arguments. Try again without " + argument + "\n");  //look nie przyjmuje wartości temu wdzędzie na górze było LookFunction("")
                 success = !success;
                 return false;
             }
             success = true;
-            HUD();
+            HUD();  //spisuje HUD (zawsze), ale LOOK pod warunkiem
             idx = _model.room_idx;
-            if(_model.LookedRoom[idx] == true)
+            if(_model.LookedRoom[idx] == true) //jak było LOOK
             {              
-            _model.pickLook(idx, part);
+            _model.pickLook(idx, part); //wybiera opis w zależności od pokoju
             foreach (string x in _model.look)
             {
-                _view.Spectre_Text(x);
+                _view.Spectre_Text(x); //wypis
             }
             }
             return true;

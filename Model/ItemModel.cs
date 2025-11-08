@@ -14,14 +14,14 @@ namespace Humanity.Model
     {
         public string[] passwordFragments = new string[3];
         public string password = null;
-        public void JoinPassword()
+        public void JoinPassword() //łączyło hasła z odpowiedzi ze starego whiteboard
         {
             password = string.Join("", passwordFragments);
         }
         public List<string> logLines = new List<string>();
 
         public List<string> GetNewspaper = new List<string>();
-        public void Newspaper()
+        public void Newspaper() //wypełnia listę co napisać w gazecie
         {
             GetNewspaper.Add("[darkgoldenrod]Date: August 4, 1980 \n[/]");
             GetNewspaper.Add("\n[darkgoldenrod underline]BREAKING NEWS[/]\n");
@@ -31,7 +31,9 @@ namespace Humanity.Model
             GetNewspaper.Add("\n \n[grey italic]If you have any information, please contact the local police department at (555) 161-4559.[/]\n");
 
         }
-        public void Logs(int page)
+        public List<string> GetKey = new List<string>();
+        
+        public void Logs(int page) //zależnie od strony w terminalu pokazuje odpowiedni tekst - czyści tablicę i wstawia na nowo
         {
             logLines.Clear();
             logLines.Add("[olive underline]use LEFT and RIGHT arrows to navigate & ESC to go back \n[/]");
@@ -94,7 +96,7 @@ namespace Humanity.Model
                     return;
             }
         }
-        public List<string> newspaperList = new List<string>()
+        public List<string> whiteboardList = new List<string>() //
         {
             "REASON is its share of what they are —\nits very value equals its own part divided by the sum of all three.\n \nEMOTION is the same — its worth \nis measured by how it stands within the whole.\n \nMORALITY, too, holds the same truth — \nit exists in proportion to the total they form together.",
             "R = R/(R+E+M)\n \n \nE = E/(R+E+M)\n \n \nM = M/(R+E+M)"
