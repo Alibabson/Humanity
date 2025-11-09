@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection.Metadata.Ecma335;
+using System.Runtime.CompilerServices;
 using System.Text;
 using static System.Net.Mime.MediaTypeNames;
 namespace Humanity.View
@@ -294,6 +295,7 @@ namespace Humanity.View
    '--'    '--'
 
 ";
+            _View.Spectre_Text("[silver]The clock seems broken, clock hands are frozen in place.[/]\n \n");
             _View.Line(asciiClock);
         }
 
@@ -420,6 +422,48 @@ namespace Humanity.View
                 _View.Spectre_Text(x);
             }
             _View.AwaitKey();
+        }
+        public void Destroy()
+        {
+            List<string> text = _itemModel.DestroyList;
+            _View.Spectre_Text(text[0]);
+            var command = AnsiConsole.Prompt(
+             new SelectionPrompt<string>()
+            .Title("")
+            .HighlightStyle(new Style(foreground: Color.White, background: Color.Grey))
+            .PageSize(4)
+            .AddChoices(text[1], text[2])
+            );
+            if (command == text[1])
+            {
+                bool corr = false;
+                while (!corr) {
+                    _View.Spectre_Text(text[3]);
+                    _View.Spectre_Text(text[4]);
+                    var input = _View.Narrator2("#");
+                    if (input == "1974")
+                    {
+                        corr = true;
+                        _View.Spectre_Text(text[5]);
+                        Thread.Sleep(1000);
+                        _View.Spectre_Text(text[6]);
+                    }
+                    else
+                    {
+                        _View.Spectre_Text(text[7]);
+                    }
+                }
+                DeleteTerminal();
+                _View.AwaitKey();
+                return;
+            }
+            else
+            {
+                return;
+            }
+        }
+        public void DeleteTerminal()
+        {
         }
     }
 }

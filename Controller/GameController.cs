@@ -145,199 +145,210 @@ namespace Humanity.Controller
             
             switch (command) //sprawdzanie co wpisaliśmy
             {
-
-                case "help":
-                    success = true;
-                    HUD();
-                    _view.Line(_model.Help());
-                    return true;
-
-
-                case "look":
-                    _model.LookedRoom[_model.room_idx] = true;  //jak wpisujemy ręcznie look to pokój nam uznaje za LOOKED i przy kolejnym wejściu będziemy mieć opis
-                    if (LookFunction(argument)) //lookFunction daje opis właśnie
+                case "use":
+                    if(_model.DEVICE==false)
                     {
-                       
-                        return true;
+                        return false;
                     }
                     else
                     {
-                        return false;
+                        _itemView.Destroy();
+                        _view.Clear();
+                        LookFunction("");
                     }
-
-                case "check":
-                    idx = _model.room_idx;  //gdzie jesteśmy
-                    List<string> desc = _model.checkItem(idx, argument); //opis danego przedmiotu z argumentu
-                    switch (argument) //dany przedmiot z argumentu
-                    {
-                        case "":
-                            _view.Red("Error: CHECK command requires an item name as an argument. Try again.\n"); 
-                            success = !success;
-                            return false;
-                        case "monitor":        
-                            if (idx == 0)                                                                   
-                            {                                                                                   
-                                _itemView.Monitor(desc);  //dajemy ItemView się tym bawić i wrzuca opis z _model CheckItem   
-                               // _view.AwaitKey();
-                                _view.Clear();
-                                //HUD();
-                                LookFunction("");  //wracamy do głównego ekranu pokoju po funkcji (i LOOK jak już był)
-
-                            }
-                            else
-                            {
-                                checkError(argument);
-                                return false;
-                            }
+                    return true;
+                case "help":
+                            success = true;
+                            HUD();
+                            _view.Line(_model.Help());
                             return true;
-                        case "whiteboard":
-                            if (idx == 0)
+
+
+                        case "look":
+                            _model.LookedRoom[_model.room_idx] = true;  //jak wpisujemy ręcznie look to pokój nam uznaje za LOOKED i przy kolejnym wejściu będziemy mieć opis
+                            if (LookFunction(argument)) //lookFunction daje opis właśnie
                             {
-                                _itemView.Whiteboard(desc);                           
-                                _view.Clear();
-                                //HUD();
-                                LookFunction("");
-                            }
-                            else
-                            {
-                                checkError(argument);
-                                return false;
-                            }
+
                                 return true;
-                        case "key":
-                            if(idx==1)
-                            {
-                                _itemView.Key(desc);
-                                _view.Clear();
-                                //HUD();
-                                LookFunction("");
                             }
                             else
                             {
-                                checkError(argument);
                                 return false;
                             }
-                            return true;
-                        case "bookshelf":
-                            if (idx == 3)
+
+                        case "check":
+                            idx = _model.room_idx;  //gdzie jesteśmy
+                            List<string> desc = _model.checkItem(idx, argument); //opis danego przedmiotu z argumentu
+                            switch (argument) //dany przedmiot z argumentu
                             {
-                                _itemView.Bookshelf(desc);
-                                _view.Clear();
-                                //HUD();
-                                LookFunction("");
-                            }
-                            else
-                            {
-                                checkError(argument);
-                                return false;
-                            }
-                            return true;
-                        case "newspaper":
-                            if (idx == 4)
-                            {
-                                _itemView.Newspaper(desc);
-                                _view.AwaitKey();
-                                _view.Clear();
-                                //HUD();
-                                LookFunction("");
-                            }
-                            else
-                            {
-                                checkError(argument);
-                                return false;
-                            }
-                            return true;
-                        case "clock":
-                            if (idx == 4)
-                            {
-                               _itemView.ShowClock();
-                               _itemView.Clock(desc);
-                               _view.Clear();
-                                //HUD();
-                                LookFunction("");
-                            }
-                            else
-                            {
-                                checkError(argument);
-                                return false;
-                            }
-                             return true;
-                        case "music":
-                        case "musicbox":
-                        case "music box":
-                            if(idx == 5)
-                            {
-                                _itemView.MusicBox(desc);
-                                //_view.AwaitKey();
-                                _view.Clear();
-                                //HUD();
-                                LookFunction("");
-                            }
-                            else
-                            {
-                               checkError(argument);
-                               return false;
-                            }
-                            return true;
-                        case "note":
-                        case "notes":
-                            if (idx == 5)
-                            {
-                                _itemView.Note(desc);
-                                _view.Clear();
-                                LookFunction("");
-                            }
-                            else
-                            {
-                                checkError(argument);
-                                return false;
-                            }
+                                case "":
+                                    _view.Red("Error: CHECK command requires an item name as an argument. Try again.\n");
+                                    success = !success;
+                                    return false;
+                                case "monitor":
+                                    if (idx == 0)
+                                    {
+                                        _itemView.Monitor(desc);  //dajemy ItemView się tym bawić i wrzuca opis z _model CheckItem   
+                                                                  // _view.AwaitKey();
+                                        _view.Clear();
+                                        //HUD();
+                                        LookFunction("");  //wracamy do głównego ekranu pokoju po funkcji (i LOOK jak już był)
+
+                                    }
+                                    else
+                                    {
+                                        checkError(argument);
+                                        return false;
+                                    }
                                     return true;
-                        case "cabinet":
-                            if (idx == 6)
-                            {
-                                _itemView.Cabinet(desc);
-                                _view.Clear();
-                                LookFunction("");
+                                case "whiteboard":
+                                    if (idx == 0)
+                                    {
+                                        _itemView.Whiteboard(desc);
+                                        _view.Clear();
+                                        //HUD();
+                                        LookFunction("");
+                                    }
+                                    else
+                                    {
+                                        checkError(argument);
+                                        return false;
+                                    }
+                                    return true;
+                                case "key":
+                                    if (idx == 1)
+                                    {
+                                        _itemView.Key(desc);
+                                        _view.Clear();
+                                        //HUD();
+                                        LookFunction("");
+                                    }
+                                    else
+                                    {
+                                        checkError(argument);
+                                        return false;
+                                    }
+                                    return true;
+                                case "bookshelf":
+                                    if (idx == 3)
+                                    {
+                                        _itemView.Bookshelf(desc);
+                                        _view.Clear();
+                                        //HUD();
+                                        LookFunction("");
+                                    }
+                                    else
+                                    {
+                                        checkError(argument);
+                                        return false;
+                                    }
+                                    return true;
+                                case "newspaper":
+                                    if (idx == 4)
+                                    {
+                                        _itemView.Newspaper(desc);
+                                        _view.AwaitKey();
+                                        _view.Clear();
+                                        //HUD();
+                                        LookFunction("");
+                                    }
+                                    else
+                                    {
+                                        checkError(argument);
+                                        return false;
+                                    }
+                                    return true;
+                                case "clock":
+                                    if (idx == 4)
+                                    {
+                                        _itemView.ShowClock();
+                                        _itemView.Clock(desc);
+                                        _view.Clear();
+                                        //HUD();
+                                        LookFunction("");
+                                    }
+                                    else
+                                    {
+                                        checkError(argument);
+                                        return false;
+                                    }
+                                    return true;
+                                case "music":
+                                case "musicbox":
+                                case "music box":
+                                    if (idx == 5)
+                                    {
+                                        _itemView.MusicBox(desc);
+                                        //_view.AwaitKey();
+                                        _view.Clear();
+                                        //HUD();
+                                        LookFunction("");
+                                    }
+                                    else
+                                    {
+                                        checkError(argument);
+                                        return false;
+                                    }
+                                    return true;
+                                case "note":
+                                case "notes":
+                                    if (idx == 5)
+                                    {
+                                        _itemView.Note(desc);
+                                        _view.Clear();
+                                        LookFunction("");
+                                    }
+                                    else
+                                    {
+                                        checkError(argument);
+                                        return false;
+                                    }
+                                    return true;
+                                case "cabinet":
+                                    if (idx == 6)
+                                    {
+                                        _itemView.Cabinet(desc);
+                                        _view.Clear();
+                                        LookFunction("");
+                                    }
+                                    else
+                                    {
+                                        checkError(argument);
+                                        return false;
+                                    }
+                                    return true;
+                                case "diary":
+                                    if (idx == 7)
+                                    {
+                                        _itemView.Diary(desc);
+                                        _view.Clear();
+                                        LookFunction("");
+                                    }
+                                    else
+                                    {
+                                        checkError(argument);
+                                        return false;
+                                    }
+                                    return true;
+                                default:
+                                    _view.Red("Error: There is no item named '" + argument + "' in this room. Try again.\n");
+                                    success = !success;
+                                    return false;
                             }
-                            else
+                        case "exit":
+                        case "quit":
+                            if (argument != "")
                             {
-                                checkError(argument);
+                                _view.Red("Error: EXIT/QUIT command does not take any arguments. Try again without " + argument + "\n");
+                                success = !success;
                                 return false;
                             }
-                            return true;
-                        case "diary":
-                            if (idx == 7)
-                            {
-                                _itemView.Diary(desc);
-                                _view.Clear();
-                                LookFunction("");
-                            }
-                            else
-                            {
-                                checkError(argument);
-                                return false;
-                            }
+                            _view.Type(_model.Quit(), 14, false);
+                            _running = false;
                             return true;
                         default:
-                             _view.Red("Error: There is no item named '" + argument + "' in this room. Try again.\n");
-                             success = !success;
-                        return false;
+                            return false;
                         }
-                case "exit":
-                case "quit":
-                    if (argument != "")
-                    {
-                        _view.Red("Error: EXIT/QUIT command does not take any arguments. Try again without " + argument + "\n");
-                        success = !success;
-                        return false;
-                    }
-                    _view.Type(_model.Quit(), 14, false);
-                    _running = false;
-                    return true;
-                default:
-                    return false;
-            }
         }
         private void checkPossible(int nextRoomIdx)  //Czy z obecnego można iść do wpisanego
         {

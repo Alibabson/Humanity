@@ -101,6 +101,21 @@ namespace Humanity.Model
             "REASON is its share of what they are —\nits very value equals its own part divided by the sum of all three.\n \nEMOTION is the same — its worth \nis measured by how it stands within the whole.\n \nMORALITY, too, holds the same truth — \nit exists in proportion to the total they form together.",
             "R = R/(R+E+M)\n \n \nE = E/(R+E+M)\n \n \nM = M/(R+E+M)"
         };
+        public List<string> DestroyList = new List<string>()
+        {
+            "[lightslateblue]Do you want to activate the device? Are you aware of the consequences?[/]",
+            "YES",
+            "NO",
+
+            "[yellow1]it requires a password to proceed. On the back of the device it's written [/][red]THE BEST YEAR[/][yellow1].[/]", //[3]
+            "\n[green]Please insert 4-digit pin code: [/]\n",
+
+            "\n[green]PASSWORD CORRECT.\n>Erasing Terminal data...[/]", //[5]
+            "\r[green]DONE.[/]", 
+
+            "\n[red]INCORRECT PASSWORD. TRY AGAIN.[/]\n", //[7]
+
+        };
     }
 }
 

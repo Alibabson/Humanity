@@ -11,6 +11,10 @@ namespace Humanity.Model
         public bool hasKey { get; set; } = false;
         public bool hasMusicBoxKey { get; set; } = false    ;
         public bool hasRing {  get; set; } = false;
+
+        //---wazne--//
+        public bool DEVICE { get; set; } = false;
+        //----------//
         public int sanity { get; set; } = 100;
         // Stan ogólny
         public bool IntroPlayed { get; set; } = true;  /// ZMIENIĆ NA false;
@@ -87,14 +91,29 @@ namespace Humanity.Model
         }
         public string Help()
         {
-            return "-------------------------------------------------------------------------\n" +
-                   "|Available commands:                                                     |\n" +
-                   "|- HELP: Show this help message.                                         |\n" +
-                   "|- LOOK: Observe your surroundings.                                      |\n" +
-                   "|- CHECK [ITEM]: Describe item or room.                                  |\n" +
-                   "|- GO TO [ROOM]: move to the next room.                                  |\n" +
-                   "|- QUIT/EXIT: Terminate the session and give up on your H U M A N I T Y. |\n" +
-                   "-------------------------------------------------------------------------";
+            if (!DEVICE)
+            {
+                return "-------------------------------------------------------------------------\n" +
+                       "|Available commands:                                                     |\n" +
+                       "|- HELP: Show this help message.                                         |\n" +
+                       "|- LOOK: Observe your surroundings.                                      |\n" +
+                       "|- CHECK [ITEM]: Describe item or room.                                  |\n" +
+                       "|- GO TO [ROOM]: move to the next room.                                  |\n" +
+                       "|- QUIT/EXIT: Terminate the session and give up on your H U M A N I T Y. |\n" +
+                       "-------------------------------------------------------------------------";
+            }
+            else
+            {
+                return "-------------------------------------------------------------------------\n" +
+                      "|Available commands:                                                     |\n" +
+                      "|- HELP: Show this help message.                                         |\n" +
+                      "|- LOOK: Observe your surroundings.                                      |\n" +
+                      "|- CHECK [ITEM]: Describe item or room.                                  |\n" +
+                      "|- GO TO [ROOM]: move to the next room.                                  |\n" +
+                      "|- QUIT/EXIT: Terminate the session and give up on your H U M A N I T Y. |\n" +
+                      "|- USE DEVICE: DESTROY ALL THE EVIDENCE                                  |\n" +
+                      "-------------------------------------------------------------------------";
+            }
         }
         public List<string> look = new();
         public void pickLook(int idx, int part)
