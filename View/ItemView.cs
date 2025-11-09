@@ -161,7 +161,7 @@ namespace Humanity.View
                 _View.Clear();
                 LOG(page, text);
             }
-            else if(k == ConsoleKey.Escape)
+            else if(k == ConsoleKey.Enter)
             {
                 _View.Clear();
                 Monitor(text);
@@ -303,7 +303,7 @@ namespace Humanity.View
    '.`-.__6__.-'.'
     ((-._____.-))
     _))       ((_
-   '--'    '--'
+   '--'       '--'
 
 ";
             _View.Spectre_Text("[silver]The clock seems broken, clock hands are frozen in place.[/]\n \n");
@@ -346,7 +346,7 @@ namespace Humanity.View
                 int.TryParse(parts[1], out int col);
                 if (row <= 0 || col <= 0 ||row > 12 || col >60)
                 {
-                    _View.Spectre_Text("[grey]This bookshelf does not have that many books. Try again.");
+                    _View.Spectre_Text("[grey]This bookshelf does not have that many books. Try again.[/]");
                 }
                 if (row == 9 && col == 5)
                 {
@@ -454,7 +454,7 @@ namespace Humanity.View
             );
             if (command == text[1])
             {
-                if (_Model.hasMusicBoxKey)
+                if (!_Model.hasMusicBoxKey)
                 {
                     _View.Spectre_Text(text[3]);
                     _Model.hasMusicBoxKey = true;

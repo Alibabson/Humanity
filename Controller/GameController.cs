@@ -220,7 +220,7 @@ namespace Humanity.Controller
                                         return false;
                                     }
                                     return true;
-                                case "key":
+                                case "floor":
                                     if (idx == 1)
                                     {
                                         _itemView.Key(desc);
@@ -284,9 +284,8 @@ namespace Humanity.Controller
                                     if (idx == 5)
                                     {
                                         _itemView.MusicBox(desc);
-                                        //_view.AwaitKey();
+                                        _view.AwaitKey();
                                         _view.Clear();
-                                        //HUD();
                                         LookFunction("");
                                     }
                                     else

@@ -156,7 +156,7 @@ namespace Humanity.Model
                     look.Add("[palegreen1_1]living room[/]"); 
                     look.Add(", or upstairs to the ");
                     look.Add("[palegreen1_1]hallway[/]");
-                    look.Add(".\n  \n There are some words scraped on the left ");
+                    look.Add(".\n\nThere are some words scraped on the left ");
                     look.Add("[teal]wall[/]"); 
                     look.Add(", as well as some ");
                     look.Add("[teal]notes [/]"); 
@@ -315,12 +315,12 @@ namespace Humanity.Model
                 default:
                     wrongItem(item);
                     break;
-                case "key":
+                case "floor":
                     if (idx == 1)
                     {
                         if (!hasKey)
                         {
-                            itemDesc.Add("[grey italic]You picked up a old silver [/][lime]key[/] [grey italic]with no engravings. You have no idea what does it open, but might be useful.\n[/]");
+                            itemDesc.Add("[silver]You found a [/][lime]key[/][silver] on the floor. It looks old and rusty.[/]");
                             hasKey = true;
                         }
                         else
@@ -497,8 +497,5 @@ namespace Humanity.Model
             "As you step away from the challenge, a part of you wonders what could have been achieved.\n" +
             "But for now, you choose peace over the unknown.");
         }
-
-
-        
     }
 }
