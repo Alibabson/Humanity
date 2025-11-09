@@ -9,11 +9,13 @@ namespace Humanity.Model
         public bool Emotion { get; set; } = false;
         public bool Morality { get; set; } = false;
         public bool hasKey { get; set; } = false;
+        public bool hasMusicBoxKey { get; set; } = false    ;
+        public bool hasRing {  get; set; } = false;
         public int sanity { get; set; } = 100;
         // Stan ogólny
         public bool IntroPlayed { get; set; } = true;  /// ZMIENIĆ NA false;
         public bool RemindWorks { get; set; } = false;
-        public int room_idx { get; set; } = 0;
+        public int room_idx { get; set; } = 6   ;
 
         // Prosty dziennik wspomnień (do komendy RECALL)
         /* public List<string> MemoryLogs { get; } = new()
@@ -270,7 +272,8 @@ namespace Humanity.Model
                         itemDesc.Add("\nYou can try solving this scientific riddle... \nDo you want to try?\n");
                         itemDesc.Add("[lime]YES[/]");
                         itemDesc.Add("[lime]NO[/]");
-                    } else wrongItem(item);
+                    }
+                    else wrongItem(item);
                     break;
                 case "newspaper":
                     if (idx == 4)
@@ -287,10 +290,11 @@ namespace Humanity.Model
                         itemDesc.Add("The clock on the wall is broken, its hands frozen.\nA faint inscription reads: 'Time is an illusion.'");
                     }
                     break;
-                default: wrongItem(item);
+                default:
+                    wrongItem(item);
                     break;
                 case "key":
-                    if(idx==1)
+                    if (idx == 1)
                     {
                         if (!hasKey)
                         {
@@ -304,17 +308,59 @@ namespace Humanity.Model
                     }
                     break;
                 case "bookshelf":
-                    {   if (idx == 3)
+
+                case "music":
+                case "musicbox":
+                case "music box":
+                    {
+                        if (idx == 5)
                         {
-                            itemDesc.Add("[magenta2]Tutaj damy caly tekst z bookshelfa :)[/]");
+                            if (!hasMusicBoxKey)
+                            {
+                                itemDesc.Add("[silver]You see a closed music box. The only thing that catches your eye is the [/][gold1]keyhole.[/]");
+                                itemDesc.Add("\n \n[red]You don't have the key yet.[/]");
+                            }
+                            else
+                            {
+                                itemDesc.Add("[yellow1]The key fit perfectly into the music box.[/][silver]A beautiful wind-up ballerina appeared before you.[/]\n \nBeneath her, you could see a small drawer. Do you want to open it?\n \n");
+                                itemDesc.Add("[lime]YES[/]");
+                                itemDesc.Add("[lime]NO[/]");
+                                itemDesc.Add("[silver]You found a [/][lime]wedding ring[/][silver] inside the music box. There's a date engraved on it: \n \n[/][yellow1]08.14.1974\n[/]");
+                            }
                         }
-                        else wrongItem(item);
                     }
                     break;
+                case "note":
+                case "notes":
+                    {
+                        if (idx == 5)
+                        {
+                            itemDesc.Add("[silver]Books\naren't the only\nthing that stops\ntime.[/]");
+                        }
+                    }
+                    break;
+                case "cabinet":
+                    {
+                        if (idx == 6)
+                        {
+                            itemDesc.Add("[silver]Do you want to search the cabinet?[/]\n");
+                            itemDesc.Add("[lime]YES[/]");
+                            itemDesc.Add("[lime]NO[/]");
+                            itemDesc.Add("[silver]You obtained[/][yellow1] music box key[/][silver].[/]");
+                        }
+                    }
+                    break;
+                case "diary":
+                    {
+                        if (idx == 7)
+                        {
+                            itemDesc.Add("[yellow1]DIARY[/]");
+                        }
+                    }
+                    break;
+
             }
             return itemDesc;
-
-
         }
         public int NextRoomIdx(string room)
         {

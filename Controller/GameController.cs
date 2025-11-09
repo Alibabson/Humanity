@@ -242,30 +242,88 @@ namespace Humanity.Controller
                                 LookFunction("");
                             }
                             else
-                                                            {
+                            {
                                 checkError(argument);
                                 return false;
                             }
                             return true;
                         case "clock":
-                                    if (idx == 4)
-                                    {
-                                        _itemView.ShowClock();
-                                        _itemView.Clock(desc);
-                                        _view.Clear();
-                                        HUD();
-                                    }
-                                    else
-                                    {
-                                        checkError(argument);
-                                        return false;
-                                    }
+                            if (idx == 4)
+                            {
+                               _itemView.ShowClock();
+                               _itemView.Clock(desc);
+                               _view.Clear();
+                                //HUD();
+                                LookFunction("");
+                            }
+                            else
+                            {
+                                checkError(argument);
+                                return false;
+                            }
+                             return true;
+                        case "music":
+                        case "musicbox":
+                        case "music box":
+                            if(idx == 5)
+                            {
+                                _itemView.MusicBox(desc);
+                                //_view.AwaitKey();
+                                _view.Clear();
+                                //HUD();
+                                LookFunction("");
+                            }
+                            else
+                            {
+                               checkError(argument);
+                               return false;
+                            }
+                            return true;
+                        case "note":
+                        case "notes":
+                            if (idx == 5)
+                            {
+                                _itemView.Note(desc);
+                                _view.Clear();
+                                LookFunction("");
+                            }
+                            else
+                            {
+                                checkError(argument);
+                                return false;
+                            }
                                     return true;
-                                default:
-                                    _view.Red("Error: There is no item named '" + argument + "' in this room. Try again.\n");
-                                    success = !success;
-                                    return false;
-                                }
+                        case "cabinet":
+                            if (idx == 6)
+                            {
+                                _itemView.Cabinet(desc);
+                                _view.Clear();
+                                LookFunction("");
+                            }
+                            else
+                            {
+                                checkError(argument);
+                                return false;
+                            }
+                            return true;
+                        case "diary":
+                            if (idx == 7)
+                            {
+                                _itemView.Diary(desc);
+                                _view.Clear();
+                                LookFunction("");
+                            }
+                            else
+                            {
+                                checkError(argument);
+                                return false;
+                            }
+                            return true;
+                        default:
+                             _view.Red("Error: There is no item named '" + argument + "' in this room. Try again.\n");
+                             success = !success;
+                        return false;
+                        }
                 case "exit":
                 case "quit":
                     if (argument != "")

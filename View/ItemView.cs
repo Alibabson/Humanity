@@ -314,9 +314,110 @@ namespace Humanity.View
         }
         public void Bookshelf(List<string> text)
         {
+            List<string> tmp = text;
+            bool quitted = false;
+            _View.Clear();
+
             foreach (var line in text)
             {
                 _View.Spectre_Text(line + "\n");
+            }
+            _View.Spectre_Text("\n[grey]Type 'back' to exit.\n \n[/]");
+            while (!quitted)
+            {
+                var input = _View.Narrator2("-> ");
+                if (input == "back") { quitted = !quitted; break; }
+                input = input.Trim().ToLowerInvariant();
+                var parts = input.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
+                int.TryParse(parts[0], out int row);
+                int.TryParse(parts[1], out int col);
+                if (row <= 0 || col <= 0 ||row > 12 || col >60)
+                {
+                    _View.Spectre_Text("[grey]This bookshelf does not have that many books. Try again.");
+                }
+                if (row == 9 && col == 5)
+                {
+                    _View.Clear();
+                    _View.Spectre_Text("\n[green]Dobra ksi¹zka potem zmieniê[/]\n");
+                    _View.AwaitKey();
+                    Bookshelf(tmp);
+                }
+                else
+                {
+                    _View.Clear();
+                    _View.Spectre_Text("\n[grey]Nothing interesting here.[/]\n");
+                    _View.AwaitKey();
+                    Bookshelf(tmp);
+                }
+            }
+        }
+        public void MusicBox(List<string> text)
+        {
+            if (!_Model.hasMusicBoxKey)
+            {
+                foreach (var l in text)
+                {
+                    _View.Spectre_Text(l);
+                }
+            }
+            if (_Model.hasMusicBoxKey)
+            {
+                _View.Spectre_Text(text[0]);
+                var command = AnsiConsole.Prompt(
+                 new SelectionPrompt<string>()
+                .Title("")
+                .HighlightStyle(new Style(foreground: Color.White, background: Color.Grey))
+                .PageSize(4)
+                .AddChoices(text[1], text[2])
+                );
+                if (command == text[1])
+                {
+                    _View.Spectre_Text(text[3]);
+                    _Model.hasRing = true;
+                    _View.AwaitKey();
+                }
+                if (command == text[2])
+                {
+                    return;
+                }
+            }
+        }
+        public void Note(List<string> text)
+        {
+            var panel = new Panel(text[0])
+            {
+                Border = BoxBorder.Square,
+                Padding = new Padding(left:3, top:3, right:3, bottom:3),
+            };
+            AnsiConsole.Write(panel);
+            _View.AwaitKey();
+        }
+        public void Cabinet(List<string> text)
+        {
+            _View.Spectre_Text(text[0]);
+            var command = AnsiConsole.Prompt(
+             new SelectionPrompt<string>()
+            .Title("")
+            .HighlightStyle(new Style(foreground: Color.White, background: Color.Grey))
+            .PageSize(4)
+            .AddChoices(text[1], text[2])
+            );
+            if (command == text[1])
+            {
+                _View.Spectre_Text(text[3]);
+                _Model.hasMusicBoxKey = true;
+                _View.AwaitKey();
+            }
+            if (command == text[2])
+            {
+                return;
+            }
+        }
+       public void Diary(List<string> text)
+        {
+            foreach (var x in text)
+            {
+                _View.Spectre_Text(x);
             }
             _View.AwaitKey();
         }
