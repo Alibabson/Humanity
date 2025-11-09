@@ -68,7 +68,7 @@ namespace Humanity.Model
                     logLines.Add("[lime]Status: [/][red]DECEASED[/]\n");
                     logLines.Add("[lime]Target Effect: Drastic switch in moral perception - subject should be able to choose the most ethical solutions to avoid aggresion and pathological behaviour in order to come back to society after triple homicide.[/]\n");
                     logLines.Add("[lime]\nFinal Effect: Extreme confusion, paranoia, and violent outbursts. Subject was unsuccesful in choosing correct options, had problems deciding and communicating with others. He was afraid of most of his actions, yed didn't feel anything during contant with graphic or violent materials.[/]\n");
-                    logLines.Add("[lime]\nAfter two weeks of confusion, patient went into a sudden coma and died shortly after. Autopsy revealed multiple brain aneurysms likely caused by internal stress.[/]\n");
+                    logLines.Add("[lime] After two weeks of confusion, patient went into a sudden coma and died shortly after. Autopsy revealed multiple brain aneurysms likely caused by internal stress.[/]\n");
                     logLines.Add("[orange3]\nNotes: \nSubject showed signs of improvement before sudden death. The erasure was too extreme to point of losing sanity.[/]");
                     return;
                 case 4:
@@ -103,7 +103,7 @@ namespace Humanity.Model
         };
         public List<string> DestroyList = new List<string>()
         {
-            "[lightslateblue]Do you want to activate the device? Are you aware of the consequences?[/]",
+            "[lightslateblue]Do you want to activate the device? Are you aware of the consequences?[/]\n",
             "YES",
             "NO",
 
@@ -111,6 +111,7 @@ namespace Humanity.Model
             "\n[green]Please insert 4-digit pin code: [/]\n",
 
             "\n[green]PASSWORD CORRECT.\n>Erasing Terminal data...[/]", //[5]
+            "\r                            ",
             "\r[green]DONE.[/]", 
 
             "\n[red]INCORRECT PASSWORD. TRY AGAIN.[/]\n", //[7]

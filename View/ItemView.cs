@@ -112,8 +112,18 @@ namespace Humanity.View
             }
             else if(command == text[2]) //sprawdz logi
             {
-                int page = 1;
-                LOG(page,text);             
+                if (!_Model.DEVICE)
+                {
+                    _View.Clear();
+                    int page = 1;
+                    LOG(page, text);
+                }
+                else
+                {
+                    _View.Clear();
+                    _View.Spectre_Text("[red bold slowblink]DATA CORRUPTED.[/]");
+                    _View.AwaitKey();
+                }
             }
             else if(command == text[3])
             {
@@ -136,21 +146,22 @@ namespace Humanity.View
             {
                 _View.Spectre_Text(line + "\n");
             }
-            if(_View.CheckKey() == ConsoleKey.RightArrow)
+            var k = _View.CheckKey();
+            if(k == ConsoleKey.RightArrow)
             {
                 page++;
                 if(page > 5) page = 5;
                 _View.Clear();
                 LOG(page, text);
             }
-            else if(_View.CheckKey() == ConsoleKey.LeftArrow)
+            else if(k == ConsoleKey.LeftArrow)
             {
                 page--;
                 if(page < 1) page = 1;
                 _View.Clear();
                 LOG(page, text);
             }
-            else if(_View.CheckKey() == ConsoleKey.Escape)
+            else if(k == ConsoleKey.Escape)
             {
                 _View.Clear();
                 Monitor(text);
@@ -242,7 +253,7 @@ namespace Humanity.View
                 _View.AwaitKey();
                 return true;
             }
-            return true;
+            //return true;
         }
         public void Whiteboard_passed()
         {
@@ -384,6 +395,39 @@ namespace Humanity.View
                 }
             }
         }
+        public void Safe(List<string> text)
+        {
+            _View.Spectre_Text(text[0]);
+            var command = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+               .Title("")
+               .HighlightStyle(new Style(foreground: Color.White, background: Color.Grey))
+               .PageSize(4)
+               .AddChoices(text[1], text[2])
+               );
+            if (command == text[1])
+            {
+                while (!_Model.SafeOpened) {
+                    var ans = _View.Narrator2("$ ");
+                    if (ans == _Model.SafePassword)
+                    {
+                        _View.Spectre_Text(text[3]);
+                        _Model.hasDevice = true;
+                        _Model.SafeOpened = true;
+                        _View.AwaitKey();
+                    }
+                    else
+                    {
+                        _View.Clear();
+                        _View.Spectre_Text(text[4]);
+                    }
+                }
+            }
+            if (command == text[2])
+            {
+                return;
+            }
+        }
         public void Note(List<string> text)
         {
             var panel = new Panel(text[0])
@@ -391,7 +435,11 @@ namespace Humanity.View
                 Border = BoxBorder.Square,
                 Padding = new Padding(left:3, top:3, right:3, bottom:3),
             };
-            AnsiConsole.Write(panel);
+            AnsiConsole.Write(new Align(
+                panel,
+                HorizontalAlignment.Center,
+                VerticalAlignment.Middle
+                ));
             _View.AwaitKey();
         }
         public void Cabinet(List<string> text)
@@ -406,9 +454,18 @@ namespace Humanity.View
             );
             if (command == text[1])
             {
-                _View.Spectre_Text(text[3]);
-                _Model.hasMusicBoxKey = true;
-                _View.AwaitKey();
+                if (_Model.hasMusicBoxKey)
+                {
+                    _View.Spectre_Text(text[3]);
+                    _Model.hasMusicBoxKey = true;
+                    _View.AwaitKey();
+                }
+                else
+                {
+                    _View.Clear();
+                    _View.Spectre_Text(text[4]);
+                    _View.AwaitKey();
+                }
             }
             if (command == text[2])
             {
@@ -425,45 +482,57 @@ namespace Humanity.View
         }
         public void Destroy()
         {
-            List<string> text = _itemModel.DestroyList;
-            _View.Spectre_Text(text[0]);
-            var command = AnsiConsole.Prompt(
-             new SelectionPrompt<string>()
-            .Title("")
-            .HighlightStyle(new Style(foreground: Color.White, background: Color.Grey))
-            .PageSize(4)
-            .AddChoices(text[1], text[2])
-            );
-            if (command == text[1])
+            if (!_Model.DEVICE)
             {
-                bool corr = false;
-                while (!corr) {
-                    _View.Spectre_Text(text[3]);
-                    _View.Spectre_Text(text[4]);
-                    var input = _View.Narrator2("#");
-                    if (input == "1974")
+                List<string> text = _itemModel.DestroyList;
+                _View.Spectre_Text(text[0]);
+                var command = AnsiConsole.Prompt(
+                 new SelectionPrompt<string>()
+                .Title("")
+                .HighlightStyle(new Style(foreground: Color.White, background: Color.Grey))
+                .PageSize(4)
+                .AddChoices(text[1], text[2])
+                );
+                if (command == text[1])
+                {
+                    bool corr = false;
+                    while (!corr)
                     {
-                        corr = true;
-                        _View.Spectre_Text(text[5]);
-                        Thread.Sleep(1000);
-                        _View.Spectre_Text(text[6]);
+                        _View.Spectre_Text(text[3]);
+                        _View.Spectre_Text(text[4]);
+                        var input = _View.Narrator2("#");
+                        if (input == "1974")
+                        {
+                            corr = true;
+                            _View.Spectre_Text(text[5]);
+                            Thread.Sleep(1000);
+                            _View.Spectre_Text(text[6]);
+                            _View.Spectre_Text(text[7]);
+                            DeleteTerminal();
+                        }
+                        else
+                        {
+                            _View.Spectre_Text(text[7]);
+                        }
                     }
-                    else
-                    {
-                        _View.Spectre_Text(text[7]);
-                    }
+                    _View.AwaitKey();
+                    return;
                 }
-                DeleteTerminal();
-                _View.AwaitKey();
-                return;
+                else
+                {
+                    return;
+                }
             }
             else
             {
+                _View.Spectre_Text("[grey]You already used it.[/]");
+                _View.AwaitKey();
                 return;
             }
         }
         public void DeleteTerminal()
         {
+            _Model.DEVICE = true;
         }
     }
 }

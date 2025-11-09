@@ -14,12 +14,14 @@ namespace Humanity.Model
 
         //---wazne--//
         public bool DEVICE { get; set; } = false;
+        public bool hasDevice { get; set; } = false;
         //----------//
         public int sanity { get; set; } = 100;
         // Stan ogólny
         public bool IntroPlayed { get; set; } = true;  /// ZMIENIĆ NA false;
-        public bool RemindWorks { get; set; } = false;
-        public int room_idx { get; set; } = 6   ;
+        public string SafePassword { get; set; } = "123456";
+        public bool SafeOpened { get; set; } = false;
+        public int room_idx { get; set; } = 1   ;
 
         // Prosty dziennik wspomnień (do komendy RECALL)
         /* public List<string> MemoryLogs { get; } = new()
@@ -91,14 +93,14 @@ namespace Humanity.Model
         }
         public string Help()
         {
-            if (!DEVICE)
+            if (!hasDevice)
             {
                 return "-------------------------------------------------------------------------\n" +
                        "|Available commands:                                                     |\n" +
                        "|- HELP: Show this help message.                                         |\n" +
                        "|- LOOK: Observe your surroundings.                                      |\n" +
-                       "|- CHECK [ITEM]: Describe item or room.                                  |\n" +
-                       "|- GO TO [ROOM]: move to the next room.                                  |\n" +
+                       "|- CHECK [[ITEM]]: Describe item or room.                                  |\n" +
+                       "|- GO TO [[ROOM]]: move to the next room.                                  |\n" +
                        "|- QUIT/EXIT: Terminate the session and give up on your H U M A N I T Y. |\n" +
                        "-------------------------------------------------------------------------";
             }
@@ -108,10 +110,10 @@ namespace Humanity.Model
                       "|Available commands:                                                     |\n" +
                       "|- HELP: Show this help message.                                         |\n" +
                       "|- LOOK: Observe your surroundings.                                      |\n" +
-                      "|- CHECK [ITEM]: Describe item or room.                                  |\n" +
-                      "|- GO TO [ROOM]: move to the next room.                                  |\n" +
+                      "|- CHECK [[ITEM]]: Describe item or room.                                  |\n" +
+                      "|- GO TO [[ROOM]]: move to the next room.                                  |\n" +
                       "|- QUIT/EXIT: Terminate the session and give up on your H U M A N I T Y. |\n" +
-                      "|- USE DEVICE: DESTROY ALL THE EVIDENCE                                  |\n" +
+                      "|-[red] USE DEVICE: DESTROY ALL THE EVIDENCE           [/]                       |\n" +
                       "-------------------------------------------------------------------------";
             }
         }
@@ -273,6 +275,7 @@ namespace Humanity.Model
             switch (item)
             {
                 case "monitor":
+                case "terminal":
                     if (idx == 0)
                     {
                         itemDesc.Add("[lime]Welcome, Dr. Hallaway. What would you like to do?\n[/]");
@@ -349,6 +352,20 @@ namespace Humanity.Model
                         }
                     }
                     break;
+                case "safe":
+                    {
+                        if(idx==8)
+                        {
+                            itemDesc.Add("[silver]The safe is protected with a 6 digit password, do you want to try and open it?[/]\n");
+                            itemDesc.Add("[lime]YES[/]");
+                            itemDesc.Add("[lime]NO[/]");
+
+                            itemDesc.Add("[yellow1]You opened the safe. You found the[/] [lime]device[/][yellow1].[/]\n");
+
+                            itemDesc.Add("[red]Wrong password. Try again.[/]\n");
+                        }
+                    }
+                    break;
                 case "note":
                 case "notes":
                     {
@@ -366,6 +383,7 @@ namespace Humanity.Model
                             itemDesc.Add("[lime]YES[/]");
                             itemDesc.Add("[lime]NO[/]");
                             itemDesc.Add("[silver]You obtained[/][yellow1] music box key[/][silver].[/]");
+                            itemDesc.Add("[grey]You already checked it before.[/]");
                         }
                     }
                     break;

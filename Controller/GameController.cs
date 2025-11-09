@@ -97,7 +97,7 @@ namespace Humanity.Controller
             }
             else // jak nie gramy intro i sprawdzamy program to niech cokolwiek się pokazuje - w grze to się nigdy chyba nie pojawi
             {
-                _view.Line(_model.Help());
+                _view.Spectre_Text(_model.Help());
             }
 
 
@@ -146,21 +146,25 @@ namespace Humanity.Controller
             switch (command) //sprawdzanie co wpisaliśmy
             {
                 case "use":
-                    if(_model.DEVICE==false)
+                    if(_model.hasDevice==false)
                     {
                         return false;
                     }
                     else
                     {
-                        _itemView.Destroy();
-                        _view.Clear();
-                        LookFunction("");
+                        if (argument == "device")
+                        {
+                            _itemView.Destroy();
+                            _view.Clear();
+                            LookFunction("");
+                        }
+                        else return false;
                     }
                     return true;
                 case "help":
                             success = true;
                             HUD();
-                            _view.Line(_model.Help());
+                            _view.Spectre_Text(_model.Help());
                             return true;
 
 
@@ -186,6 +190,7 @@ namespace Humanity.Controller
                                     success = !success;
                                     return false;
                                 case "monitor":
+                                case "terminal":
                                     if (idx == 0)
                                     {
                                         _itemView.Monitor(desc);  //dajemy ItemView się tym bawić i wrzuca opis z _model CheckItem   
@@ -290,6 +295,17 @@ namespace Humanity.Controller
                                         return false;
                                     }
                                     return true;
+                                case "safe":
+                                {
+                                if (idx == 8)
+                                {
+                                    _itemView.Safe(desc);
+                                    _view.Clear();
+                                    LookFunction("");
+                                }
+                                }
+                                return true;
+
                                 case "note":
                                 case "notes":
                                     if (idx == 5)
@@ -304,6 +320,7 @@ namespace Humanity.Controller
                                         return false;
                                     }
                                     return true;
+
                                 case "cabinet":
                                     if (idx == 6)
                                     {
@@ -346,6 +363,7 @@ namespace Humanity.Controller
                             _view.Type(_model.Quit(), 14, false);
                             _running = false;
                             return true;
+                        
                         default:
                             return false;
                         }
