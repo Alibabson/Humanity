@@ -274,6 +274,7 @@ namespace Humanity.Model
             List<string> itemDesc = new();
             switch (item)
             {
+                /////////////////LAB
                 case "monitor":
                 case "terminal":
                     if (idx == 0)
@@ -286,7 +287,6 @@ namespace Humanity.Model
                     else itemDesc.Add(wrongItem(item));
                     break;
 
-
                 case "whiteboard":
                     if (idx == 0)
                     {
@@ -297,6 +297,41 @@ namespace Humanity.Model
                     }
                     else wrongItem(item);
                     break;
+                //////////////////////////
+
+                /////////////////STAIRS
+                case "floor":
+                    if (idx == 1)
+                    {
+                        if (!hasKey)
+                        {
+                            itemDesc.Add("[silver]You found a [/][lime]key[/][silver] on the floor. It looks old and rusty.[/]");
+                            hasKey = true;
+                        }
+                        else
+                        {
+                            itemDesc.Add("[grey underline]There's nothing interesting here.[/]\n");
+                        }
+                    }
+                    break;
+                /////////////////////////
+
+                ///////////////////KITCHEN
+                /* case cośtam w kuchni*/
+                //////////////////////////
+
+                //////////////////////LIBRARY
+                case "bookshelf":
+                    {
+                        if(idx==3)
+                        {
+
+                        }
+                    }
+                    break;
+                ///////////////////////////////
+                
+                ////////////////////////LIVING ROOM
                 case "newspaper":
                     if (idx == 4)
                     {
@@ -315,22 +350,9 @@ namespace Humanity.Model
                 default:
                     wrongItem(item);
                     break;
-                case "floor":
-                    if (idx == 1)
-                    {
-                        if (!hasKey)
-                        {
-                            itemDesc.Add("[silver]You found a [/][lime]key[/][silver] on the floor. It looks old and rusty.[/]");
-                            hasKey = true;
-                        }
-                        else
-                        {
-                            itemDesc.Add("[grey underline]There's nothing interesting here.[/]\n");
-                        }
-                    }
-                    break;
-                case "bookshelf":
-
+                /////////////////////////////////////////
+                
+                ///////////////////////////////HALLWAY
                 case "music":
                 case "musicbox":
                 case "music box":
@@ -352,6 +374,44 @@ namespace Humanity.Model
                         }
                     }
                     break;
+                case "note":
+                case "notes":
+                    {
+                        if (idx == 5)
+                        {
+                            itemDesc.Add("[silver]Books\naren't the only\nthing that stops\ntime.[/]");
+                        }
+                    }
+                    break;
+                ////////////////////////////////////////
+
+                //////////////////////////////BATHROOM
+                case "cabinet":
+                    {
+                        if (idx == 6)
+                        {
+                            itemDesc.Add("[silver]Do you want to search the cabinet?[/]\n");
+                            itemDesc.Add("[lime]YES[/]");
+                            itemDesc.Add("[lime]NO[/]");
+                            itemDesc.Add("[silver]You obtained[/][yellow1] music box key[/][silver].[/]");
+                            itemDesc.Add("[grey]You already checked it before.[/]");
+                        }
+                    }
+                    break;
+                //////////////////////////////////////
+
+                ///////////////////////////BEDROOM
+                case "diary":
+                    {
+                        if (idx == 7)
+                        {
+                            itemDesc.Add("[yellow1]DIARY[/]");
+                        }
+                    }
+                break;
+                ////////////////////////////////
+                
+                 /////////////OFFICE
                 case "safe":
                     {
                         if(idx==8)
@@ -366,35 +426,9 @@ namespace Humanity.Model
                         }
                     }
                     break;
-                case "note":
-                case "notes":
-                    {
-                        if (idx == 5)
-                        {
-                            itemDesc.Add("[silver]Books\naren't the only\nthing that stops\ntime.[/]");
-                        }
-                    }
-                    break;
-                case "cabinet":
-                    {
-                        if (idx == 6)
-                        {
-                            itemDesc.Add("[silver]Do you want to search the cabinet?[/]\n");
-                            itemDesc.Add("[lime]YES[/]");
-                            itemDesc.Add("[lime]NO[/]");
-                            itemDesc.Add("[silver]You obtained[/][yellow1] music box key[/][silver].[/]");
-                            itemDesc.Add("[grey]You already checked it before.[/]");
-                        }
-                    }
-                    break;
-                case "diary":
-                    {
-                        if (idx == 7)
-                        {
-                            itemDesc.Add("[yellow1]DIARY[/]");
-                        }
-                    }
-                    break;
+               ////////////////////////
+                
+               
 
             }
             return itemDesc;

@@ -21,6 +21,9 @@ namespace Humanity.Model
 
         public List<string> GetKey = new List<string>();
         
+
+
+        /////TERMINAL
         public void Logs(int page) //zależnie od strony w terminalu pokazuje odpowiedni tekst - czyści tablicę i wstawia na nowo
         {
             logLines.Clear();
@@ -84,12 +87,16 @@ namespace Humanity.Model
                     return;
             }
         }
+
+        ////WHITEBOARD
         public List<string> whiteboardList = new List<string>() //
         {
             "REASON is its share of what they are —\nits very value equals its own part divided by the sum of all three.\n \nEMOTION is the same — its worth \nis measured by how it stands within the whole.\n \nMORALITY, too, holds the same truth — \nit exists in proportion to the total they form together.",
             "R = R/(R+E+M)\n \n \nE = E/(R+E+M)\n \n \nM = M/(R+E+M)"
         };
 
+
+        //// NEWSPAPER
         public List<string> GetNewspaper = new List<string>();
         public void Newspaper() //wypełnia listę co napisać w gazecie
         {
@@ -102,6 +109,7 @@ namespace Humanity.Model
 
         }
 
+        ////DEVICE
         public List<string> DestroyList = new List<string>()
         {
             "[lightslateblue]Do you want to activate the device? Are you aware of the consequences?[/]\n",

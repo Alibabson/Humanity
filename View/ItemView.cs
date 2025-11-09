@@ -23,74 +23,7 @@ namespace Humanity.View
             _itemModel = itemModel;
         }
 
-        /* private void updown(int a, int b, ref int choice, ref bool active)
-         {
-             ConsoleKeyInfo key = Console.ReadKey(true);
-             if (key.Key == ConsoleKey.UpArrow)
-             {
-
-                 choice--;
-                 if (choice < a) choice = b;
-                 _View.Clear();
-             }
-             else if (key.Key == ConsoleKey.DownArrow)
-             {
-
-                 choice++;
-                 if (choice > b) choice = a;
-                 _View.Clear();
-             }
-             else if (key.Key == ConsoleKey.Enter)
-             {
-                 active = false;
-             }
-         } */
-        /*public void MonitorItem(List<string> text)
-        {
-            bool active = true;
-            int choice = 1;
-            Console.BackgroundColor = ConsoleColor.Black;
-            while (active)
-            {
-                _View.Green(text[0], false);
-                switch (choice)
-                {
-                    case 1:
-                        _View.Green(text[1], true);
-                        _View.Green(text[2], false);
-                        _View.Green(text[3], false);
-                        break;
-                    case 2:
-                        _View.Green(text[1], false);
-                        _View.Green(text[2], true);
-                        _View.Green(text[3], false);
-                        break;
-                    case 3:
-                        _View.Green(text[1], false);
-                        _View.Green(text[2], false);
-                        _View.Green(text[3], true);
-                        break;
-                }
-           updown(1, 3, ref choice, ref active);
-            }
-            if (choice == 1)
-            {
-                //modul wybór 1
-                _View.Red("Modu³ w budowie");
-            }
-            else if (choice == 2)
-            {
-                // modu³ wybór 2
-                _View.Red("Modu³ w budowie");
-            }
-            else if (choice == 3)
-            {
-                //modu³ wybór 3
-                _View.Red("Modu³ w budowie");
-            }
-            return;
-        }
-        */
+        ////TERMINAL (LAB - 0)
         public void Monitor(List<string> text)
         {
            var command = AnsiConsole.Prompt(
@@ -168,7 +101,7 @@ namespace Humanity.View
             }
         }
 
-        // WHITEBOARD //
+        /////WHITEBOARD (LAB - 0)
         public bool passed= false;
         private int guesses = 0;
         private bool hint = false;
@@ -262,61 +195,10 @@ namespace Humanity.View
             _View.Spectre_Text("[grey underline]You answered correctly. Press any key to exit[/]");
             _View.AwaitKey();
         }
-        public void Newspaper(List<string> text)
-        {
-            _View.Spectre_Text(text[0] + "\n");
-            var command = AnsiConsole.Prompt(
-            new SelectionPrompt<string>()
-                .Title("")
-                .HighlightStyle(new Style(foreground: Color.White, background: Color.Grey))
-                .PageSize(4)
-                .AddChoices(text[1], text[2])
-            );
-            if (command == text[2])
-            {
-                _View.Spectre_Text("[grey underline]You left the newspaper. \n Press any button to continue[/]");
-                return;
-            }
-            if (command == text[1])
-            {
-                _itemModel.Newspaper();
-                var lines = _itemModel.GetNewspaper;
-                foreach (var x in lines)
-                {
-                    _View.Spectre_Text(x);
-                }
-            }
-        }
-        public void ShowClock()
-        {
-            var asciiClock = @"
-        _____
-     _.'_____`._
-   .'.-'  12 `-.`.
-  /,' 11      1 `.\
- // 10      /   2 \\
-;;         /       ::
-|| 9  ----O      3 ||
-::                 ;;
- \\ 8           4 //
-  \`. 7       5 ,'/
-   '.`-.__6__.-'.'
-    ((-._____.-))
-    _))       ((_
-   '--'       '--'
 
-";
-            _View.Spectre_Text("[silver]The clock seems broken, clock hands are frozen in place.[/]\n \n");
-            _View.Line(asciiClock);
-        }
 
-        public void Clock(List<string> text)
-        {
-            _View.Spectre_Text(text[0] + "\n");
-            _View.Spectre_Text("\n\n[grey underline]Press any button to continue[/]");
-            _View.AwaitKey();
-        }
 
+        //////FLOOR (STAIRS - 1)
         public void Key(List<string> text)
         {
             foreach (var line in text)
@@ -325,6 +207,11 @@ namespace Humanity.View
             }
             _View.AwaitKey();
         }
+
+
+
+
+        /////BOOKSHELF (LIBRARY - 3)
         public void Bookshelf(List<string> text)
         {
             List<string> tmp = text;
@@ -364,6 +251,70 @@ namespace Humanity.View
                 }
             }
         }
+
+
+
+        //// NEWSPAPER (LIVING ROOM - 4)
+        public void Newspaper(List<string> text)
+        {
+            _View.Spectre_Text(text[0] + "\n");
+            var command = AnsiConsole.Prompt(
+            new SelectionPrompt<string>()
+                .Title("")
+                .HighlightStyle(new Style(foreground: Color.White, background: Color.Grey))
+                .PageSize(4)
+                .AddChoices(text[1], text[2])
+            );
+            if (command == text[2])
+            {
+                _View.Spectre_Text("[grey underline]You left the newspaper. \n Press any button to continue[/]");
+                return;
+            }
+            if (command == text[1])
+            {
+                _itemModel.Newspaper();
+                var lines = _itemModel.GetNewspaper;
+                foreach (var x in lines)
+                {
+                    _View.Spectre_Text(x);
+                }
+            }
+        }
+
+        /////CLOCK (LIVING ROOM - 4)
+        public void ShowClock()
+        {
+            var asciiClock = @"
+        _____
+     _.'_____`._
+   .'.-'  12 `-.`.
+  /,' 11      1 `.\
+ // 10      /   2 \\
+;;         /       ::
+|| 9  ----O      3 ||
+::                 ;;
+ \\ 8           4 //
+  \`. 7       5 ,'/
+   '.`-.__6__.-'.'
+    ((-._____.-))
+    _))       ((_
+   '--'       '--'
+
+";
+            _View.Spectre_Text("[silver]The clock seems broken, clock hands are frozen in place.[/]\n \n");
+            _View.Line(asciiClock);
+        }
+
+        public void Clock(List<string> text)
+        {
+            _View.Spectre_Text(text[0] + "\n");
+            _View.Spectre_Text("\n\n[grey underline]Press any button to continue[/]");
+            _View.AwaitKey();
+        }
+
+
+
+        /////MUSIC BOX (HALLWAY - 5)
         public void MusicBox(List<string> text)
         {
             if (!_Model.hasMusicBoxKey)
@@ -395,39 +346,8 @@ namespace Humanity.View
                 }
             }
         }
-        public void Safe(List<string> text)
-        {
-            _View.Spectre_Text(text[0]);
-            var command = AnsiConsole.Prompt(
-                new SelectionPrompt<string>()
-               .Title("")
-               .HighlightStyle(new Style(foreground: Color.White, background: Color.Grey))
-               .PageSize(4)
-               .AddChoices(text[1], text[2])
-               );
-            if (command == text[1])
-            {
-                while (!_Model.SafeOpened) {
-                    var ans = _View.Narrator2("$ ");
-                    if (ans == _Model.SafePassword)
-                    {
-                        _View.Spectre_Text(text[3]);
-                        _Model.hasDevice = true;
-                        _Model.SafeOpened = true;
-                        _View.AwaitKey();
-                    }
-                    else
-                    {
-                        _View.Clear();
-                        _View.Spectre_Text(text[4]);
-                    }
-                }
-            }
-            if (command == text[2])
-            {
-                return;
-            }
-        }
+
+        ///// NOTE (HALLWAY - 5)
         public void Note(List<string> text)
         {
             var panel = new Panel(text[0])
@@ -442,6 +362,10 @@ namespace Humanity.View
                 ));
             _View.AwaitKey();
         }
+
+
+
+        //// CABINET (BATHROOM - 6)
         public void Cabinet(List<string> text)
         {
             _View.Spectre_Text(text[0]);
@@ -472,6 +396,10 @@ namespace Humanity.View
                 return;
             }
         }
+
+
+
+        /////DIARY  (BEDROOM - 7)
        public void Diary(List<string> text)
         {
             foreach (var x in text)
@@ -480,6 +408,46 @@ namespace Humanity.View
             }
             _View.AwaitKey();
         }
+
+
+
+        ////SAFE (OFFICE - 8)
+        public void Safe(List<string> text)
+        {
+            _View.Spectre_Text(text[0]);
+            var command = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+               .Title("")
+               .HighlightStyle(new Style(foreground: Color.White, background: Color.Grey))
+               .PageSize(4)
+               .AddChoices(text[1], text[2])
+               );
+            if (command == text[1])
+            {
+                while (!_Model.SafeOpened)
+                {
+                    var ans = _View.Narrator2("$ ");
+                    if (ans == _Model.SafePassword)
+                    {
+                        _View.Spectre_Text(text[3]);
+                        _Model.hasDevice = true;
+                        _Model.SafeOpened = true;
+                        _View.AwaitKey();
+                    }
+                    else
+                    {
+                        _View.Clear();
+                        _View.Spectre_Text(text[4]);
+                    }
+                }
+            }
+            if (command == text[2])
+            {
+                return;
+            }
+        }
+
+        /////DEVICE  (OFFICE - 8)
         public void Destroy()
         {
             if (!_Model.DEVICE)
@@ -508,7 +476,7 @@ namespace Humanity.View
                             Thread.Sleep(1000);
                             _View.Spectre_Text(text[6]);
                             _View.Spectre_Text(text[7]);
-                            DeleteTerminal();
+                            _Model.DEVICE = true;
                         }
                         else
                         {
@@ -529,10 +497,6 @@ namespace Humanity.View
                 _View.AwaitKey();
                 return;
             }
-        }
-        public void DeleteTerminal()
-        {
-            _Model.DEVICE = true;
         }
     }
 }
