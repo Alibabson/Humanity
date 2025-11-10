@@ -254,11 +254,22 @@ namespace Humanity.View
             while (!quitted)
             {
                 var input = _View.Narrator2("-> ");
+                if (string.IsNullOrWhiteSpace(input))
+                {
+                    break;
+                }
                 if (input == "back") { quitted = !quitted; break; }
                 input = input.Trim().ToLowerInvariant();
-                var parts = input.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
+                var parts = input.Split(' ', 2);
+                if (parts.Length < 2)
+                {
+                    _View.Spectre_Text("\n[grey]Please type coordinates in [/][lime]<row> <column>[/][grey] format.[/]\n");
+                    continue;
+                }
                 int.TryParse(parts[0], out int row);
+                if (parts[0]== "") { quitted = !quitted; break; }
                 int.TryParse(parts[1], out int col);
+                if (parts[1] == "") { quitted = !quitted; break; }
                 if (row <= 0 || col <= 0 ||row > 12 || col >60)
                 {
                     _View.Spectre_Text("[grey]This bookshelf does not have that many books. Try again.[/]");
@@ -273,7 +284,9 @@ namespace Humanity.View
                 else if (row == 6 && col == 7)
                 {
                     _View.Clear();
-                    _View.Spectre_Text("\n[black on white]" + _itemModel.Music + "[/]\n");
+                    _View.Spectre_Text("\n[black on white]" + ShowNotes() + "[/]\n");
+                    _View.AwaitKey();
+                    Bookshelf(tmp);
                 }
                 else
                 {
@@ -285,8 +298,21 @@ namespace Humanity.View
             }
         }
 
-
-
+        public string ShowNotes()
+        {
+            string asciiNotes = @"
+        _                                    
+       ( )                                   
+    ___|/___________________________________ 
+   |__/|/_)_|___________|\____________|\____|
+   |_(_|_/__|___________|______|\_____|_____|
+   |___|____|____|____(_)______|____(_)_____|
+   |________|____|___________(_)____________|
+               (_)                           
+                                              
+        ";
+            return asciiNotes;
+        }
 
         /////CLOCK (LIVING ROOM - 4)
         public void ShowClock()
