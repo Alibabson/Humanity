@@ -10,6 +10,7 @@ namespace Humanity.Model
         public bool Morality { get; set; } = false;
         public bool hasKey { get; set; } = false;
         public bool hasMusicBoxKey { get; set; } = false    ;
+        public bool hasDiaryKey { get; set; } = false;
         public bool hasRing {  get; set; } = false;
 
         //---wazne--//
@@ -21,7 +22,7 @@ namespace Humanity.Model
         public bool IntroPlayed { get; set; } = true;  /// ZMIENIĆ NA false;
         public string SafePassword { get; set; } = "123456";
         public bool SafeOpened { get; set; } = false;
-        public int room_idx { get; set; } = 1   ;
+        public int room_idx { get; set; } = 4   ;
 
         // Prosty dziennik wspomnień (do komendy RECALL)
         /* public List<string> MemoryLogs { get; } = new()
@@ -317,7 +318,14 @@ namespace Humanity.Model
                 /////////////////////////
 
                 ///////////////////KITCHEN
-                /* case cośtam w kuchni*/
+                case "newspaper":
+                    if (idx == 2)
+                    {
+                        itemDesc.Add("The newspaper is old and blacked out, but the text is still fully readable. Do you want to read it?\n");
+                        itemDesc.Add("[lime]YES[/]");
+                        itemDesc.Add("[lime]NO[/]");
+                    }
+                break;
                 //////////////////////////
 
                 //////////////////////LIBRARY
@@ -332,15 +340,6 @@ namespace Humanity.Model
                 ///////////////////////////////
                 
                 ////////////////////////LIVING ROOM
-                case "newspaper":
-                    if (idx == 4)
-                    {
-                        itemDesc.Add("The newspaper is old and blacked out, but the text is still fully readable. Do you want to read it?\n");
-                        itemDesc.Add("[lime]YES[/]");
-                        itemDesc.Add("[lime]NO[/]");
-                    }
-                    break;
-
                 case "clock":
                     if (idx == 4)
                     {
@@ -350,30 +349,19 @@ namespace Humanity.Model
                 default:
                     wrongItem(item);
                     break;
+                case "piano":
+                    if(idx==4)
+                    {
+                        itemDesc.Add("[silver]The piano is old, but it still works. You can play it however you want.[/]\n");
+                        itemDesc.Add("[grey underline]Use buttons C, D, E, F, G and H to play, press ENTER to leave[/]");
+
+                        itemDesc.Add("[silver]You already got the [/][yellow1]Diary key[/][silver], but you can still play the piano.[/]");
+                        itemDesc.Add("\n[lightslateblue]You hear something switched. The piano opened and you found[/] [yellow1]Diary key[/][lightslateblue]![/]\n");
+                    }
+                    break;
                 /////////////////////////////////////////
                 
                 ///////////////////////////////HALLWAY
-                case "music":
-                case "musicbox":
-                case "music box":
-                    {
-                        if (idx == 5)
-                        {
-                            if (!hasMusicBoxKey)
-                            {
-                                itemDesc.Add("[silver]You see a closed music box. The only thing that catches your eye is the [/][gold1]keyhole.[/]");
-                                itemDesc.Add("\n \n[red]You don't have the key yet.[/]");
-                            }
-                            else
-                            {
-                                itemDesc.Add("[yellow1]The key fit perfectly into the music box.[/][silver]A beautiful wind-up ballerina appeared before you.[/]\n \nBeneath her, you could see a small drawer. Do you want to open it?\n \n");
-                                itemDesc.Add("[lime]YES[/]");
-                                itemDesc.Add("[lime]NO[/]");
-                                itemDesc.Add("[silver]You found a [/][lime]wedding ring[/][silver] inside the music box. There's a date engraved on it: \n \n[/][yellow1]08.14.1974\n[/]");
-                            }
-                        }
-                    }
-                    break;
                 case "note":
                 case "notes":
                     {
@@ -409,9 +397,30 @@ namespace Humanity.Model
                         }
                     }
                 break;
+                case "music":
+                case "musicbox":
+                case "music box":
+                    {
+                        if (idx == 7)
+                        {
+                            if (!hasMusicBoxKey)
+                            {
+                                itemDesc.Add("[silver]You see a closed music box. The main thing that catches your eye are the written numbers: \n[/][gold1]6[/][silver] and[/][gold1]7[/]\n");
+                                itemDesc.Add("\n \n[silver]There is also a keyhole. [red]You don't have the key yet.[/]");
+                            }
+                            else
+                            {
+                                itemDesc.Add("[yellow1]The key fit perfectly into the music box.[/][silver]A beautiful wind-up ballerina appeared before you.[/]\n \nBeneath her, you could see a small drawer. Do you want to open it?\n \n");
+                                itemDesc.Add("[lime]YES[/]");
+                                itemDesc.Add("[lime]NO[/]");
+                                itemDesc.Add("[silver]You found a [/][lime]wedding ring[/][silver] inside the music box. There's a date engraved on it: \n \n[/][yellow1]Elara & Adrian[/][silver].[/]\n");
+                            }
+                        }
+                    }
+                    break;
                 ////////////////////////////////
-                
-                 /////////////OFFICE
+
+                /////////////OFFICE
                 case "safe":
                     {
                         if(idx==8)

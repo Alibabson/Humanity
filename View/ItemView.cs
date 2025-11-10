@@ -210,6 +210,34 @@ namespace Humanity.View
 
 
 
+        //// NEWSPAPER (KITCHEN - 2)
+        public void Newspaper(List<string> text)
+        {
+            _View.Spectre_Text(text[0] + "\n");
+            var command = AnsiConsole.Prompt(
+            new SelectionPrompt<string>()
+                .Title("")
+                .HighlightStyle(new Style(foreground: Color.White, background: Color.Grey))
+                .PageSize(4)
+                .AddChoices(text[1], text[2])
+            );
+            if (command == text[2])
+            {
+                _View.Spectre_Text("[grey underline]You left the newspaper. \n Press any button to continue[/]");
+                return;
+            }
+            if (command == text[1])
+            {
+                _itemModel.Newspaper();
+                var lines = _itemModel.GetNewspaper;
+                foreach (var x in lines)
+                {
+                    _View.Spectre_Text(x);
+                }
+            }
+        }
+
+
 
         /////BOOKSHELF (LIBRARY - 3)
         public void Bookshelf(List<string> text)
@@ -242,6 +270,11 @@ namespace Humanity.View
                     _View.AwaitKey();
                     Bookshelf(tmp);
                 }
+                else if (row == 6 && col == 7)
+                {
+                    _View.Clear();
+                    _View.Spectre_Text("\n[black on white]" + _itemModel.Music + "[/]\n");
+                }
                 else
                 {
                     _View.Clear();
@@ -254,32 +287,6 @@ namespace Humanity.View
 
 
 
-        //// NEWSPAPER (LIVING ROOM - 4)
-        public void Newspaper(List<string> text)
-        {
-            _View.Spectre_Text(text[0] + "\n");
-            var command = AnsiConsole.Prompt(
-            new SelectionPrompt<string>()
-                .Title("")
-                .HighlightStyle(new Style(foreground: Color.White, background: Color.Grey))
-                .PageSize(4)
-                .AddChoices(text[1], text[2])
-            );
-            if (command == text[2])
-            {
-                _View.Spectre_Text("[grey underline]You left the newspaper. \n Press any button to continue[/]");
-                return;
-            }
-            if (command == text[1])
-            {
-                _itemModel.Newspaper();
-                var lines = _itemModel.GetNewspaper;
-                foreach (var x in lines)
-                {
-                    _View.Spectre_Text(x);
-                }
-            }
-        }
 
         /////CLOCK (LIVING ROOM - 4)
         public void ShowClock()
@@ -312,41 +319,75 @@ namespace Humanity.View
             _View.AwaitKey();
         }
 
-
-
-        /////MUSIC BOX (HALLWAY - 5)
-        public void MusicBox(List<string> text)
+        ///// PIANO (LIVING ROOM - 4)
+        public void Piano(List<string> text)
         {
-            if (!_Model.hasMusicBoxKey)
-            {
-                foreach (var l in text)
-                {
-                    _View.Spectre_Text(l);
-                }
-            }
-            if (_Model.hasMusicBoxKey)
+            int order = 0;
+            if (!_Model.hasDiaryKey)
             {
                 _View.Spectre_Text(text[0]);
-                var command = AnsiConsole.Prompt(
-                 new SelectionPrompt<string>()
-                .Title("")
-                .HighlightStyle(new Style(foreground: Color.White, background: Color.Grey))
-                .PageSize(4)
-                .AddChoices(text[1], text[2])
-                );
-                if (command == text[1])
+                _View.Spectre_Text(text[1]);
+                while(order<3)
+                {
+                    var k = _View.CheckKey();
+                    if(k == ConsoleKey.Enter)
+                    {
+                        return;
+                    }
+                    if (k == ConsoleKey.C)
+                    {
+                        if (order == 0) order = 1;
+                        else order = 0;
+                            _View.PianoBeep(262);
+                    }
+                    if (k==ConsoleKey.D)
+                    {
+                        if (order == 1) order = 2;
+                        else order = 0;
+                            _View.PianoBeep(294);
+                    }
+                    if(k ==ConsoleKey.E)
+                    {
+                        if (order == 2) order = 3;
+                        else order = 0;
+                            _View.PianoBeep(330);
+                    }
+                    if(k ==ConsoleKey.F)
+                    {
+                        order = 0;
+                        _View.PianoBeep(349);
+                    }
+                    if (k == ConsoleKey.G)
+                    {
+                        order = 0;
+                        _View.PianoBeep(392);
+                    }
+                    if (k == ConsoleKey.A)
+                    {
+                        order = 0;
+                        _View.PianoBeep(440);
+                    }
+                    if (k == ConsoleKey.H)
+                    {
+                        order = 0;
+                        _View.PianoBeep(494);
+                    }
+                }
+                if(order==3)
                 {
                     _View.Spectre_Text(text[3]);
-                    _Model.hasRing = true;
+                    _Model.hasDiaryKey = true;
                     _View.AwaitKey();
-                }
-                if (command == text[2])
-                {
                     return;
                 }
             }
+            else
+            {
+                _View.Spectre_Text(text[2]);
+                return;
+            }
         }
-
+        
         ///// NOTE (HALLWAY - 5)
         public void Note(List<string> text)
         {
@@ -399,8 +440,41 @@ namespace Humanity.View
 
 
 
+        /////MUSIC BOX (BEDROOM - 7)
+        public void MusicBox(List<string> text)
+        {
+            if (!_Model.hasMusicBoxKey)
+            {
+                foreach (var l in text)
+                {
+                    _View.Spectre_Text(l);
+                }
+            }
+            if (_Model.hasMusicBoxKey)
+            {
+                _View.Spectre_Text(text[0]);
+                var command = AnsiConsole.Prompt(
+                 new SelectionPrompt<string>()
+                .Title("")
+                .HighlightStyle(new Style(foreground: Color.White, background: Color.Grey))
+                .PageSize(4)
+                .AddChoices(text[1], text[2])
+                );
+                if (command == text[1])
+                {
+                    _View.Spectre_Text(text[3]);
+                    _Model.hasRing = true;
+                    _View.AwaitKey();
+                }
+                if (command == text[2])
+                {
+                    return;
+                }
+            }
+        }
+
         /////DIARY  (BEDROOM - 7)
-       public void Diary(List<string> text)
+        public void Diary(List<string> text)
         {
             foreach (var x in text)
             {

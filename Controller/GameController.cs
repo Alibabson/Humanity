@@ -249,7 +249,7 @@ namespace Humanity.Controller
                                     }
                                     return true;
                                 case "newspaper":
-                                    if (idx == 4)
+                                    if (idx == 2)
                                     {
                                         _itemView.Newspaper(desc);
                                         _view.AwaitKey();
@@ -263,6 +263,17 @@ namespace Humanity.Controller
                                         return false;
                                     }
                                     return true;
+                                case "piano":
+                                {
+                                    if(idx==4)
+                                    {
+                                    _itemView.Piano(desc);
+                                    _view.AwaitKey();
+                                    _view.Clear();
+                                    LookFunction("");
+                                    }
+                                }
+                                return true;
                                 case "clock":
                                     if (idx == 4)
                                     {
@@ -281,7 +292,7 @@ namespace Humanity.Controller
                                 case "music":
                                 case "musicbox":
                                 case "music box":
-                                    if (idx == 5)
+                                    if (idx == 7)
                                     {
                                         _itemView.MusicBox(desc);
                                         _view.AwaitKey();

@@ -108,6 +108,11 @@ namespace Humanity.Model
             GetNewspaper.Add("\n \n[grey italic]If you have any information, please contact the local police department at (555) 161-4559.[/]\n");
 
         }
+        ////MUSIC
+        public List<string> Music = new List<string>()
+        {
+            Music.Add("TUTAJ EMI WRZUĆ")
+        }
 
         ////DEVICE
         public List<string> DestroyList = new List<string>()

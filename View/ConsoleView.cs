@@ -128,6 +128,13 @@ namespace Humanity.View
             catch
             { }
         }
+        public void PianoBeep(int hz)
+        {
+            try {
+                Console.Beep(hz, 400);
+             }
+            catch { }
+        }
         public async Task<string> Narrator(string prefix = "\n> ")  // daje znak > po lewej i pozwala na wpisywnaie komend. Możemy zmieniać ten znaczek
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
@@ -218,7 +225,6 @@ namespace Humanity.View
         {
             AnsiConsole.Markup(text);
         }
-
         public void SpectreFiglet(string text) //figlet to duży tekst ASCII
         {
             var figlet = new FigletText(text)
