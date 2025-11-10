@@ -108,7 +108,57 @@ namespace Humanity.Model
             GetNewspaper.Add("\n \n[grey italic]If you have any information, please contact the local police department at (555) 161-4559.[/]\n");
 
         }
-        
+
+        ////BOOKSHELF
+        ////przeczytane
+        public List<string> List_replay = new List<string>()
+        {
+            "[grey]You already opened the list.[/]\n"
+        };
+        ////poemat Elary
+        public List<string> Poem = new List<string>()
+        {
+            "[lightslateblue]Y[/][grey53]ou once told me that the mind could be mapped,[/]\n",
+            "[lightslateblue]O[/][grey53]r that a soul was only patterns and light.[/]\n",
+            "[lightslateblue]U[/][grey53]nder your hands, even love became an experiment.[/]\n",
+
+            "\n",
+            "[lightslateblue]K[/][grey53]nowing you, I should have seen this coming.[/]\n",
+            "[lightslateblue]N[/][grey53]ever did I think obsession could sound so quiet.[/]\n",
+            "[lightslateblue]O[/][grey53]nly the machines answer me now.[/]\n",
+            "[lightslateblue]W[/][grey53]hen I whisper your name, they hum instead.[/]\n",
+
+            "\n",
+            "[lightslateblue]W[/][grey53]hat are you chasing, Adrian?[/]\n",
+            "[lightslateblue]H[/][grey53]ow many pieces of yourself will you take apart[/]\n",
+            "[lightslateblue]A[/][grey53]nd still pretend there's something left to save?[/]\n",
+            "[lightslateblue]T[/][grey53]he truth is, I don't recognize the man in your eyes.[/]\n",
+
+            "\n",
+            "[lightslateblue]Y[/][grey53]ou said creation demands sacrifice.[/]\n",
+            "[lightslateblue]O[/][grey53]n that, perhaps, you were right -[/]\n",
+            "[lightslateblue]U[/][grey53]ntil I realized what the sacrifice was.[/]\n",
+
+            "\n",
+            "[lightslateblue]D[/][grey53]o you even see it now?[/]\n",
+            "[lightslateblue]E[/][grey53]verything you touched began to fade.[/]\n",
+            "[lightslateblue]S[/][grey53]ometimes I wonder if that's all you ever wanted.[/]\n",
+            "[lightslateblue]T[/][grey53]o prove you could unmake the world,[/]\n",
+            "[lightslateblue]R[/][grey53]ebuild it in your image,[/]\n",
+            "[lightslateblue]O[/][grey53]r simply watch it collapse.[/]\n",
+            "[lightslateblue]Y[/][grey53]ou turned wonder into ashes, Adrian.[/]\n",
+            "[lightslateblue]E[/][grey53]ven love.[/]\n",
+            "[lightslateblue]D[/][grey53]oomed with no chance of a return.[/]\n",
+
+            "\n",
+            "[grey53]-E.[/]\n"
+        };
+        ////SZYFR
+        public List<string> Cipher = new List<string>()
+        {
+            "[orange3]A → 0    K → 0   U → 0\n\nB → 1    L → 1   V → 1\n\nC → 2    M → 2   W → 2\n\nD → 3    N → 3   X → 3\n\nE → 4    O → 4   Y → 4\n\nF → 5    P → 5   Z → 5\n\nG → 6    Q → 6\n\nH → 7    R → 7\n\nI → 8    S → 8\n\nJ → 9    T → 9[/]\n",
+            "[grey63]My love,\n\nI’ve decided to lock it away.\nYou begged me to use it,\nbut you never understood how much depends on this work.\nIt can change the world…\nand you tried to stop me from what you called madness.\n\nI couldn’t let that happen.\nSo I protected myself — and in doing so, I hurt you.\n\nI hid your solution,\nthe one thing you believed could save us.\nMy work is the greatest idea of my life, and you knew that…\n\nWe kept our best memories there.\nThat [/][gold1]safe[/][grey63] is our entire marriage —\nand now it holds our deepest pain as well.\n\nI never wanted things to end like this.\n\nYou were always the [/][gold1]key[/][grey63].\nEven now.\n\n— A.[/]"
+        };
 
         ////DEVICE
         public List<string> DestroyList = new List<string>()
@@ -127,6 +177,16 @@ namespace Humanity.Model
             "\n[red]INCORRECT PASSWORD. TRY AGAIN.[/]\n", //[7]
 
         };
+
+        ////Fragmenty Człowieczeństwa
+        public List<string> Fragment = new List<string>()
+        {
+           "[red]A mind without ______ is a room without light.[/]\n",
+           "[red]A heart without _______ is a voice without sound.[/]\n",
+           "[red]A choice without ________ is a road without direction.[/]\n"
+        };
+
+        
     }
 }
 

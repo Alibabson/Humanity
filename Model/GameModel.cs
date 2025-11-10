@@ -20,9 +20,9 @@ namespace Humanity.Model
         public int sanity { get; set; } = 100;
         // Stan ogólny
         public bool IntroPlayed { get; set; } = true;  /// ZMIENIĆ NA false;
-        public string SafePassword { get; set; } = "123456";
+        public string SafePassword { get; set; } = "41070";
         public bool SafeOpened { get; set; } = false;
-        public int room_idx { get; set; } = 3   ;
+        public int room_idx { get; set; } = 4  ;
 
         // Prosty dziennik wspomnień (do komendy RECALL)
         /* public List<string> MemoryLogs { get; } = new()
@@ -333,7 +333,9 @@ namespace Humanity.Model
                     {
                         if(idx==3)
                         {
-
+                            itemDesc.Add("[lightslateblue]You found a romantic poem with a letter snuck inside of it. Do you want to read it?[/]\n \n");
+                            itemDesc.Add("[lime]YES[/]");
+                            itemDesc.Add("[lime]NO[/]");
                         }
                     }
                     break;
@@ -432,6 +434,17 @@ namespace Humanity.Model
                             itemDesc.Add("[yellow1]You opened the safe. You found the[/] [lime]device[/][yellow1].[/]\n");
 
                             itemDesc.Add("[red]Wrong password. Try again.[/]\n");
+                        }
+                    }
+                    break;
+                case "desk":
+                    {
+                        if (idx == 8)
+                        {
+                            itemDesc.Add("[silver]Do you want to check what's on the desk, or what's insite the drawer?[/]\n");
+                            itemDesc.Add("[lime]CHECK DESK[/]");
+                            itemDesc.Add("[lime]CHECK DRAWER[/]");
+                            itemDesc.Add("[lime]NEVERMIND[/]");
                         }
                     }
                     break;

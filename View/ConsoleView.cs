@@ -142,9 +142,10 @@ namespace Humanity.View
             Console.ResetColor();
             return (Console.ReadLine() ?? "").Trim(); //trim usuwa niepotrzebne spacje które możemy dać przypadkiem
         }
-        public string Narrator2(string prefix)  // daje znak > po lewej i pozwala na wpisywnaie komend. Możemy zmieniać ten znaczek
+        public string Narrator2(string prefix, bool red=false)  // daje znak > po lewej i pozwala na wpisywnaie komend. Możemy zmieniać ten znaczek
         {
-            Console.ForegroundColor = ConsoleColor.Yellow;
+            if(red) Console.ForegroundColor = ConsoleColor.Red;
+            else Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write(prefix);
             Console.ResetColor();
             return (Console.ReadLine() ?? "").Trim(); //trim usuwa niepotrzebne spacje które możemy dać przypadkiem

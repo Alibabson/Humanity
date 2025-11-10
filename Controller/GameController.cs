@@ -234,6 +234,21 @@ namespace Humanity.Controller
                                         return false;
                                     }
                                     return true;
+                                case "newspaper":
+                                if (idx == 2)
+                                {
+                                   _itemView.Newspaper(desc);
+                                   _view.AwaitKey();
+                                   _view.Clear();
+                                   //HUD();
+                                   LookFunction("");
+                                }
+                                else
+                                {
+                                   checkError(argument);
+                                   return false;
+                                }
+                                return true;
                                 case "bookshelf":
                                     if (idx == 3)
                                     {
@@ -247,22 +262,7 @@ namespace Humanity.Controller
                                         checkError(argument);
                                         return false;
                                     }
-                                    return true;
-                                case "newspaper":
-                                    if (idx == 2)
-                                    {
-                                        _itemView.Newspaper(desc);
-                                        _view.AwaitKey();
-                                        _view.Clear();
-                                        //HUD();
-                                        LookFunction("");
-                                    }
-                                    else
-                                    {
-                                        checkError(argument);
-                                        return false;
-                                    }
-                                    return true;
+                                    return true;                          
                                 case "piano":
                                 {
                                     if(idx==4)
@@ -304,17 +304,7 @@ namespace Humanity.Controller
                                         checkError(argument);
                                         return false;
                                     }
-                                    return true;
-                                case "safe":
-                                {
-                                if (idx == 8)
-                                {
-                                    _itemView.Safe(desc);
-                                    _view.Clear();
-                                    LookFunction("");
-                                }
-                                }
-                                return true;
+                                    return true;                              
 
                                 case "note":
                                 case "notes":
@@ -357,10 +347,30 @@ namespace Humanity.Controller
                                         return false;
                                     }
                                     return true;
-                                default:
-                                    _view.Red("Error: There is no item named '" + argument + "' in this room. Try again.\n");
-                                    success = !success;
-                                    return false;
+                                case "safe":
+                                {
+                                    if (idx == 8)
+                                    {
+                                       _itemView.Safe(desc);
+                                       _view.Clear();
+                                       LookFunction("");
+                                     }
+                                 }
+                                 return true;
+                                 case "desk":
+                                 {
+                                    if(idx == 8)
+                                {
+                                    _itemView.Desk(desc);
+                                    _view.Clear();
+                                    LookFunction("");
+                                }
+                            }
+                                 return true;
+                                 default:
+                                        _view.Red("Error: There is no item named '" + argument + "' in this room. Try again.\n");
+                                        success = !success;
+                                        return false;
                             }
                         case "exit":
                         case "quit":

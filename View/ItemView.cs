@@ -1,5 +1,6 @@
 using Humanity.Model;
 using Spectre.Console;
+using Spectre.Console.Cli;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -246,10 +247,6 @@ namespace Humanity.View
             bool quitted = false;
             _View.Clear();
 
-            foreach (var line in text)
-            {
-                _View.Spectre_Text(line + "\n");
-            }
             _View.Spectre_Text("\n[grey]Type 'back' to exit.\n \n[/]");
             while (!quitted)
             {
@@ -258,7 +255,7 @@ namespace Humanity.View
                 {
                     break;
                 }
-                if (input == "back") { quitted = !quitted; break; }
+                if (input == "back") { quitted = !quitted; return; }
                 input = input.Trim().ToLowerInvariant();
                 var parts = input.Split(' ', 2);
                 if (parts.Length < 2)
@@ -277,9 +274,22 @@ namespace Humanity.View
                 if (row == 9 && col == 5)
                 {
                     _View.Clear();
-                    _View.Spectre_Text("\n[green]Dobra ksi¹zka potem zmieniê[/]\n");
-                    _View.AwaitKey();
-                    Bookshelf(tmp);
+                    _View.Spectre_Text(text[0]);
+                    var command = AnsiConsole.Prompt(
+                    new SelectionPrompt<string>()
+                      .Title("")
+                      .HighlightStyle(new Style(foreground: Color.White, background: Color.Grey))
+                      .PageSize(4)
+                      .AddChoices(text[1], text[2])
+                     );
+                    if (command == text[1])
+                    {
+                        Poem(tmp);
+                    }
+                    else
+                    {
+                        Bookshelf(tmp);
+                    }
                 }
                 else if (row == 6 && col == 7)
                 {
@@ -297,7 +307,7 @@ namespace Humanity.View
                 }
             }
         }
-
+       
         public string ShowNotes()
         {
             string asciiNotes = @"
@@ -313,6 +323,32 @@ namespace Humanity.View
         ";
             return asciiNotes;
         }
+        private bool PoemOpened = false;
+        public void Poem(List<string> text)
+        {
+            _View.Clear();
+            if (!PoemOpened)
+            {
+                foreach (string s in _itemModel.Poem)
+                {
+                    _View.Spectre_Text(s);
+                }
+                _View.CheckKey();
+                if (KeyFragment("REASON"))
+                {
+                    PoemOpened = true;
+                }
+                else return;
+            }
+            else
+            {
+                _View.Spectre_Text(_itemModel.List_replay[0]);
+            }
+            _View.AwaitKey();
+            Bookshelf(text);
+        }
+
+
 
         /////CLOCK (LIVING ROOM - 4)
         public void ShowClock()
@@ -353,7 +389,16 @@ namespace Humanity.View
             {
                 _View.Spectre_Text(text[0]);
                 _View.Spectre_Text(text[1]);
-                while(order<3)
+                _View.Spectre_Text("\n[silver]" + ShowPiano() + "[/]\n");
+            }
+            else
+            {
+                order = 0;
+                _View.Spectre_Text(text[2]);
+                _View.Spectre_Text("\n[silver]" + ShowPiano() + "[/]\n");
+
+            }
+            while (order<3)
                 {
                     var k = _View.CheckKey();
                     if(k == ConsoleKey.Enter)
@@ -362,19 +407,19 @@ namespace Humanity.View
                     }
                     if (k == ConsoleKey.C)
                     {
-                        if (order == 0) order = 1;
+                        if (order == 0 && !_Model.hasDiaryKey)  order = 1;
                         else order = 0;
                             _View.PianoBeep(262);
                     }
                     if (k==ConsoleKey.D)
                     {
-                        if (order == 1) order = 2;
+                        if (order == 1 && !_Model.hasDiaryKey) order = 2;
                         else order = 0;
                             _View.PianoBeep(294);
                     }
                     if(k ==ConsoleKey.E)
                     {
-                        if (order == 2) order = 3;
+                        if (order == 2 && !_Model.hasDiaryKey) order = 3;
                         else order = 0;
                             _View.PianoBeep(330);
                     }
@@ -399,21 +444,29 @@ namespace Humanity.View
                         _View.PianoBeep(494);
                     }
                 }
-                if(order==3)
+                if(order==3 && !_Model.hasDiaryKey)
                 {
                     _View.Spectre_Text(text[3]);
-                    _Model.hasDiaryKey = true;
-                    _View.AwaitKey();
-                    return;
+                    //_View.AwaitKey();
+                _Model.hasDiaryKey = true;
+                return;
                 }
             }
-            else
-            {
-                _View.Spectre_Text(text[2]);
-                return;
-            }
+
+        public string ShowPiano()
+        {
+            string asciiPiano = @"
+  _________________________________________
+ | | || || | | | || | | | || || | | | || | |
+ | |_||_||_| | |_||_| | |_||_||_| | |_||_| |
+ |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+ |__|__|__|__|__|__|__|__|__|__|__|__|__|__|";
+            return asciiPiano;
         }
-        
+
+
+
+
         ///// NOTE (HALLWAY - 5)
         public void Note(List<string> text)
         {
@@ -547,6 +600,57 @@ namespace Humanity.View
             }
         }
 
+        /////DESK (OFFICE - 8)
+        public void Desk(List<string> text)
+        {
+            _View.Spectre_Text(text[0]);
+            var command = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+               .Title("")
+               .HighlightStyle(new Style(foreground: Color.White, background: Color.Grey))
+               .PageSize(4)
+               .AddChoices(text[1], text[2], text[3])
+               );
+            if (command == text[1])
+            {
+                _View.Clear();
+               // _View.Spectre_Text();
+                //_View.AwaitKey();
+
+                var panel = new Panel(_itemModel.Cipher[0])
+                {
+                    Border = BoxBorder.Square,
+                    Padding = new Padding(left: 2, top: 2, right: 2, bottom: 2),
+                };
+                AnsiConsole.Write(new Align(
+                    panel,
+                    HorizontalAlignment.Center,
+                    VerticalAlignment.Middle
+                    ));
+                _View.AwaitKey();
+            }
+            else if(command == text[2])
+            {
+                _View.Clear();
+                _View.Spectre_Text("\n\n\n");
+                var panel = new Panel(_itemModel.Cipher[1])
+                {
+                    Border = BoxBorder.Square,
+                    Padding = new Padding(left: 2, top: 2, right: 2, bottom: 2),
+                };
+                AnsiConsole.Write(new Align(
+                    panel,
+                    HorizontalAlignment.Center,
+                    VerticalAlignment.Middle
+                    ));
+                _View.AwaitKey();
+            }    
+            else
+            {
+                return;
+            }
+        }
+
         /////DEVICE  (OFFICE - 8)
         public void Destroy()
         {
@@ -598,5 +702,52 @@ namespace Humanity.View
                 return;
             }
         }
-    }
-}
+
+        /////Fragmenty Cz³owieczeñstwa
+        public bool KeyFragment(string which)
+        {
+            _View.Clear();
+            switch(which)
+            {
+                case "REASON":
+                    {
+                        _View.Spectre_Text(_itemModel.Fragment[0]);
+                        var input = _View.Narrator2("",true).Trim().ToLower();
+                        if (input == "reason")
+                        {
+                            _Model.Reason = true;
+                            return true;
+                        }
+                        else return true;
+                        
+                    }
+                case "EMOTION":
+                    {
+                        _View.Spectre_Text(_itemModel.Fragment[1]);
+                        var input = _View.Narrator2("", true).Trim().ToLower();
+                        if (input == "emotion")
+                        {
+                            _Model.Emotion = true;
+                            return true;
+                        }
+                        else return true;
+                    }
+                case "MORALITY":
+                    {
+                        _View.Spectre_Text(_itemModel.Fragment[2]);
+                        var input = _View.Narrator2("", true).Trim().ToLower();
+                        if (input == "morality")
+                        {
+                            _Model.Morality = true;
+                            return true;
+                        }
+                        else return true;
+
+                    }
+                default: return true;
+            }
+            //return false;
+        }
+        
+    }   
+}       
