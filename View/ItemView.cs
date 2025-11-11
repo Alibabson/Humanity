@@ -482,32 +482,82 @@ namespace Humanity.View
                 ));
             _View.AwaitKey();
         }
-
+        ////PHOTO (HALLWAY - 5)
         public void Photo(List<string> text)
         {
-            _View.Spectre_Text(text[0] + "\n");
+            _View.Spectre_Text(ShowPhoto());
+
+            if (_Model.KnowsSafeLocation)
+            {
+                _View.Spectre_Text(text[0] + "\n");
+                var command = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                    .Title("")
+                    .HighlightStyle(new Style(foreground: Color.White, background: Color.Grey))
+                    .PageSize(4)
+                    .AddChoices(text[1], text[2])
+                );
+                if (command == text[2])
+                {
+                    return;
+                }
+                if (command == text[1])
+                {
+                    _itemModel.Photo();
+                    var lines = _itemModel.GetPhoto;
+                    foreach (var x in lines)
+                    {
+                        _View.Spectre_Text(x);
+                    }
+                    _View.AwaitKey();
+                }
+            }
+        }
+        public string ShowPhoto()
+        {
+            string asciiPhoto = @"
+
+";
+            return asciiPhoto;
+
+        }
+
+        ////SAFE
+        public void Safe(List<string> text)
+        {
+            _View.Spectre_Text(text[0]);
             var command = AnsiConsole.Prompt(
-            new SelectionPrompt<string>()
-                .Title("")
-                .HighlightStyle(new Style(foreground: Color.White, background: Color.Grey))
-                .PageSize(4)
-                .AddChoices(text[1], text[2])
-            );
+                new SelectionPrompt<string>()
+               .Title("")
+               .HighlightStyle(new Style(foreground: Color.White, background: Color.Grey))
+               .PageSize(4)
+               .AddChoices(text[1], text[2])
+               );
+            if (command == text[1])
+            {
+                while (!_Model.SafeOpened)
+                {
+                    var ans = _View.Narrator2("$ ");
+                    if (ans == _Model.SafePassword)
+                    {
+                        _View.Spectre_Text(text[3]);
+                        _Model.hasDevice = true;
+                        _Model.SafeOpened = true;
+                        _View.AwaitKey();
+                    }
+                    else
+                    {
+                        _View.Clear();
+                        _View.Spectre_Text(text[4]);
+                    }
+                }
+            }
             if (command == text[2])
             {
                 return;
             }
-            if (command == text[1])
-            {
-                _itemModel.Photo();
-                var lines = _itemModel.GetPhoto;
-                foreach (var x in lines)
-                {
-                    _View.Spectre_Text(x);
-                }
-                _View.AwaitKey();
-            }
         }
+
 
 
         //// CABINET (BATHROOM - 6)
@@ -589,41 +639,7 @@ namespace Humanity.View
 
 
 
-        ////SAFE (OFFICE - 8)
-        public void Safe(List<string> text)
-        {
-            _View.Spectre_Text(text[0]);
-            var command = AnsiConsole.Prompt(
-                new SelectionPrompt<string>()
-               .Title("")
-               .HighlightStyle(new Style(foreground: Color.White, background: Color.Grey))
-               .PageSize(4)
-               .AddChoices(text[1], text[2])
-               );
-            if (command == text[1])
-            {
-                while (!_Model.SafeOpened)
-                {
-                    var ans = _View.Narrator2("$ ");
-                    if (ans == _Model.SafePassword)
-                    {
-                        _View.Spectre_Text(text[3]);
-                        _Model.hasDevice = true;
-                        _Model.SafeOpened = true;
-                        _View.AwaitKey();
-                    }
-                    else
-                    {
-                        _View.Clear();
-                        _View.Spectre_Text(text[4]);
-                    }
-                }
-            }
-            if (command == text[2])
-            {
-                return;
-            }
-        }
+       
 
         /////DESK (OFFICE - 8)
         public void Desk(List<string> text)
@@ -668,6 +684,7 @@ namespace Humanity.View
                     HorizontalAlignment.Center,
                     VerticalAlignment.Middle
                     ));
+                _Model.KnowsSafeLocation = true;
                 _View.AwaitKey();
             }    
             else

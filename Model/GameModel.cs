@@ -13,6 +13,7 @@ namespace Humanity.Model
         public bool hasDiaryKey { get; set; } = false;
         public bool hasRing {  get; set; } = false;
 
+        public bool KnowsSafeLocation { get; set; } = false;
         //---wazne--//
         public bool DEVICE { get; set; } = false;
         public bool hasDevice { get; set; } = false;
@@ -22,7 +23,7 @@ namespace Humanity.Model
         public bool IntroPlayed { get; set; } = true;  /// ZMIENIĆ NA false;
         public string SafePassword { get; set; } = "41070";
         public bool SafeOpened { get; set; } = false;
-        public int room_idx { get; set; } = 4  ;
+        public int room_idx { get; set; } = 5  ;
 
         // Prosty dziennik wspomnień (do komendy RECALL)
         /* public List<string> MemoryLogs { get; } = new()
@@ -384,6 +385,20 @@ namespace Humanity.Model
                         }
                     }
                     break;
+                case "safe":
+                    {
+                        if (idx == 5)
+                        {
+                            itemDesc.Add("[silver]The safe is protected with a 6 digit password, do you want to try and open it?[/]\n");
+                            itemDesc.Add("[lime]YES[/]");
+                            itemDesc.Add("[lime]NO[/]");
+
+                            itemDesc.Add("[yellow1]You opened the safe. You found the[/] [lime]device[/][yellow1].[/]\n");
+
+                            itemDesc.Add("[red]Wrong password. Try again.[/]\n");
+                        }
+                    }
+                    break;
                 ////////////////////////////////////////
 
                 //////////////////////////////BATHROOM
@@ -426,7 +441,7 @@ namespace Humanity.Model
                                 itemDesc.Add("[yellow1]The key fit perfectly into the music box.[/][silver]A beautiful wind-up ballerina appeared before you.[/]\n \nBeneath her, you could see a small drawer. Do you want to open it?\n \n");
                                 itemDesc.Add("[lime]YES[/]");
                                 itemDesc.Add("[lime]NO[/]");
-                                itemDesc.Add("[silver]You found a [/][lime]wedding ring[/][silver] inside the music box. There's a date engraved on it: \n \n[/][yellow1]Elara & Adrian[/][silver].[/]\n");
+                                itemDesc.Add("[silver]You found a [/][lime]wedding ring[/][silver] inside the music box. There's a text engraved on it: \n \n[/][yellow1]Elara & Adrian[/][silver].[/]\n");
                             }
                         }
                     }
@@ -434,20 +449,7 @@ namespace Humanity.Model
                 ////////////////////////////////
 
                 /////////////OFFICE
-                case "safe":
-                    {
-                        if(idx==8)
-                        {
-                            itemDesc.Add("[silver]The safe is protected with a 6 digit password, do you want to try and open it?[/]\n");
-                            itemDesc.Add("[lime]YES[/]");
-                            itemDesc.Add("[lime]NO[/]");
-
-                            itemDesc.Add("[yellow1]You opened the safe. You found the[/] [lime]device[/][yellow1].[/]\n");
-
-                            itemDesc.Add("[red]Wrong password. Try again.[/]\n");
-                        }
-                    }
-                    break;
+               
                 case "desk":
                     {
                         if (idx == 8)

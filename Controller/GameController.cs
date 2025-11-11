@@ -358,7 +358,7 @@ namespace Humanity.Controller
                                         return false;
                                     }
                                     return true;
-                                case "safe":
+                                /*case "safe":
                                 {
                                     if (idx == 8)
                                     {
@@ -367,7 +367,7 @@ namespace Humanity.Controller
                                        LookFunction("");
                                      }
                                  }
-                                 return true;
+                                 return true; */
                                  case "desk":
                                  {
                                     if(idx == 8)
