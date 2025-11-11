@@ -234,19 +234,32 @@ namespace Humanity.Controller
                                         return false;
                                     }
                                     return true;
-                                case "newspaper":
-                                if (idx == 2)
+                                     case "piano":
                                 {
-                                   _itemView.Newspaper(desc);
-                                   _view.Clear();
-                                   LookFunction("");
-                                }
-                                else
-                                {
-                                   checkError(argument);
-                                   return false;
+                                    if(idx==2)
+                                    {
+                                    _itemView.Piano(desc);
+                                    _view.AwaitKey();
+                                    _view.Clear();
+                                    LookFunction("");
+                                    }
                                 }
                                 return true;
+                                case "clock":
+                                    if (idx == 2)
+                                    {
+                                        _itemView.ShowClock();
+                                        _itemView.Clock(desc);
+                                        _view.Clear();
+                                        //HUD();
+                                        LookFunction("");
+                                    }
+                                    else
+                                    {
+                                        checkError(argument);
+                                        return false;
+                                    }
+                                    return true;
                                 case "bookshelf":
                                     if (idx == 3)
                                     {
@@ -261,32 +274,19 @@ namespace Humanity.Controller
                                         return false;
                                     }
                                     return true;                          
-                                case "piano":
+                                case "newspaper":
+                                if (idx == 4)
                                 {
-                                    if(idx==4)
-                                    {
-                                    _itemView.Piano(desc);
-                                    _view.AwaitKey();
-                                    _view.Clear();
-                                    LookFunction("");
-                                    }
+                                   _itemView.Newspaper(desc);
+                                   _view.Clear();
+                                   LookFunction("");
+                                }
+                                else
+                                {
+                                   checkError(argument);
+                                   return false;
                                 }
                                 return true;
-                                case "clock":
-                                    if (idx == 4)
-                                    {
-                                        _itemView.ShowClock();
-                                        _itemView.Clock(desc);
-                                        _view.Clear();
-                                        //HUD();
-                                        LookFunction("");
-                                    }
-                                    else
-                                    {
-                                        checkError(argument);
-                                        return false;
-                                    }
-                                    return true;
                                 case "music":
                                 case "musicbox":
                                 case "music box":
@@ -415,7 +415,7 @@ namespace Humanity.Controller
                     }
                     break;
                 case 1: //STAIRS   [Można do LAB lub LIVING ROOM lub HALLWAY]
-                    if ( nextRoomIdx == 0 || nextRoomIdx == 4 || nextRoomIdx==5)
+                    if ( nextRoomIdx == 0 || nextRoomIdx == 2 || nextRoomIdx==5)
                     {
                         NextRoomProcess(nextRoomIdx);
                     }
@@ -424,8 +424,8 @@ namespace Humanity.Controller
                         notOk();
                     }
                     break;
-                case 2: //KITCHEN   [Można tylko ldo LIVING ROOM]
-                    if (nextRoomIdx == 4)
+                case 2: //LIVING ROOM   [Można do KITCHEN lub HALLWAY lub STAIRS lub LIBRARY]
+                    if (nextRoomIdx == 4 || nextRoomIdx == 1 || nextRoomIdx == 5 || nextRoomIdx == 3)
                     {
                         NextRoomProcess(nextRoomIdx);
                     }
@@ -435,7 +435,7 @@ namespace Humanity.Controller
                     }
                     break;
                 case 3: //LIBRARY   [Można tylko do LIVING ROOM]
-                    if (nextRoomIdx == 4)
+                    if (nextRoomIdx == 2)
                     {
                         NextRoomProcess(nextRoomIdx);
                     }
@@ -444,8 +444,8 @@ namespace Humanity.Controller
                         notOk();
                     }
                     break;
-                case 4: //LIVING ROOM   [Można do KITCHEN lub HALLWAY lub STAIRS lub LIBRARY]
-                    if (nextRoomIdx == 2 || nextRoomIdx == 1 ||nextRoomIdx== 5 || nextRoomIdx == 3)
+                case 4: //KITCHEN   [Można tylko ldo LIVING ROOM]
+                    if (nextRoomIdx == 2)
                     {
                         NextRoomProcess(nextRoomIdx);
                     }
@@ -455,7 +455,7 @@ namespace Humanity.Controller
                     }
                     break;
                 case 5: //HALLWAY   [Można do BATHROOM lub BEDROOM lub OFFICE lub LIVING ROOM lub STAIRS] 
-                    if (nextRoomIdx == 6 || nextRoomIdx == 7  || nextRoomIdx == 4 || nextRoomIdx == 1)
+                    if (nextRoomIdx == 6 || nextRoomIdx == 7 || nextRoomIdx == 2 || nextRoomIdx == 1)
                     {
                         NextRoomProcess(nextRoomIdx);
                     }

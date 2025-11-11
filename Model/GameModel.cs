@@ -23,7 +23,7 @@ namespace Humanity.Model
         public bool IntroPlayed { get; set; } = true;  /// ZMIENIĆ NA false;
         public string SafePassword { get; set; } = "41070";
         public bool SafeOpened { get; set; } = false;
-        public int room_idx { get; set; } = 5  ;
+        public int room_idx { get; set; } = 5;
 
         // Prosty dziennik wspomnień (do komendy RECALL)
         /* public List<string> MemoryLogs { get; } = new()
@@ -127,140 +127,182 @@ namespace Humanity.Model
             {
                 case 0:
                     look.Add("You are in a ");
-                    look.Add("[yellow]LAB [/]");
+                    look.Add("[yellow]LAB[/]");
                     look.Add(".\nThe room is filled with scientific equipment, ");
                     look.Add("[teal]monitors [/]");
-                    if(Reason==false)
-                        look.Add("displaying data, and an unsolved, barely recognizible \nequation scribbled on a ");
-                    else
-                    {
-                        look.Add("displaying data, and already solved equation scribbled on a ");
-                    }
-                        look.Add("[teal]whiteboard [/]"); 
-                    if(Reason==false)
-                    look.Add("- as if [orchid]REASON[/] itself was lost here.\nBehind you there are");
-                    else
-                    {
-                        look.Add("- but you regained your [orchid]REASON[/].\nBehind you there are");
-                    }
+                    look.Add("displaying data, and an unsolved, barely recognizible \nequation scribbled on a ");
+                    look.Add("[teal]whiteboard [/]"); 
+                    look.Add("as if reason itself was lost here.\n");
+
+                    look.Add("Behind you,");
                     look.Add(" [palegreen1_1]stairs [/]");
-                    look.Add("leading upstairs.");
-                    look.Add("\n \n[red]You remember this place.[/]");                   
+                    look.Add("lead back upward.");
+                    look.Add("\n\n[darkred]Something about this room feels painfully familiar.[/]");                   
                 return;
 
                 case 1:
-                    look.Add("You are currently on the ");
-                    look.Add("[yellow]stairs[/]"); 
-                    look.Add(". You can go downstairs to the ");
-                    look.Add("[palegreen1_1]lab[/]"); 
-                    look.Add(", go to the ");
-                    // look.Add(", or go to and a couple of doors \nleading to various rooms.\nYou don't know why but you know where every door leads: ");
-                    look.Add("[palegreen1_1]living room[/]"); 
-                    look.Add(", or upstairs to the ");
-                    look.Add("[palegreen1_1]hallway[/]");
-                    look.Add(".\n\nThere are some words scraped on the left ");
-                    look.Add("[teal]wall[/]"); 
-                    look.Add(", as well as some ");
-                    look.Add("[teal]notes [/]"); 
-                    look.Add("lying on the ground.");
-                return;
+                    look.Add("You are on the ");
+                    look.Add("[yellow]STAIRS[/]");
+                    look.Add(".\n");
 
-                case 2:
-                    look.Add("You are in the ");
-                    look.Add("[yellow]kitchen[/]");
-                    look.Add(".\nThe room is fancy, but dusty, with a modern design. \n ");
-                    look.Add("");
-                    look.Add("Doors behind you lead to the ");
-                    look.Add("[palegreen1_1]living room[/]");
-                    look.Add(".\n \n[red]You feel a strange sense of familiarity.[/]");
-                    return;
+                    look.Add("The steps creak softly, carrying echoes you can't place. ");
+                    look.Add("\nCold air drifts through the narrow space. The ");
+                    look.Add("[teal]floor[/]");
+                    look.Add(" feels worn beneath your feet.\n");
 
-                case 3:  
-                    look.Add("You are currently in the ");
-                    look.Add("[yellow]library[/]");
-                    look.Add(".\nThe room is spacious and clean, seems unused for quite a moment, like this place was abandoned decades ago. \nThere is a door which you entered, leading to the ");
-                    look.Add("[palegreen1_1]living room[/]"); 
-                    look.Add(". The only interesting things here are the ");
-                    look.Add("[teal]books[/]"); 
-                    look.Add(". \n \n[red]You feel a strange sense of familiarity.[/]");
+                    look.Add("Below is the ");
+                    look.Add("[palegreen1_1]LAB[/]");
+                    look.Add(". Ahead lies the ");
+                    look.Add("[palegreen1_1]LIVING ROOM[/]");
+                    look.Add(". A side passage leads into the ");
+                    look.Add("[palegreen1_1]HALLWAY[/]");
+                    look.Add(".\n\n");
+
+                    look.Add("[darkred]A quiet tension hangs in the air, urging you to choose a path.[/]");
                     return;
 
                 case 4:
-                    look.Add("You are now in the ");
-                    look.Add("[yellow]living room[/]");
-                    look.Add(".\nThe place that you find the most comfortable here. The room is spacious, with a large sofa and a TV. \nThere is a door leading to the ");
-                    look.Add("[palegreen1_1]library[/]");
-                    look.Add(" and another one to the ");
-                    look.Add("[palegreen1_1]kitchen[/]");
-                    look.Add(". You can also go back on the ");
-                    look.Add("[palegreen1_1]stairs[/]");
-                    look.Add(", or go upstairs to the ");
-                    look.Add("[palegreen1_1]hallway[/]");
-                    look.Add(".\n \nYou feel comfortable here, but you don't remember a single thing about this place. \nOn the table you see a ");
-                    look.Add("[teal]map[/] ");
-                    look.Add("of the house. On the wall there is a bunch of");
-                    look.Add("[teal] photos [/]");
-                    look.Add("and a big");
-                    look.Add("[teal] clock[/]");
-                    look.Add("of a happy family. \n \n[bold red]W H O ' S  F A M I L Y  I S  T H A T  ,  A D R I A N ? [/]\n \n ");
+                    look.Add("You are in the ");
+                    look.Add("[yellow]KITCHEN[/]");
+                    look.Add(".\n");
+
+                    look.Add("The air smells faintly of stale coffee and unwashed dishes. ");
+                    look.Add("Dust motes float in the shafts of light, settling on a ");
+                    look.Add("[teal]NEWSPAPER[/]");
+                    look.Add(" left carelessly on the counter, its headlines yellowed and cracked with age.\n");
+
+                    look.Add("Behind you, the doorway leads back to the ");
+                    look.Add("[palegreen1_1]LIVING ROOM[/]");
+                    look.Add(".\n\n");
+
+                    look.Add("[darkred]Something about the mundane chaos here makes your thoughts drift — a story half-remembered, details just out of reach.[/]");
+                    return;
+
+                case 3:
+                    look.Add("You are in the ");
+                    look.Add("[yellow]LIBRARY[/]");
+                    look.Add(".\n");
+
+                    look.Add("The room is dominated by a single, towering ");
+                    look.Add("[teal]BOOKSHELF[/]");
+                    look.Add(", reaching from floor to ceiling, packed with countless books.\n");
+
+                    look.Add("Next to you, the doorway opens back to the ");
+                    look.Add("[palegreen1_1]LIVING ROOM[/]");
+                    look.Add(".\n\n");
+
+                    look.Add("[darkred]The quiet here presses on your thoughts, each spine a potential clue, each title a whisper of forgotten knowledge.[/]");
+                    return;
+
+                case 2:
+                    look.Add("You are in the ");
+                    look.Add("[yellow]LIVING ROOM[/]");
+                    look.Add(".\n");
+
+                    look.Add("Soft light filters through dusty curtains, highlighting a ");
+                    look.Add("[teal]CLOCK[/]");
+                    look.Add(" on the wall and a ");
+                    look.Add("[teal]PIANO[/]");
+                    look.Add(" in the corner. \nThe faint scent of old wood and forgotten melodies lingers.\n");
+
+                    look.Add("Behind you, the ");
+                    look.Add("[palegreen1_1]STAIRS[/]");
+                    look.Add(" lead back down. ");
+                    look.Add("A doorway ahead opens into the ");
+                    look.Add("[palegreen1_1]KITCHEN[/]");
+                    look.Add(". ");
+                    look.Add("To your left, a passage leads toward the ");
+                    look.Add("[palegreen1_1]LIBRARY[/]");
+                    look.Add(".\n\n");
+                    look.Add("[darkred]Thoughts drift through your mind like scattered notes, elusive and ungraspable, hinting at what might have been lost.[/]");
+                   // look.Add("[darkred]Every object here seems to hum with memories you cannot fully grasp.[/]");
                     return;
 
                 case 5:
-                    look.Add("You are now in the ");
-                    look.Add("[yellow]hallway[/]"); 
-                    look.Add(".\nThis corridor looks nothing like anything downstairs. Someone lit the ");
-                    look.Add("[teal]candles[/]"); 
-                    look.Add(" placed on the floor, giving the place a warm, but ocultic atmosphere. \nThere are doors leading to the ");
-                    look.Add("[palegreen1_1]bedroom[/]"); 
-                    look.Add(", ");
-                    look.Add("[palegreen1_1]office[/]");
+                    look.Add("You are in the ");
+                    look.Add("[yellow]HALLWAY[/]");
+                    look.Add(".\n");
+
+                    look.Add("The narrow corridor stretches before you, dimly lit by a single, swaying bulb. ");
+                    look.Add("Along the wall hangs a ");
+                    look.Add("[teal]PHOTO[/]");
+                    look.Add(", faded and \nslightly askew, capturing a beautiful moment for memories.\n");
+
+                    look.Add("You see the ");
+                    look.Add("[palegreen1_1]STAIRS[/]");
+                    look.Add(" leading down, ");
+                    look.Add("[palegreen1_1]LIVING ROOM[/]");
                     look.Add(" and ");
-                    look.Add("[palegreen1_1]bathroom[/]"); 
-                    look.Add(". \nYou can go on the ");
-                    look.Add("[palegreen1_1]stairs[/]"); 
-                    look.Add(" or go back downstairs to the ");
-                    look.Add("[palegreen1_1]living room[/]"); 
-                    look.Add(".\n \n[bold red]You feel a strange sense of someone's presence. \n[/]");
+                    look.Add("doors branch off to the ");
+                    look.Add("[palegreen1_1]BATHROOM[/]");
+                    look.Add(", the ");
+                    look.Add("[palegreen1_1]BEDROOM[/]");
+                    look.Add(", and the ");
+                    look.Add("[palegreen1_1]OFFICE[/]");
+                    look.Add(".\n\n");
+
+                    look.Add("[darkred]The corridor feels like a thread connecting scattered fragments of thought, each door hinting at secrets yet to be uncovered.[/]");
+
                     return;
 
                 case 6:
-                    look.Add("You are currently in the ");
-                    look.Add("[yellow]bathroom[/]"); 
-                    look.Add(".\nThe room is dimly lit by the candles placed on the sink. \nThere is a door behind you leading back to the ");
-                    look.Add("[palegreen1_1]F2 hallway[/]"); 
-                    look.Add(", and a second door leading to a ");
-                    look.Add("[palegreen1_1]bedroom[/]");
-                    look.Add(".\n \nThe mirror is broken, but someone left a message - just for you. On the floor there are");
-                    look.Add("[teal] notes[/]");
-                    look.Add(" scattered around just for you, some of them are slightly burnt. ");
+                    look.Add("You are in the ");
+                    look.Add("[yellow]BATHROOM[/]");
+                    look.Add(".\n");
+
+                    look.Add("Tile walls glisten faintly under dim light, the air is heavy with the scent of damp and forgotten soap. \nA ");
+                    look.Add("[teal]MIRROR[/]");
+                    look.Add(" reflects your image oddly, distorted by time, while a small ");
+                    look.Add("[teal]CABINET[/]");
+                    look.Add(" sits closed in the corner, hiding unknown contents.\n\n");
+
+                    look.Add("Behind you, the doorway leads back to the ");
+                    look.Add("[palegreen1_1]HALLWAY[/]");
+                    look.Add(".\n\n");
+
+                    look.Add("[darkred]Reflections and shadows mingle here, stirring thoughts that feel just out of reach.[/]");
+
                     return;
 
                 case 7:
-                    look.Add("You are now in the ");
-                    look.Add("[yellow]bedroom[/]"); 
-                    look.Add(".\nThe room is a mess, with a large broken bed and a wardrobe. The stench is making it unbearable to stay. Did someone die here? \nThere is a door leading back to the ");
-                    look.Add("[palegreen1_1]F2 hallway[/]");
-                    look.Add(", or you can enter the ");
-                    look.Add("[palegreen1_1]bathroom[/]");
-                    look.Add(".\n On the dusty desk you can see a ");
-                    look.Add("[teal]diary [/]");
-                    look.Add("with the initials [bold red]'A. H.'[/] ");
-                    if(Emotion==false)
-                        look.Add("engraved on the cover. \n \nYou don't feel any [orchid]EMOTIONS.[/]");
+                    look.Add("You are in the ");
+                    look.Add("[yellow]BEDROOM[/]");
+                    look.Add(".\n");
+
+                    look.Add("Soft light filters through curtains onto a neatly made bed. ");
+                    look.Add("On a nearby dresser sits a delicate ");
+                    look.Add("[teal]MUSIC BOX[/]");
+                    look.Add(", silent for now, and a worn ");
+                    look.Add("[teal]DIARY[/]");
+                    look.Add(", its pages full of private thoughts.\n\n");
+
+                    look.Add("Behind you, the doorway opens to the ");
+                    look.Add("[palegreen1_1]HALLWAY[/]");
+                    look.Add(".\n\n");
+
+                    look.Add("[darkred]The room carries an intimate weight, hinting at memories both cherished and painful.[/]");
+
+                 /*   if (Emotion==false)
+                        look.Add("\n \nYou don't feel any [orchid]EMOTIONS.[/]");
                     else
-                        look.Add("engraved on the cover. \n \nYou feel a wide range of [orchid]EMOTIONS. [/]");
+                        look.Add("\n \nYou feel a wide range of [orchid]EMOTIONS. [/]"); */
                     return;
                 case 8:
-                    look.Add("You are now in the ");
-                    look.Add("[yellow]office[/]"); 
-                    look.Add(".\nThe room is filled with bookshelves, a large desk and a comfortable chair. \nThere is a door leading back to the ");
-                    look.Add("[palegreen1_1]F2 hallway[/]"); 
-                    look.Add(".\n On the desk you can see a ");
-                    look.Add("[teal]laptop [/]");
-                    if(Morality==false)
-                        look.Add(". Somehow it still works, but time made it feel like it's ancient. \n There are some gruesome videos stashed on it. \n \n[bold red]But you don't feel any[/][bold orchid] MORALITY[/]");
-                   else 
-                        look.Add(". Somehow it still works, but time made it feel like it's ancient. \n There are some gruesome videos stashed on it. \n \nYour [orchid]MORALITY[/] makes you regret your life.");
+                    look.Add("You are in the ");
+                    look.Add("[yellow]OFFICE[/]");
+                    look.Add(".\n");
+
+                    look.Add("The room smells faintly of old paper and ink. ");
+                    look.Add("A large ");
+                    look.Add("[teal]DESK[/]");
+                    look.Add(" dominates the space, papers scattered and stationery neatly arranged, as if waiting for someone to resume the work.\n\n");
+
+                    look.Add("Behind you, the doorway leads back to the ");
+                    look.Add("[yellow]HALLWAY[/]");
+                    look.Add(".\n\n");
+
+                    look.Add("[darkred]The silence presses in, making you wonder what secrets these walls have witnessed.[/]");
+
                     return;
                 default:
                     return;
@@ -320,7 +362,7 @@ namespace Humanity.Model
 
                 ///////////////////KITCHEN
                 case "newspaper":
-                    if (idx == 2)
+                    if (idx == 4)
                     {
                         itemDesc.Add("The newspaper is old and blacked out, but the text is still fully readable. Do you want to read it?\n");
                         itemDesc.Add("[lime]YES[/]");
@@ -344,7 +386,7 @@ namespace Humanity.Model
                 
                 ////////////////////////LIVING ROOM
                 case "clock":
-                    if (idx == 4)
+                    if (idx == 2)
                     {
                         itemDesc.Add("The clock on the wall is broken, its hands frozen.\nA faint inscription reads: 'Time is an illusion.'");
                     }
@@ -353,7 +395,7 @@ namespace Humanity.Model
                     wrongItem(item);
                     break;
                 case "piano":
-                    if(idx==4)
+                    if(idx==2)
                     {
                         itemDesc.Add("[silver]The piano is old, but it still works. You can play it however you want.[/]\n");
                         itemDesc.Add("[grey underline]Use buttons C, D, E, F, G and H to play, press ENTER to leave[/]");
@@ -365,15 +407,6 @@ namespace Humanity.Model
                 /////////////////////////////////////////
                 
                 ///////////////////////////////HALLWAY
-                case "note":
-                case "notes":
-                    {
-                        if (idx == 5)
-                        {
-                            itemDesc.Add("[silver]Books\naren't the only\nthing that stops\ntime.[/]");
-                        }
-                    }
-                    break;
                 case "photo":
                 case "picture":
                     {
@@ -411,6 +444,15 @@ namespace Humanity.Model
                             itemDesc.Add("[lime]NO[/]");
                             itemDesc.Add("[silver]You obtained[/][yellow1] music box key[/][silver].[/]");
                             itemDesc.Add("[grey]You already checked it before.[/]");
+                        }
+                    }
+                    break;
+                case "note":
+                case "notes":
+                    {
+                        if (idx == 6)
+                        {
+                            itemDesc.Add("[silver]Books\naren't the only\nthing that stops\ntime.[/]");
                         }
                     }
                     break;
@@ -481,7 +523,8 @@ namespace Humanity.Model
                     next_idx = 1;
                     return next_idx;
 
-                case "kitchen":
+                case "living room":
+                case "living":
                     next_idx = 2;
                     return next_idx;
 
@@ -489,8 +532,7 @@ namespace Humanity.Model
                     next_idx = 3;
                     return next_idx;
 
-                case "living room":
-                case "living":
+                case "kitchen":
                     next_idx = 4;
                     return next_idx;
 
@@ -531,11 +573,11 @@ namespace Humanity.Model
                 case 1:
                     return "STAIRS";
                 case 2:
-                    return "KITCHEN";
+                    return "LIVING ROOM";
                 case 3:
                     return "LIBRARY";
                 case 4:
-                    return "LIVING ROOM";
+                    return "KITCHEN";
                 case 5:
                     return "HALLWAY";
                 case 6:
