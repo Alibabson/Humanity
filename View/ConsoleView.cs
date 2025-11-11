@@ -181,10 +181,12 @@ namespace Humanity.View
         {
             var sanityBar = new BarChart()  //barChart to pasek
             .AddItem(currSanity, meter, Color.Green) // wypełnienie zielone, wartość "meter" czyli ile sanity
-             .Width(meter/2); //było za długie
+            .AddItem(" ", 100, Color.Black) //taki trik zeby chował się SanityMeter
+             .Width(40); //było za długie
+
 
             var left = new Markup(currRoom); //na lewej mamy obecny pokój
-            AnsiConsole.Write(new Columns(left, sanityBar).Expand()); //.Expand() - rozciąga na całą szerokość (kolumna 1 to pokój[left], kolumna 2 to pasek sanity). COLUMN rozdziela
+            AnsiConsole.Write(new Columns(left, sanityBar)); //.Expand() - rozciąga na całą szerokość (kolumna 1 to pokój[left], kolumna 2 to pasek sanity). COLUMN rozdziela
         }
         public void Red(string text) //błędy na czerwono był
         {

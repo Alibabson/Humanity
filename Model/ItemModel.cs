@@ -156,17 +156,18 @@ namespace Humanity.Model
         };
         //
         public List<string> GetPhoto = new List<string>();
-        public void Photo() //wypełnia listę co napisać w gazecie
+        public void Photo() //wypełnia listę co napisać w Photo
         {
             GetPhoto.Clear();
-            GetPhoto.Add("[olive]Photo Caption:[/]\n");
+            //GetPhoto.Add("[olive]Photo Caption:[/]\n");
             GetPhoto.Add("[grey]A photo of Adrian Holloway and a woman on their wedding day. They both look happy.[/]\n");
+            GetPhoto.Add("[grey]You found a[/] [gold1]Safe[/] [grey]behind the picture![/]\n");
         }
         ////SZYFR
         public List<string> Cipher = new List<string>()
         {
             "[orange3]A → 0    K → 0   U → 0\n\nB → 1    L → 1   V → 1\n\nC → 2    M → 2   W → 2\n\nD → 3    N → 3   X → 3\n\nE → 4    O → 4   Y → 4\n\nF → 5    P → 5   Z → 5\n\nG → 6    Q → 6\n\nH → 7    R → 7\n\nI → 8    S → 8\n\nJ → 9    T → 9[/]\n",
-            "[grey63]My love,\n\nI’ve decided to lock it away.\nYou begged me to use it,\nbut you never understood how much depends on this work.\nIt can change the world…\nand you tried to stop me from what you called madness.\n\nI couldn’t let that happen.\nSo I protected myself — and in doing so, I hurt you.\n\nI hid your solution,\nthe one thing you believed could save us.\nMy work is the greatest idea of my life, and you knew that…\n\nWe kept our best memories there.\nThat [/][gold1]safe[/][grey63] is our entire marriage —\nand now it holds our deepest pain as well.\n\nI never wanted things to end like this.\n\nYou were always the [/][gold1]key[/][grey63].\nEven now.\n\n— A.[/]"
+            "[grey63]My love,\n\nI’ve decided to lock it away.\nYou begged me to use it,\nbut you never understood how much depends on this work.\nIt can change the world…\nand you tried to stop me from what you called madness.\n\nI couldn’t let that happen.\nSo I protected myself — and in doing so, I hurt you.\n\nI hid your solution,\nthe one thing you believed could save us.\nMy work is the greatest idea of my life, and you knew that…\n\nWe kept our best memories there.\nThat [/][gold1]safe is our entire marriage [/][grey63]—\nand now it holds our deepest pain as well.\n\nI never wanted things to end like this.\n\nYou were always the [/][gold1]key[/][grey63].\nEven now.\n\n— A.[/]"
         };
 
         ////DEVICE

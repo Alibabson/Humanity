@@ -215,27 +215,28 @@ namespace Humanity.View
         public void Newspaper(List<string> text)
         {
             _View.Spectre_Text(text[0] + "\n");
-            var command = AnsiConsole.Prompt(
+            /*var command = AnsiConsole.Prompt(
             new SelectionPrompt<string>()
                 .Title("")
                 .HighlightStyle(new Style(foreground: Color.White, background: Color.Grey))
                 .PageSize(4)
-                .AddChoices(text[1], text[2])
+                .AddChoices(text[1], text[2]) 
             );
             if (command == text[2])
             {
                 return;
             }
             if (command == text[1])
-            {
+            { */
                 _itemModel.Newspaper();
                 var lines = _itemModel.GetNewspaper;
                 foreach (var x in lines)
                 {
                     _View.Spectre_Text(x);
                 }
+            _View.Spectre_Text("[grey underline]\nPress any button to continue...[/]\n");
             _View.AwaitKey();
-            }
+            //}
         }
 
 
@@ -338,7 +339,14 @@ namespace Humanity.View
                 {
                     PoemOpened = true;
                 }
-                else return;
+                else
+                {
+                    _View.Spectre_Text("[red]W R O N G[/]\n");
+                    _View.AwaitKey();
+                    Bookshelf(text);
+                    return;
+                }
+                
             }
             else
             {
@@ -398,7 +406,7 @@ namespace Humanity.View
                 _View.Spectre_Text("\n[silver]" + ShowPiano() + "[/]\n");
 
             }
-            while (order<3)
+            while (order<4)
                 {
                     var k = _View.CheckKey();
                     if(k == ConsoleKey.Enter)
@@ -407,25 +415,24 @@ namespace Humanity.View
                     }
                     if (k == ConsoleKey.C)
                     {
-                        if (order == 0 && !_Model.hasDiaryKey)  order = 1;
-                        else order = 0;
-                            _View.PianoBeep(262);
+                        order = 0;
+                        _View.PianoBeep(262);
                     }
                     if (k==ConsoleKey.D)
                     {
-                        if (order == 1 && !_Model.hasDiaryKey) order = 2;
-                        else order = 0;
-                            _View.PianoBeep(294);
+                            if (order == 0 && !_Model.hasDiaryKey) order = 1;
+                            else order = 0;
+                          _View.PianoBeep(294);
                     }
                     if(k ==ConsoleKey.E)
                     {
-                        if (order == 2 && !_Model.hasDiaryKey) order = 3;
-                        else order = 0;
-                            _View.PianoBeep(330);
+                         order = 0;
+                         _View.PianoBeep(330);
                     }
                     if(k ==ConsoleKey.F)
                     {
-                        order = 0;
+                    if (order == 2 && !_Model.hasDiaryKey) order = 3;
+                    else order = 0;
                         _View.PianoBeep(349);
                     }
                     if (k == ConsoleKey.G)
@@ -435,7 +442,8 @@ namespace Humanity.View
                     }
                     if (k == ConsoleKey.A)
                     {
-                        order = 0;
+                    if (order == 1 && !_Model.hasDiaryKey) order = 2;
+                    else if (order == 3 && !_Model.hasDiaryKey) order = 4;
                         _View.PianoBeep(440);
                     }
                     if (k == ConsoleKey.H)
@@ -444,7 +452,7 @@ namespace Humanity.View
                         _View.PianoBeep(494);
                     }
                 }
-                if(order==3 && !_Model.hasDiaryKey)
+                if(order==4 && !_Model.hasDiaryKey)
                 {
                     _View.Spectre_Text(text[3]);
                     //_View.AwaitKey();
@@ -482,12 +490,16 @@ namespace Humanity.View
                 ));
             _View.AwaitKey();
         }
+
         ////PHOTO (HALLWAY - 5)
         public void Photo(List<string> text)
         {
-            _View.Spectre_Text(ShowPhoto());
-
-            if (_Model.KnowsSafeLocation)
+            _itemModel.Photo();
+            var lines = _itemModel.GetPhoto;
+            _View.Spectre_Text(lines[0]);
+            _View.Spectre_Text(ShowPhoto()+"\n");
+            
+            if (_Model.KnowsSafeLocation && !_Model.SafeOpened)
             {
                 _View.Spectre_Text(text[0] + "\n");
                 var command = AnsiConsole.Prompt(
@@ -503,15 +515,17 @@ namespace Humanity.View
                 }
                 if (command == text[1])
                 {
-                    _itemModel.Photo();
-                    var lines = _itemModel.GetPhoto;
-                    foreach (var x in lines)
+                    _View.Spectre_Text(lines[1]);
+                    //_View.AwaitKey();
+                    List<string> sejf = _Model.checkItem(5, "safe");
+                    /*foreach (var x in sejf)
                     {
                         _View.Spectre_Text(x);
-                    }
-                    _View.AwaitKey();
+                    } */
+                    Safe(sejf);
                 }
             }
+            _View.AwaitKey();
         }
         public string ShowPhoto()
         {
@@ -543,7 +557,7 @@ namespace Humanity.View
                         _View.Spectre_Text(text[3]);
                         _Model.hasDevice = true;
                         _Model.SafeOpened = true;
-                        _View.AwaitKey();
+                        //_View.AwaitKey();
                     }
                     else
                     {
@@ -551,6 +565,7 @@ namespace Humanity.View
                         _View.Spectre_Text(text[4]);
                     }
                 }
+
             }
             if (command == text[2])
             {
@@ -628,6 +643,7 @@ namespace Humanity.View
         }
 
         /////DIARY  (BEDROOM - 7)
+        private bool openedDiary = false;
         public void Diary(List<string> text)
         {
             foreach (var x in text)
@@ -635,6 +651,16 @@ namespace Humanity.View
                 _View.Spectre_Text(x);
             }
             _View.AwaitKey();
+            if(KeyFragment("EMOTION") && !openedDiary)
+            {
+                openedDiary = true;
+            }
+            else
+            {
+                _View.Spectre_Text("\n[red]W R O N G[/]\n");
+                Diary(text);
+            }
+                _View.AwaitKey();
         }
 
 
@@ -717,12 +743,21 @@ namespace Humanity.View
                         var input = _View.Narrator2("#");
                         if (input == "1974")
                         {
-                            corr = true;
-                            _View.Spectre_Text(text[5]);
-                            Thread.Sleep(1000);
-                            _View.Spectre_Text(text[6]);
-                            _View.Spectre_Text(text[7]);
-                            _Model.DEVICE = true;
+                            if (KeyFragment("MORALITY"))
+                            {
+                                corr = true;
+                                _View.Spectre_Text(text[5]);
+                                Thread.Sleep(1000);
+                                _View.Spectre_Text(text[6]);
+                                _View.Spectre_Text(text[7]);
+                                _Model.DEVICE = true;
+                            }
+                            else
+                            {
+                                _View.Spectre_Text("\n[red]W R O N G[/]\n");
+                                _View.AwaitKey();
+                                return;
+                            }
                         }
                         else
                         {
@@ -760,7 +795,7 @@ namespace Humanity.View
                             _Model.Reason = true;
                             return true;
                         }
-                        else return true;
+                        else return false;
                         
                     }
                 case "EMOTION":
@@ -772,7 +807,7 @@ namespace Humanity.View
                             _Model.Emotion = true;
                             return true;
                         }
-                        else return true;
+                        else return false;
                     }
                 case "MORALITY":
                     {
@@ -783,10 +818,10 @@ namespace Humanity.View
                             _Model.Morality = true;
                             return true;
                         }
-                        else return true;
+                        else return false;
 
                     }
-                default: return true;
+                default: return false;
             }
             //return false;
         }

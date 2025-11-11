@@ -23,7 +23,7 @@ namespace Humanity.Model
         public bool IntroPlayed { get; set; } = true;  /// ZMIENIĆ NA false;
         public string SafePassword { get; set; } = "41070";
         public bool SafeOpened { get; set; } = false;
-        public int room_idx { get; set; } = 5  ;
+        public int room_idx { get; set; } = 2  ;
 
         // Prosty dziennik wspomnień (do komendy RECALL)
         /* public List<string> MemoryLogs { get; } = new()
@@ -365,21 +365,12 @@ namespace Humanity.Model
                 /////////////////////////////////////////
                 
                 ///////////////////////////////HALLWAY
-                case "note":
-                case "notes":
-                    {
-                        if (idx == 5)
-                        {
-                            itemDesc.Add("[silver]Books\naren't the only\nthing that stops\ntime.[/]");
-                        }
-                    }
-                    break;
                 case "photo":
                 case "picture":
                     {
                         if (idx == 5)
                         {
-                            itemDesc.Add("[silver]Do you want to look at the photo?[/]\n");
+                            itemDesc.Add("\n[gold1]Do you want to check what's behind the photo?[/]\n");
                             itemDesc.Add("[lime]YES[/]");
                             itemDesc.Add("[lime]NO[/]");
                         }
@@ -396,6 +387,7 @@ namespace Humanity.Model
                             itemDesc.Add("[yellow1]You opened the safe. You found the[/] [lime]device[/][yellow1].[/]\n");
 
                             itemDesc.Add("[red]Wrong password. Try again.[/]\n");
+
                         }
                     }
                     break;
@@ -409,8 +401,17 @@ namespace Humanity.Model
                             itemDesc.Add("[silver]Do you want to search the cabinet?[/]\n");
                             itemDesc.Add("[lime]YES[/]");
                             itemDesc.Add("[lime]NO[/]");
-                            itemDesc.Add("[silver]You obtained[/][yellow1] music box key[/][silver].[/]");
+                            itemDesc.Add("\n[silver]You obtained[/][yellow1] music box key[/][silver].[/]");
                             itemDesc.Add("[grey]You already checked it before.[/]");
+                        }
+                    }
+                    break;
+                case "note":
+                case "notes":
+                    {
+                        if (idx == 6)
+                        {
+                            itemDesc.Add("[silver]Books\naren't the only\nthing that stops\ntime.[/]");
                         }
                     }
                     break;
@@ -448,8 +449,7 @@ namespace Humanity.Model
                     break;
                 ////////////////////////////////
 
-                /////////////OFFICE
-               
+                /////////////OFFICE             
                 case "desk":
                     {
                         if (idx == 8)
