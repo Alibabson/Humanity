@@ -224,7 +224,6 @@ namespace Humanity.View
             );
             if (command == text[2])
             {
-                _View.Spectre_Text("[grey underline]You left the newspaper. \n Press any button to continue[/]");
                 return;
             }
             if (command == text[1])
@@ -235,6 +234,7 @@ namespace Humanity.View
                 {
                     _View.Spectre_Text(x);
                 }
+            _View.AwaitKey();
             }
         }
 
@@ -483,6 +483,31 @@ namespace Humanity.View
             _View.AwaitKey();
         }
 
+        public void Photo(List<string> text)
+        {
+            _View.Spectre_Text(text[0] + "\n");
+            var command = AnsiConsole.Prompt(
+            new SelectionPrompt<string>()
+                .Title("")
+                .HighlightStyle(new Style(foreground: Color.White, background: Color.Grey))
+                .PageSize(4)
+                .AddChoices(text[1], text[2])
+            );
+            if (command == text[2])
+            {
+                return;
+            }
+            if (command == text[1])
+            {
+                _itemModel.Photo();
+                var lines = _itemModel.GetPhoto;
+                foreach (var x in lines)
+                {
+                    _View.Spectre_Text(x);
+                }
+                _View.AwaitKey();
+            }
+        }
 
 
         //// CABINET (BATHROOM - 6)

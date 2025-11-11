@@ -238,9 +238,7 @@ namespace Humanity.Controller
                                 if (idx == 2)
                                 {
                                    _itemView.Newspaper(desc);
-                                   _view.AwaitKey();
                                    _view.Clear();
-                                   //HUD();
                                    LookFunction("");
                                 }
                                 else
@@ -320,8 +318,21 @@ namespace Humanity.Controller
                                         return false;
                                     }
                                     return true;
-
-                                case "cabinet":
+                                case "photo":
+                                case "picture":
+                                    if (idx == 5)
+                                    {
+                                        _itemView.Photo(desc);
+                                        _view.Clear();
+                                        LookFunction("");
+                                    }
+                                    else
+                                    {
+                                        checkError(argument);
+                                        return false;
+                                    }
+                                    return true;
+                        case "cabinet":
                                     if (idx == 6)
                                     {
                                         _itemView.Cabinet(desc);

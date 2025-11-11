@@ -373,6 +373,17 @@ namespace Humanity.Model
                         }
                     }
                     break;
+                case "photo":
+                case "picture":
+                    {
+                        if (idx == 5)
+                        {
+                            itemDesc.Add("[silver]Do you want to look at the photo?[/]\n");
+                            itemDesc.Add("[lime]YES[/]");
+                            itemDesc.Add("[lime]NO[/]");
+                        }
+                    }
+                    break;
                 ////////////////////////////////////////
 
                 //////////////////////////////BATHROOM

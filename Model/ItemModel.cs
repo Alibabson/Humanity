@@ -100,6 +100,7 @@ namespace Humanity.Model
         public List<string> GetNewspaper = new List<string>();
         public void Newspaper() //wypełnia listę co napisać w gazecie
         {
+            GetNewspaper.Clear();
             GetNewspaper.Add("[darkgoldenrod]Date: April 19, 1983 \n[/]");
             GetNewspaper.Add("\n[darkgoldenrod underline]BREAKING NEWS[/]\n");
             GetNewspaper.Add("[grey italic]Police still haven't found Amanda Claude. It's been three weeks since she's gone missing. Please report the local authorities if you have any information about a person matching these descriptions below:[/]\n");
@@ -153,6 +154,14 @@ namespace Humanity.Model
             "\n",
             "[grey53]-E.[/]\n"
         };
+        //
+        public List<string> GetPhoto = new List<string>();
+        public void Photo() //wypełnia listę co napisać w gazecie
+        {
+            GetPhoto.Clear();
+            GetPhoto.Add("[olive]Photo Caption:[/]\n");
+            GetPhoto.Add("[grey]A photo of Adrian Holloway and a woman on their wedding day. They both look happy.[/]\n");
+        }
         ////SZYFR
         public List<string> Cipher = new List<string>()
         {
