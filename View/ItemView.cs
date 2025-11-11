@@ -211,7 +211,7 @@ namespace Humanity.View
 
 
 
-        //// NEWSPAPER (KITCHEN - 2)
+        //// NEWSPAPER (KITCHEN - 4)
         public void Newspaper(List<string> text)
         {
             _View.Spectre_Text(text[0] + "\n");
@@ -358,7 +358,7 @@ namespace Humanity.View
 
 
 
-        /////CLOCK (LIVING ROOM - 4)
+        /////CLOCK (LIVING ROOM - 2)
         public void ShowClock()
         {
             var asciiClock = @"
