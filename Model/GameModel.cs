@@ -22,6 +22,7 @@
         public bool SafeOpened { get; set; } = false;
         public int room_idx { get; set; } = 2;
 
+
         // Prosty dziennik wspomnień (do komendy RECALL)
         /* public List<string> MemoryLogs { get; } = new()
          {
