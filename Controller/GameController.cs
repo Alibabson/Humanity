@@ -572,7 +572,7 @@ namespace Humanity.Controller
         {
             var rng = new Random();
             int procent = 0;
-            if (_model.sanity >= 75) procent = 5; // jak duzo sanity to maly procent
+            if (_model.sanity >= 75) procent =5; // jak duzo sanity to maly procent
             else if (_model.sanity >= 50) procent = 15;
             else procent = 25;
             int chance = rng.Next(1, 101); // Losowa liczba od 1 do 100
@@ -580,7 +580,7 @@ namespace Humanity.Controller
             {
                 int ghostIndex = rng.Next(_model.Ghosts.Count);  //losowanie cyfry
                 string ghostMessage = _model.Ghosts[ghostIndex];
-                _view.TypeText(ghostMessage, 200, "[red bold slowblink]", true);
+                _view.TypeText(ghostMessage, 90, "[red bold rapidblink]", true);
                 _model.sanity = _model.sanity - 10; //-10 sanity jak duch
                 Task.Delay(2000).Wait(); //czekamy 2s po pełnym napisie
                 _view.Clear();

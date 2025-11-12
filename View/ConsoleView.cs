@@ -68,9 +68,12 @@ namespace Humanity.View
                 AnsiConsole.Markup($"{color}{Markup.Escape(c.ToString())}[/]");
                 if (beep)
                 {
+                    
                     try
                     {
-                        if (count % 2 == 0) Console.Beep(200, delay / 2); //to dla duchów żeby pikało (co 2 bo spacje są)
+                        if (count % 2 == 0) Console.Beep(74, delay); //to dla duchów żeby pikało (co 2 bo spacje są)
+                        else Console.Beep(526, delay);
+                        
                     }
                     catch
                     { }

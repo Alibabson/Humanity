@@ -20,7 +20,7 @@
         public bool IntroPlayed { get; set; } = true;  /// ZMIENIĆ NA false;
         public string SafePassword { get; set; } = "41070";
         public bool SafeOpened { get; set; } = false;
-        public int room_idx { get; set; } = 2;
+        public int room_idx { get; set; } = 0;
 
 
         // Prosty dziennik wspomnień (do komendy RECALL)
@@ -101,7 +101,7 @@
                        "|- HELP: Show this help message.                                         |\n" +
                        "|- [yellow]LOOK[/]: Observe your surroundings.                                      |\n" +
                        "|- [teal]CHECK[/] [[ITEM]]: Describe item or room.                                  |\n" +
-                       "|- GO TO [[ROOM]]: move to the next room.                                  |\n" +
+                       "|- [palegreen1_1]GO TO[/] [[ROOM]]: move to the next room.                                  |\n" +
                        "|- QUIT/EXIT: Terminate the session and give up on your H U M A N I T Y. |\n" +
                        "-------------------------------------------------------------------------";
             }
@@ -111,8 +111,8 @@
                       "|Available commands:                                                     |\n" +
                       "|- HELP: Show this help message.                                         |\n" +
                       "|- [yellow]LOOK[/]: Observe your surroundings.                                      |\n" +
-                      "|- CHECK [[ITEM]]: Describe item or room.                                  |\n" +
-                      "|- GO TO [[ROOM]]: move to the next room.                                  |\n" +
+                      "|- [teal]CHECK[/: Describe item or room.                                  |\n" +
+                      "|- [palegreen1_1]GO TO[/] [[ROOM]]: move to the next room.                                  |\n" +
                       "|- QUIT/EXIT: Terminate the session and give up on your H U M A N I T Y. |\n" +
                       "|-[red] USE DEVICE: DESTROY ALL THE EVIDENCE           [/]                       |\n" +
                       "-------------------------------------------------------------------------";
@@ -128,13 +128,13 @@
                     look.Add("You are in a ");
                     look.Add("[yellow]LAB[/]");
                     look.Add(".\nThe room is filled with scientific equipment, ");
-                    look.Add("[teal]monitors [/]");
+                    look.Add("[teal]MONITORS [/]");
                     look.Add("displaying data, and an unsolved, barely recognizible \nequation scribbled on a ");
-                    look.Add("[teal]whiteboard [/]");
+                    look.Add("[teal]WHITEBOARD [/]");
                     look.Add("as if reason itself was lost here.\n");
 
                     look.Add("Behind you,");
-                    look.Add(" [palegreen1_1]stairs [/]");
+                    look.Add(" [palegreen1_1]STAIRS [/]");
                     look.Add("lead back upward.");
                     look.Add("\n\n[darkred]Something about this room feels painfully familiar.[/]");
                     return;
@@ -326,6 +326,7 @@
                         itemDesc.Add("[lime]Welcome, Dr. Hallaway. What would you like to do?\n[/]");
                         itemDesc.Add("[lime]CHECK CURRENT PATIENT STATUS[/]");
                         itemDesc.Add("[lime]OPEN TEST LOGS[/]");
+                        itemDesc.Add("[red]RESTORE HUMANITY.[/]");
                         itemDesc.Add("[lime]QUIT TERMINAL[/]");
                     }
                     else itemDesc.Add(wrongItem(item));

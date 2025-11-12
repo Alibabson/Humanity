@@ -19,14 +19,27 @@ namespace Humanity.View
         ////TERMINAL (LAB - 0)
         public void Monitor(List<string> text)
         {
-            var command = AnsiConsole.Prompt(
-             new SelectionPrompt<string>()
-                 .Title(text[0])
-                 .HighlightStyle(new Style(foreground: Color.Black, background: Color.Green))
-                 .PageSize(4)
-                 .AddChoices(text.GetRange(1, text.Count - 1))
-             );
-
+            var command = "";
+            if (_Model.Reason && _Model.Emotion && _Model.Morality)
+            {
+                 command = AnsiConsole.Prompt(
+                 new SelectionPrompt<string>()
+                     .Title(text[0])
+                     .HighlightStyle(new Style(foreground: Color.Black, background: Color.Green))
+                     .PageSize(4)
+                     .AddChoices(text.GetRange(1, text.Count - 1))
+                 );
+            }
+            else
+            {
+                command = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                    .Title(text[0])
+                    .HighlightStyle(new Style(foreground: Color.Black, background: Color.Green))
+                    .PageSize(4)   
+                    .AddChoices(text[1], text[2], text[4])
+                );
+            }
             if (command == text[1])   //sprawdz status
             {
                 _Model.Status();
@@ -53,10 +66,15 @@ namespace Humanity.View
             }
             else if (command == text[3])
             {
+                _View.Spectre_Text("\nTu damy zakoñczenie\n");
+                return;
+            }
+            else if (command == text[4])
+            {
                 _View.Spectre_Text("[grey underline]You left the console. \n Press any button to continue[/]");
                 return;
             }
-            return;
+                return;
         }
         private void BackPrompt(List<string> text)
         {
@@ -281,7 +299,7 @@ namespace Humanity.View
                     }
                     else
                     {
-                        Bookshelf(tmp);
+                        //Bookshelf(tmp);
                     }
                 }
                 else if (row == 4 && col == 20)
@@ -289,14 +307,14 @@ namespace Humanity.View
                     _View.Clear();
                     _View.Spectre_Text("\n[black on white]" + ShowNotes() + "[/]\n");
                     _View.AwaitKey();
-                    Bookshelf(tmp);
+                    //Bookshelf(tmp);
                 }
                 else
                 {
                     _View.Clear();
                     _View.Spectre_Text("\n[grey]Nothing interesting here.[/]\n");
                     _View.AwaitKey();
-                    Bookshelf(tmp);
+                    //Bookshelf(tmp);
                 }
             }
         }
@@ -344,7 +362,7 @@ namespace Humanity.View
             {
                 _View.Spectre_Text(_itemModel.List_replay[0]);
             }
-            _View.AwaitKey();
+            //_View.AwaitKey();
             Bookshelf(text);
         }
 
@@ -678,7 +696,7 @@ namespace Humanity.View
                 _View.Spectre_Text("\n[red]W R O N G[/]\n");
                 Diary(text);
             }
-            _View.AwaitKey();
+            //_View.AwaitKey();
         }
 
 
@@ -867,6 +885,8 @@ namespace Humanity.View
             if (rem == "r") _Model.Reason = true;
             else if (rem == "e") _Model.Emotion = true;
             else if (rem == "m") _Model.Morality = true;
+
+            if(_Model.Reason && _Model.Emotion && _Model.Morality) { _View.Spectre_Text("\n[silver]You should probably check those[/] [teal]monitors[/] [silver]in the[/] [palegreen1_1]lab[/].\n"); }
             _View.Spectre_Text("\n\n[grey slowblink](Press any button to proceed)[/]\n");
             _View.AwaitKey();
             return;
