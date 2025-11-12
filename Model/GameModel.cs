@@ -1,7 +1,4 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-
-namespace Humanity.Model
+﻿namespace Humanity.Model
 {
     public class GameModel
     {
@@ -9,9 +6,9 @@ namespace Humanity.Model
         public bool Emotion { get; set; } = false;
         public bool Morality { get; set; } = false;
         public bool hasKey { get; set; } = false;
-        public bool hasMusicBoxKey { get; set; } = false    ;
+        public bool hasMusicBoxKey { get; set; } = false;
         public bool hasDiaryKey { get; set; } = false;
-        public bool hasRing {  get; set; } = false;
+        public bool hasRing { get; set; } = false;
 
         public bool KnowsSafeLocation { get; set; } = false;
         //---wazne--//
@@ -23,7 +20,7 @@ namespace Humanity.Model
         public bool IntroPlayed { get; set; } = true;  /// ZMIENIĆ NA false;
         public string SafePassword { get; set; } = "41070";
         public bool SafeOpened { get; set; } = false;
-        public int room_idx { get; set; } = 2  ;
+        public int room_idx { get; set; } = 2;
 
         // Prosty dziennik wspomnień (do komendy RECALL)
         /* public List<string> MemoryLogs { get; } = new()
@@ -37,7 +34,7 @@ namespace Humanity.Model
          public string StatusLine =>
              $"Status — Reason: {(Reason ? "ONLINE" : "offline")} | Emotion: {(Emotion ? "ONLINE" : "offline")} | Morality: {(Morality ? "ONLINE" : "offline")}";
         */
-       public bool[] LookedRoom = new bool[9];
+        public bool[] LookedRoom = new bool[9];
         public List<string> Intro = new()
         {
             "> Backup data loaded",
@@ -45,7 +42,7 @@ namespace Humanity.Model
             "> Experiment database - inclomplete",
             "> Last session data found",
             "> Restoring memories...",
-            "> ~$ apt-sudo install get coffee", 
+            "> ~$ apt-sudo install get coffee",
             "> Neural map - incomplete",
             "> Scanning patient identity",
             "> Destroying non-essential memories...",
@@ -66,7 +63,8 @@ namespace Humanity.Model
             public string Color { get; set; }
             public int DelayMs { get; set; }
 
-            public PrologueLine(string text, int delay, string color) {
+            public PrologueLine(string text, int delay, string color)
+            {
                 Text = text;
                 DelayMs = delay;
                 Color = color;
@@ -88,7 +86,7 @@ namespace Humanity.Model
             new PrologueLine("\nThe hum of dying machines and the atmosphere of a room feels too familiar to be a stranger’s.\nAfter brief confusion, you realize that whatever you were before...", 15, "[italic silver]"),
             new PrologueLine(" you are not anymore.\n", 45, "[italic red]")
         };
-        
+
         public string Uknown()
         {
             return "Unknown command. Type HELP for a list of commands.";
@@ -100,8 +98,8 @@ namespace Humanity.Model
                 return "-------------------------------------------------------------------------\n" +
                        "|Available commands:                                                     |\n" +
                        "|- HELP: Show this help message.                                         |\n" +
-                       "|- LOOK: Observe your surroundings.                                      |\n" +
-                       "|- CHECK [[ITEM]]: Describe item or room.                                  |\n" +
+                       "|- [yellow]LOOK[/]: Observe your surroundings.                                      |\n" +
+                       "|- [teal]CHECK[/] [[ITEM]]: Describe item or room.                                  |\n" +
                        "|- GO TO [[ROOM]]: move to the next room.                                  |\n" +
                        "|- QUIT/EXIT: Terminate the session and give up on your H U M A N I T Y. |\n" +
                        "-------------------------------------------------------------------------";
@@ -111,7 +109,7 @@ namespace Humanity.Model
                 return "-------------------------------------------------------------------------\n" +
                       "|Available commands:                                                     |\n" +
                       "|- HELP: Show this help message.                                         |\n" +
-                      "|- LOOK: Observe your surroundings.                                      |\n" +
+                      "|- [yellow]LOOK[/]: Observe your surroundings.                                      |\n" +
                       "|- CHECK [[ITEM]]: Describe item or room.                                  |\n" +
                       "|- GO TO [[ROOM]]: move to the next room.                                  |\n" +
                       "|- QUIT/EXIT: Terminate the session and give up on your H U M A N I T Y. |\n" +
@@ -122,7 +120,7 @@ namespace Humanity.Model
         public List<string> look = new();
         public void pickLook(int idx, int part)
         {
-          look.Clear();
+            look.Clear();
             switch (idx)
             {
                 case 0:
@@ -131,14 +129,14 @@ namespace Humanity.Model
                     look.Add(".\nThe room is filled with scientific equipment, ");
                     look.Add("[teal]monitors [/]");
                     look.Add("displaying data, and an unsolved, barely recognizible \nequation scribbled on a ");
-                    look.Add("[teal]whiteboard [/]"); 
+                    look.Add("[teal]whiteboard [/]");
                     look.Add("as if reason itself was lost here.\n");
 
                     look.Add("Behind you,");
                     look.Add(" [palegreen1_1]stairs [/]");
                     look.Add("lead back upward.");
-                    look.Add("\n\n[darkred]Something about this room feels painfully familiar.[/]");                   
-                return;
+                    look.Add("\n\n[darkred]Something about this room feels painfully familiar.[/]");
+                    return;
 
                 case 1:
                     look.Add("You are on the ");
@@ -215,7 +213,7 @@ namespace Humanity.Model
                     look.Add("[palegreen1_1]LIBRARY[/]");
                     look.Add(".\n\n");
                     look.Add("[darkred]Thoughts drift through your mind like scattered notes, elusive and ungraspable, hinting at what might have been lost.[/]");
-                   // look.Add("[darkred]Every object here seems to hum with memories you cannot fully grasp.[/]");
+                    // look.Add("[darkred]Every object here seems to hum with memories you cannot fully grasp.[/]");
                     return;
 
                 case 5:
@@ -282,10 +280,10 @@ namespace Humanity.Model
 
                     look.Add("[darkred]The room carries an intimate weight, hinting at memories both cherished and painful.[/]");
 
-                 /*   if (Emotion==false)
-                        look.Add("\n \nYou don't feel any [orchid]EMOTIONS.[/]");
-                    else
-                        look.Add("\n \nYou feel a wide range of [orchid]EMOTIONS. [/]"); */
+                    /*   if (Emotion==false)
+                           look.Add("\n \nYou don't feel any [orchid]EMOTIONS.[/]");
+                       else
+                           look.Add("\n \nYou feel a wide range of [orchid]EMOTIONS. [/]"); */
                     return;
                 case 8:
                     look.Add("You are in the ");
@@ -306,8 +304,8 @@ namespace Humanity.Model
                     return;
                 default:
                     return;
-        }
             }
+        }
         private string wrongItem(string item)
         {
             string wrong = "There is no such item as" + item;
@@ -320,6 +318,7 @@ namespace Humanity.Model
             {
                 /////////////////LAB
                 case "monitor":
+                case "monitors":
                 case "terminal":
                     if (idx == 0)
                     {
@@ -368,13 +367,13 @@ namespace Humanity.Model
                         itemDesc.Add("[lime]YES[/]");
                         itemDesc.Add("[lime]NO[/]");
                     }
-                break;
+                    break;
                 //////////////////////////
 
                 //////////////////////LIBRARY
                 case "bookshelf":
                     {
-                        if(idx==3)
+                        if (idx == 3)
                         {
                             itemDesc.Add("[lightslateblue]You found a romantic poem with a letter snuck inside of it. Do you want to read it?[/]\n \n");
                             itemDesc.Add("[lime]YES[/]");
@@ -382,8 +381,18 @@ namespace Humanity.Model
                         }
                     }
                     break;
+                case "table":
+                    {
+                        if(idx==3)
+                        {
+                            itemDesc.Add("[grey]There's an open book on the table. Someone crossed out the text of this book - leaving a written message:[/]\n");
+                            itemDesc.Add("[red]\nTHERE ARE TWO BOOKS THAT MIGHT INTEREST YOU.[/]\n");
+                            //itemDesc.Add("[darkred]\nYOU LIKED THE CONCEPT OF TIME.\nSHE LIKED MUSIC.[/]\n");
+                        }
+                    }
+                    break;
                 ///////////////////////////////
-                
+
                 ////////////////////////LIVING ROOM
                 case "clock":
                     if (idx == 2)
@@ -395,7 +404,7 @@ namespace Humanity.Model
                     wrongItem(item);
                     break;
                 case "piano":
-                    if(idx==2)
+                    if (idx == 2)
                     {
                         itemDesc.Add("[silver]The piano is old, but it still works. You can play it however you want.[/]\n");
                         itemDesc.Add("[grey underline]Use buttons C, D, E, F, G and H to play, press ENTER to leave[/]");
@@ -405,7 +414,7 @@ namespace Humanity.Model
                     }
                     break;
                 /////////////////////////////////////////
-                
+
                 ///////////////////////////////HALLWAY
                 case "photo":
                 case "picture":
@@ -467,7 +476,7 @@ namespace Humanity.Model
                             itemDesc.Add("[yellow1]DIARY[/]");
                         }
                     }
-                break;
+                    break;
                 case "music":
                 case "musicbox":
                 case "music box":
@@ -476,8 +485,8 @@ namespace Humanity.Model
                         {
                             if (!hasMusicBoxKey)
                             {
-                                itemDesc.Add("[silver]You see a closed music box. The main thing that catches your eye are the written numbers: \n[/][gold1]6[/][silver] and[/][gold1]7[/]\n");
-                                itemDesc.Add("\n \n[silver]There is also a keyhole. [red]You don't have the key yet.[/]");
+                                itemDesc.Add("[silver]You see a closed music box. The main thing that catches your eye are the written numbers: \n[/][gold1]4[/][silver] and[/][gold1] 20[/]\n");
+                                itemDesc.Add("\n \n[silver]There is also a keyhole. [/][red]You don't have the key yet.[/]");
                             }
                             else
                             {
@@ -503,9 +512,9 @@ namespace Humanity.Model
                         }
                     }
                     break;
-               ////////////////////////
-                
-               
+                    ////////////////////////
+
+
 
             }
             return itemDesc;
@@ -543,7 +552,7 @@ namespace Humanity.Model
                     next_idx = 5;
                     return next_idx;
 
-                case "bath":    
+                case "bath":
                 case "bathroom":
                     next_idx = 6;
                     return next_idx;

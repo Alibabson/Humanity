@@ -1,7 +1,4 @@
-﻿using System.Text;
-using System.Threading.Tasks;
-using System.Media;
-using Spectre.Console;
+﻿using Spectre.Console;
 
 
 namespace Humanity.View
@@ -12,7 +9,7 @@ namespace Humanity.View
 
         public void Clear() => Console.Clear();
         public void Line(string text = "") => Console.WriteLine(text);
-        public void LineNoEnter(string text = "") => Console.Write(text);  
+        public void LineNoEnter(string text = "") => Console.Write(text);
 
 
 
@@ -61,7 +58,7 @@ namespace Humanity.View
             Console.ResetColor();
         }
 
-       public void TypeText(string text, int delay, string color, bool beep=false) //powolny napis ale z kolorem (Markup)
+        public void TypeText(string text, int delay, string color, bool beep = false) //powolny napis ale z kolorem (Markup)
         {
             int count = 0;
             foreach (char c in text)
@@ -71,10 +68,11 @@ namespace Humanity.View
                 AnsiConsole.Markup($"{color}{Markup.Escape(c.ToString())}[/]");
                 if (beep)
                 {
-                    try { 
-                        if(count % 2 == 0)  Console.Beep(200, delay/2); //to dla duchów żeby pikało (co 2 bo spacje są)
-                    } 
-                    catch 
+                    try
+                    {
+                        if (count % 2 == 0) Console.Beep(200, delay / 2); //to dla duchów żeby pikało (co 2 bo spacje są)
+                    }
+                    catch
                     { }
 
                 }
@@ -85,7 +83,7 @@ namespace Humanity.View
         }
 
 
-        public Task Pulse(string text, int pulses = 3, int on = 220, int off = 120) 
+        public Task Pulse(string text, int pulses = 3, int on = 220, int off = 120)
         {
             Console.ForegroundColor = ConsoleColor.Red;
             lock (_consoleLock)
@@ -130,9 +128,10 @@ namespace Humanity.View
         }
         public void PianoBeep(int hz)
         {
-            try {
+            try
+            {
                 Console.Beep(hz, 400);
-             }
+            }
             catch { }
         }
         public async Task<string> Narrator(string prefix = "\n> ")  // daje znak > po lewej i pozwala na wpisywnaie komend. Możemy zmieniać ten znaczek
@@ -142,9 +141,9 @@ namespace Humanity.View
             Console.ResetColor();
             return (Console.ReadLine() ?? "").Trim(); //trim usuwa niepotrzebne spacje które możemy dać przypadkiem
         }
-        public string Narrator2(string prefix, bool red=false)  // daje znak > po lewej i pozwala na wpisywnaie komend. Możemy zmieniać ten znaczek
+        public string Narrator2(string prefix, bool red = false)  // daje znak > po lewej i pozwala na wpisywnaie komend. Możemy zmieniać ten znaczek
         {
-            if(red) Console.ForegroundColor = ConsoleColor.Red;
+            if (red) Console.ForegroundColor = ConsoleColor.Red;
             else Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write(prefix);
             Console.ResetColor();
@@ -175,7 +174,7 @@ namespace Humanity.View
             Thread.Sleep(500);
             Line("\rLoading...");
             Clear();
-            
+
         }
         public void Panel(string currRoom, string currSanity, int meter)  //pasek sanity i pokój
         {
@@ -263,6 +262,6 @@ namespace Humanity.View
             image.MaxWidth(90);
             AnsiConsole.Write(image);
         }
-        
-        }
+
+    }
 }

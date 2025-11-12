@@ -1,13 +1,5 @@
 using Humanity.Model;
 using Spectre.Console;
-using Spectre.Console.Cli;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Reflection.Metadata.Ecma335;
-using System.Runtime.CompilerServices;
-using System.Text;
-using static System.Net.Mime.MediaTypeNames;
 namespace Humanity.View
 {
     public class ItemView
@@ -16,7 +8,7 @@ namespace Humanity.View
         private readonly GameModel _Model;
         private readonly ItemModel _itemModel;
 
-        
+
         public ItemView(ConsoleView view, GameModel g_model, ItemModel itemModel)
         {
             _View = view;
@@ -27,24 +19,24 @@ namespace Humanity.View
         ////TERMINAL (LAB - 0)
         public void Monitor(List<string> text)
         {
-           var command = AnsiConsole.Prompt(
-            new SelectionPrompt<string>()
-                .Title(text[0])
-                .HighlightStyle(new Style(foreground: Color.Black, background:Color.Green))
-                .PageSize(4)
-                .AddChoices(text.GetRange(1, text.Count - 1))
-            );
-            
-            if(command == text[1])   //sprawdz status
+            var command = AnsiConsole.Prompt(
+             new SelectionPrompt<string>()
+                 .Title(text[0])
+                 .HighlightStyle(new Style(foreground: Color.Black, background: Color.Green))
+                 .PageSize(4)
+                 .AddChoices(text.GetRange(1, text.Count - 1))
+             );
+
+            if (command == text[1])   //sprawdz status
             {
                 _Model.Status();
-                foreach(var line in _Model.statusLines)
+                foreach (var line in _Model.statusLines)
                 {
                     _View.Spectre_Text(line + "\n");
                 }
                 BackPrompt(text);
             }
-            else if(command == text[2]) //sprawdz logi
+            else if (command == text[2]) //sprawdz logi
             {
                 if (!_Model.DEVICE)
                 {
@@ -59,7 +51,7 @@ namespace Humanity.View
                     _View.AwaitKey();
                 }
             }
-            else if(command == text[3])
+            else if (command == text[3])
             {
                 _View.Spectre_Text("[grey underline]You left the console. \n Press any button to continue[/]");
                 return;
@@ -81,21 +73,21 @@ namespace Humanity.View
                 _View.Spectre_Text(line + "\n");
             }
             var k = _View.CheckKey();
-            if(k == ConsoleKey.RightArrow)
+            if (k == ConsoleKey.RightArrow)
             {
                 page++;
-                if(page > 5) page = 5;
+                if (page > 5) page = 5;
                 _View.Clear();
                 LOG(page, text);
             }
-            else if(k == ConsoleKey.LeftArrow)
+            else if (k == ConsoleKey.LeftArrow)
             {
                 page--;
-                if(page < 1) page = 1;
+                if (page < 1) page = 1;
                 _View.Clear();
                 LOG(page, text);
             }
-            else if(k == ConsoleKey.Enter)
+            else if (k == ConsoleKey.Enter)
             {
                 _View.Clear();
                 Monitor(text);
@@ -103,7 +95,7 @@ namespace Humanity.View
         }
 
         /////WHITEBOARD (LAB - 0)
-        public bool passed= false;
+        public bool passed = false;
         private int guesses = 0;
         private bool hint = false;
         public bool Whiteboard(List<string> text)
@@ -111,7 +103,7 @@ namespace Humanity.View
             var txt = text;
             if (!passed)
             {
-                
+
                 _View.Spectre_Text(text[0] + "\n");
                 _View.Spectre_Text(text[1]);
                 var command = AnsiConsole.Prompt(
@@ -121,13 +113,13 @@ namespace Humanity.View
                     .PageSize(4)
                     .AddChoices(text[2], text[3])
                 );
-                
+
                 if (command == text[2])
                 {
                     _View.Clear();
                     while (!passed)
                     {
-                        if (hint==true)
+                        if (hint == true)
                         {
                             AnsiConsole.Write(new Columns(
                                     new Spectre.Console.Text(_itemModel.whiteboardList[0], new Style(Color.Orange3)),
@@ -172,7 +164,7 @@ namespace Humanity.View
                             //Whiteboard(txt);
                         }
                     }
-                        //return false;
+                    //return false;
                 }
                 else if (command == text[3])
                 {
@@ -228,12 +220,12 @@ namespace Humanity.View
             }
             if (command == text[1])
             { */
-                _itemModel.Newspaper();
-                var lines = _itemModel.GetNewspaper;
-                foreach (var x in lines)
-                {
-                    _View.Spectre_Text(x);
-                }
+            _itemModel.Newspaper();
+            var lines = _itemModel.GetNewspaper;
+            foreach (var x in lines)
+            {
+                _View.Spectre_Text(x);
+            }
             _View.Spectre_Text("[grey underline]\nPress any button to continue...[/]\n");
             _View.AwaitKey();
             //}
@@ -265,10 +257,10 @@ namespace Humanity.View
                     continue;
                 }
                 int.TryParse(parts[0], out int row);
-                if (parts[0]== "") { quitted = !quitted; break; }
+                if (parts[0] == "") { quitted = !quitted; break; }
                 int.TryParse(parts[1], out int col);
                 if (parts[1] == "") { quitted = !quitted; break; }
-                if (row <= 0 || col <= 0 ||row > 12 || col >60)
+                if (row <= 0 || col <= 0 || row > 12 || col > 60)
                 {
                     _View.Spectre_Text("[grey]This bookshelf does not have that many books. Try again.[/]");
                 }
@@ -292,7 +284,7 @@ namespace Humanity.View
                         Bookshelf(tmp);
                     }
                 }
-                else if (row == 6 && col == 7)
+                else if (row == 4 && col == 20)
                 {
                     _View.Clear();
                     _View.Spectre_Text("\n[black on white]" + ShowNotes() + "[/]\n");
@@ -308,7 +300,7 @@ namespace Humanity.View
                 }
             }
         }
-       
+
         public string ShowNotes()
         {
             string asciiNotes = @"
@@ -346,7 +338,7 @@ namespace Humanity.View
                     Bookshelf(text);
                     return;
                 }
-                
+
             }
             else
             {
@@ -355,6 +347,18 @@ namespace Humanity.View
             _View.AwaitKey();
             Bookshelf(text);
         }
+
+        //////TABLE (LIBRARY - 3)
+        public void Table(List<string> text)
+        {
+            _View.Clear();
+            foreach (string s in text)
+            {
+                _View.Spectre_Text(s);
+            }
+            _View.AwaitKey();
+        }
+
 
 
 
@@ -406,60 +410,60 @@ namespace Humanity.View
                 _View.Spectre_Text("\n[silver]" + ShowPiano() + "[/]\n");
 
             }
-            while (order<4)
+            while (order < 4)
+            {
+                var k = _View.CheckKey();
+                if (k == ConsoleKey.Enter)
                 {
-                    var k = _View.CheckKey();
-                    if(k == ConsoleKey.Enter)
-                    {
-                        return;
-                    }
-                    if (k == ConsoleKey.C)
-                    {
-                        order = 0;
-                        _View.PianoBeep(262);
-                    }
-                    if (k==ConsoleKey.D)
-                    {
-                            if (order == 0 && !_Model.hasDiaryKey) order = 1;
-                            else order = 0;
-                          _View.PianoBeep(294);
-                    }
-                    if(k ==ConsoleKey.E)
-                    {
-                         order = 0;
-                         _View.PianoBeep(330);
-                    }
-                    if(k ==ConsoleKey.F)
-                    {
+                    return;
+                }
+                if (k == ConsoleKey.C)
+                {
+                    order = 0;
+                    _View.PianoBeep(262);
+                }
+                if (k == ConsoleKey.D)
+                {
+                    if (order == 0 && !_Model.hasDiaryKey) order = 1;
+                    else order = 0;
+                    _View.PianoBeep(294);
+                }
+                if (k == ConsoleKey.E)
+                {
+                    order = 0;
+                    _View.PianoBeep(330);
+                }
+                if (k == ConsoleKey.F)
+                {
                     if (order == 2 && !_Model.hasDiaryKey) order = 3;
                     else order = 0;
-                        _View.PianoBeep(349);
-                    }
-                    if (k == ConsoleKey.G)
-                    {
-                        order = 0;
-                        _View.PianoBeep(392);
-                    }
-                    if (k == ConsoleKey.A)
-                    {
+                    _View.PianoBeep(349);
+                }
+                if (k == ConsoleKey.G)
+                {
+                    order = 0;
+                    _View.PianoBeep(392);
+                }
+                if (k == ConsoleKey.A)
+                {
                     if (order == 1 && !_Model.hasDiaryKey) order = 2;
                     else if (order == 3 && !_Model.hasDiaryKey) order = 4;
-                        _View.PianoBeep(440);
-                    }
-                    if (k == ConsoleKey.H)
-                    {
-                        order = 0;
-                        _View.PianoBeep(494);
-                    }
+                    _View.PianoBeep(440);
                 }
-                if(order==4 && !_Model.hasDiaryKey)
+                if (k == ConsoleKey.H)
                 {
-                    _View.Spectre_Text(text[3]);
-                    //_View.AwaitKey();
-                _Model.hasDiaryKey = true;
-                return;
+                    order = 0;
+                    _View.PianoBeep(494);
                 }
             }
+            if (order == 4 && !_Model.hasDiaryKey)
+            {
+                _View.Spectre_Text(text[3]);
+                //_View.AwaitKey();
+                _Model.hasDiaryKey = true;
+                return;
+            }
+        }
 
         public string ShowPiano()
         {
@@ -481,7 +485,7 @@ namespace Humanity.View
             var panel = new Panel(text[0])
             {
                 Border = BoxBorder.Square,
-                Padding = new Padding(left:3, top:3, right:3, bottom:3),
+                Padding = new Padding(left: 3, top: 3, right: 3, bottom: 3),
             };
             AnsiConsole.Write(new Align(
                 panel,
@@ -496,9 +500,12 @@ namespace Humanity.View
         {
             _itemModel.Photo();
             var lines = _itemModel.GetPhoto;
-            _View.Spectre_Text(lines[0]);
-            _View.Spectre_Text(ShowPhoto()+"\n");
-            
+            for (int i = 0; i < 5; i++) 
+            { 
+                _View.Spectre_Text(lines[i]); 
+            }
+            _View.Spectre_Text(ShowPhoto() + "\n");
+
             if (_Model.KnowsSafeLocation && !_Model.SafeOpened)
             {
                 _View.Spectre_Text(text[0] + "\n");
@@ -515,7 +522,7 @@ namespace Humanity.View
                 }
                 if (command == text[1])
                 {
-                    _View.Spectre_Text(lines[1]);
+                    _View.Spectre_Text(lines[5]);
                     //_View.AwaitKey();
                     List<string> sejf = _Model.checkItem(5, "safe");
                     /*foreach (var x in sejf)
@@ -651,7 +658,7 @@ namespace Humanity.View
                 _View.Spectre_Text(x);
             }
             _View.AwaitKey();
-            if(KeyFragment("EMOTION") && !openedDiary)
+            if (KeyFragment("EMOTION") && !openedDiary)
             {
                 openedDiary = true;
             }
@@ -660,12 +667,12 @@ namespace Humanity.View
                 _View.Spectre_Text("\n[red]W R O N G[/]\n");
                 Diary(text);
             }
-                _View.AwaitKey();
+            _View.AwaitKey();
         }
 
 
 
-       
+
 
         /////DESK (OFFICE - 8)
         public void Desk(List<string> text)
@@ -681,7 +688,7 @@ namespace Humanity.View
             if (command == text[1])
             {
                 _View.Clear();
-               // _View.Spectre_Text();
+                // _View.Spectre_Text();
                 //_View.AwaitKey();
 
                 var panel = new Panel(_itemModel.Cipher[0])
@@ -696,7 +703,7 @@ namespace Humanity.View
                     ));
                 _View.AwaitKey();
             }
-            else if(command == text[2])
+            else if (command == text[2])
             {
                 _View.Clear();
                 _View.Spectre_Text("\n\n\n");
@@ -712,7 +719,7 @@ namespace Humanity.View
                     ));
                 _Model.KnowsSafeLocation = true;
                 _View.AwaitKey();
-            }    
+            }
             else
             {
                 return;
@@ -741,7 +748,7 @@ namespace Humanity.View
                         _View.Spectre_Text(text[3]);
                         _View.Spectre_Text(text[4]);
                         var input = _View.Narrator2("#");
-                        if (input == "1974")
+                        if (input == "1967")
                         {
                             if (KeyFragment("MORALITY"))
                             {
@@ -761,7 +768,7 @@ namespace Humanity.View
                         }
                         else
                         {
-                            _View.Spectre_Text(text[7]);
+                            _View.Spectre_Text(text[8]);
                         }
                     }
                     _View.AwaitKey();
@@ -784,19 +791,23 @@ namespace Humanity.View
         public bool KeyFragment(string which)
         {
             _View.Clear();
-            switch(which)
+            
+            switch (which)
             {
                 case "REASON":
                     {
-                        _View.Spectre_Text(_itemModel.Fragment[0]);
-                        var input = _View.Narrator2("",true).Trim().ToLower();
+                        _View.Spectre_Text(_itemModel.Fragment[0]+"\n");
+                        var input = _View.Narrator2(">>>", true).Trim().ToLower();
                         if (input == "reason")
                         {
-                            _Model.Reason = true;
+                            ShowStatus("r");                           
+                            ShowStatus("r");
+                            //_View.AwaitKey();
+                            _View.Clear();
                             return true;
                         }
                         else return false;
-                        
+
                     }
                 case "EMOTION":
                     {
@@ -804,7 +815,10 @@ namespace Humanity.View
                         var input = _View.Narrator2("", true).Trim().ToLower();
                         if (input == "emotion")
                         {
-                            _Model.Emotion = true;
+                            ShowStatus("e");
+                            ShowStatus("e");
+                           // _View.AwaitKey();
+                            _View.Clear();
                             return true;
                         }
                         else return false;
@@ -815,7 +829,10 @@ namespace Humanity.View
                         var input = _View.Narrator2("", true).Trim().ToLower();
                         if (input == "morality")
                         {
-                            _Model.Morality = true;
+                            ShowStatus("m");
+                            ShowStatus("m");
+                            //_View.AwaitKey();
+                            _View.Clear();
                             return true;
                         }
                         else return false;
@@ -825,6 +842,24 @@ namespace Humanity.View
             }
             //return false;
         }
-        
-    }   
-}       
+        public void ShowStatus(string rem)
+        {
+            _View.Clear();
+            List<string> list = new List<string>();
+            _Model.Status();
+            list = _Model.statusLines;
+            foreach (string line in list)
+            {   
+                _View.Spectre_Text(line+"\n");
+            }
+            //Task.Delay(10000);
+            if (rem == "r") _Model.Reason = true;
+            else if (rem == "e") _Model.Emotion = true;
+            else if (rem == "m") _Model.Morality = true;
+            _View.Spectre_Text("\n\n[grey slowblink](Press any button to proceed)[/]\n");
+            _View.AwaitKey();
+            return;
+        }
+
+    }
+}

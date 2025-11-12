@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using Humanity.Model;
-using Humanity.View;
-
-namespace Humanity.Model
+﻿namespace Humanity.Model
 {
     public class ItemModel
     {
@@ -20,7 +11,7 @@ namespace Humanity.Model
         public List<string> logLines = new List<string>();
 
         public List<string> GetKey = new List<string>();
-        
+
 
 
         /////TERMINAL
@@ -63,7 +54,7 @@ namespace Humanity.Model
                     logLines.Add("[orange3]\nNotes: \n[/][red]DELETE ALL TRACK OF THIS EXPERIMENT IMMEDIATELY!!! COMPLETE FAILURE. FORGET ABOUT IT FORGET ABOUT IT FORGET ABOUT IT[/]");
                     return;
                 case 4:
-                    logLines.Add("[orange3] \nDATE: [/][green]04/03/1983 \n[/]");
+                    logLines.Add("[orange3] \nDATE: [/][green]03/23/1983 \n[/]");
                     logLines.Add("[orange3] \nEXPERIMENT #018 \n[/]");
                     logLines.Add("[lime]Subject name: Amanda Claude\n[/]");
                     logLines.Add("[lime]Age: 27[/]\n");
@@ -101,7 +92,7 @@ namespace Humanity.Model
         public void Newspaper() //wypełnia listę co napisać w gazecie
         {
             GetNewspaper.Clear();
-            GetNewspaper.Add("[darkgoldenrod]Date: April 19, 1983 \n[/]");
+            GetNewspaper.Add("[darkgoldenrod]Date: April 9th, 1983 \n[/]");
             GetNewspaper.Add("\n[darkgoldenrod underline]BREAKING NEWS[/]\n");
             GetNewspaper.Add("[grey italic]Police still haven't found Amanda Claude. It's been three weeks since she's gone missing. Please report the local authorities if you have any information about a person matching these descriptions below:[/]\n");
             GetNewspaper.Add("[steelblue italic]Name: Amanda Claude\nAge: 18\nHeight: 5'7\"\nWeight: 135 lbs\nHair Color: Brown\nEye Color: Blue\nLast Seen Wearing: Black leather jacket, blue jeans, white sneakers[/]\n");
@@ -160,7 +151,11 @@ namespace Humanity.Model
         {
             GetPhoto.Clear();
             //GetPhoto.Add("[olive]Photo Caption:[/]\n");
-            GetPhoto.Add("[grey]A photo of Adrian Holloway and a woman on their wedding day. They both look happy.[/]\n");
+            GetPhoto.Add("[grey]A photo of Doctor Adrian Holloway and a woman on their wedding day, labeled as [/][gold1]\"04/20/1967\"[/][grey]. They both look happy.[/]\n");
+            GetPhoto.Add("[grey]There's a note sticked to the side of the picture, saying:[/]\n");
+            GetPhoto.Add("[orange3]\nI'll never forget \nthe song that played \non our wedding![/]\n");
+            GetPhoto.Add("[orange3]The best [/][red]month,[/]\n");
+            GetPhoto.Add("[orange3]The best [/][red]day.[/]\n");
             GetPhoto.Add("[grey]You found a[/] [gold1]Safe[/] [grey]behind the picture![/]\n");
         }
         ////SZYFR
@@ -182,7 +177,7 @@ namespace Humanity.Model
 
             "\n[green]PASSWORD CORRECT.\n>Erasing Terminal data...[/]", //[5]
             "\r                            ",
-            "\r[green]DONE.[/]", 
+            "\r[green]DONE.[/]",
 
             "\n[red]INCORRECT PASSWORD. TRY AGAIN.[/]\n", //[7]
 
@@ -196,7 +191,7 @@ namespace Humanity.Model
            "[red]A choice without ________ is a road without direction.[/]\n"
         };
 
-        
+
     }
 }
 

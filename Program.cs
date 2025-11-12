@@ -1,8 +1,6 @@
 ﻿using Humanity.Controller;
 using Humanity.Model;
 using Humanity.View;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
 
 namespace Humanity
 {
@@ -11,7 +9,7 @@ namespace Humanity
         private static async Task Main()
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8; //znaki specjalne
-  
+
 
 
             var model = new GameModel();
@@ -20,8 +18,8 @@ namespace Humanity
             var ctrl = new GameController(model, view, itemModel);
 
 
-          //  await view.GameStart(); 
-          //  ctrl.FakeLoad();
+            //  await view.GameStart(); 
+            //  ctrl.FakeLoad();
             await ctrl.Run();
         }
 
