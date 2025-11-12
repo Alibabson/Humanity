@@ -341,6 +341,13 @@
             return asciiPhoto;
 
         }
+
+        public List<string> Epilog = new List<string>()
+        {
+            "[red]Are you sure you want to restore who [/][darkred]YOU[/][red] were before, in exchange of destroying [/][darkred]YOUR[/][red] entire career and this place?[/]",
+            "[red]Y E S[/]",
+            "[red]N O[/]",
+        };
     }
 }
 

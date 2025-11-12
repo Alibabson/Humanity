@@ -2,7 +2,7 @@
 {
     public class GameModel
     {
-        public bool Reason { get; set; } = false;
+        public bool Reason { get; set; } = false;  
         public bool Emotion { get; set; } = false;
         public bool Morality { get; set; } = false;
         public string wrong = "[red]W R O N G[/]\n";
@@ -10,7 +10,7 @@
         public bool hasKey { get; set; } = false;
         public string gotKey = "[green]You used the key.[/]";
         public bool hasMusicBoxKey { get; set; } = false;
-        public bool hasDiaryKey { get; set; } = true; //false
+        public bool hasDiaryKey { get; set; } = false;
         public bool hasRing { get; set; } = false;
 
         public bool KnowsSafeLocation { get; set; } = false;
@@ -20,10 +20,10 @@
         //----------//
         public int sanity { get; set; } = 100;
         // Stan ogólny
-        public bool IntroPlayed { get; set; } = true;  /// ZMIENIĆ NA false;
+        public bool IntroPlayed { get; set; } = false;  /// ZMIENIĆ NA false;
         public string SafePassword { get; set; } = "41070";
         public bool SafeOpened { get; set; } = false;
-        public int room_idx { get; set; } = 7;
+        public int room_idx { get; set; } = 0;
 
         //// STARTER
         public List<string> startGameList = new List<string>()
@@ -42,7 +42,8 @@
         ////NacisnijAbyKontynuować
         public List<string> pressAny = new List<string>()
         {
-            "[olive slowblink]\nPress any button to continue...[/]"
+            "[olive slowblink]\nPress any button to continue...[/]\n\n",
+            "[olive slowblink]\nPress any button to [/][red slowblink]END THE GAME...[/]\n\n"
         };
         public string continuee = "[grey underline]\nPress any button to continue...[/]\n";
 
@@ -99,20 +100,63 @@
         public List<PrologueLine> Prologue = new()
         {
            new PrologueLine( "You shouldn’t have woken up.\n", 45 ,"[italic teal]"),
-            new PrologueLine("\nA sharp, high-pitched noise pierces the silence.\nThe light above you flickers, buzzing faintly, washing the room in a cold, sterile glow.\nMetal. Concrete. The faint smell of chemicals and ozone.\nYou’re lying on a metal table, surrounded by shattered glass and dark stains that look too much like blood.\n", 15, "[italic silver]"),
-            new PrologueLine("\nYou don’t remember how you got here.\nYou don’t remember why you’re here.\nYou don’t even remember your name.\n", 15, "[italic yellow4]"),
-            new PrologueLine("\nBeside you, a monitor flickers to life, spilling pale light across the room.\n For a second, shapes and words flash across the screen — too fast to read —\n then everything freezes.\nOne of the machines is connected straight to your body. The heart rate monitor flickers, as if it can’t decide whether there’s a heartbeat to find, but you’re not dead,\n", 15, "[italic silver]"),
-            new PrologueLine("Are you?\n", 45, "[italic red]"),
-            new PrologueLine("\nSomewhere behind you, a faint echo — a breath, or maybe a whisper.\n", 15, "[italic silver]"),
-            new PrologueLine("You promised…\n", 45, "[italic teal]"),
-            new PrologueLine("It’s hard to tell if it came from the room... or from inside your head.\nYour heartbeat — slow, irregular… fills the silence again.\n", 15, "[italic silver]"),
-            new PrologueLine("\nYou can’t form a single coherent thought in your brain - like someone’s rewiring your thoughts from the inside.\n", 15, "[italic silver]"),
-            new PrologueLine("You can’t feel anything…\n", 15, "[italic red]"),
-            new PrologueLine("You were part of a scheme you know nothing about. Seems like you were just a disposable element…\n", 15, "[italic silver]"),
-            new PrologueLine("\nThe hum of dying machines and the atmosphere of a room feels too familiar to be a stranger’s.\nAfter brief confusion, you realize that whatever you were before...", 15, "[italic silver]"),
-            new PrologueLine(" you are not anymore.\n", 45, "[italic red]")
+           new PrologueLine("\nA sharp, high-pitched noise pierces the silence.\nThe light above you flickers, buzzing faintly, washing the room in a cold, sterile glow.\nMetal. Concrete. The faint smell of chemicals and ozone.\nYou’re lying on a metal table, surrounded by shattered glass and dark stains that look too much like blood.\n", 15, "[italic silver]"),
+           new PrologueLine("\nYou don’t remember how you got here.\nYou don’t remember why you’re here.\nYou don’t even remember your name.\n", 15, "[italic yellow4]"),
+           new PrologueLine("\nBeside you, a monitor flickers to life, spilling pale light across the room.\n For a second, shapes and words flash across the screen — too fast to read —\n then everything freezes.\nOne of the machines is connected straight to your body. The heart rate monitor flickers, as if it can’t decide whether there’s a heartbeat to find, but you’re not dead,\n", 15, "[italic silver]"),
+           new PrologueLine("Are you?\n", 45, "[italic red]"),
+           new PrologueLine("\nSomewhere behind you, a faint echo — a breath, or maybe a whisper.\n", 15, "[italic silver]"),
+           new PrologueLine("You promised…\n", 45, "[italic teal]"),
+           new PrologueLine("It’s hard to tell if it came from the room... or from inside your head.\nYour heartbeat — slow, irregular… fills the silence again.\n", 15, "[italic silver]"),
+           new PrologueLine("\nYou can’t form a single coherent thought in your brain - like someone’s rewiring your thoughts from the inside.\n", 15, "[italic silver]"),
+           new PrologueLine("You can’t feel anything…\n", 15, "[italic red]"),
+           new PrologueLine("You were part of a scheme you know nothing about. Seems like you were just a disposable element…\n", 15, "[italic silver]"),
+           new PrologueLine("\nThe hum of dying machines and the atmosphere of a room feels too familiar to be a stranger’s.\nAfter brief confusion, you realize that whatever you were before...", 15, "[italic silver]"),
+           new PrologueLine(" you are not anymore.\n", 45, "[italic red]")
         };
 
+        public List<PrologueLine> EpilogueGood = new()
+        {
+            new PrologueLine("You connect the device to the system.\n", 20, "[italic silver]"),
+           new PrologueLine("For a moment, nothing happens - then the lights flicker, and the monitors burst into static.\nLines of code twist and dissolve, data collapsing in on itself like fading memories.\n", 15, "[italic silver]"),
+           new PrologueLine("A new window appears on the central screen:\n", 15, "[italic silver]"),
+           new PrologueLine("> \"Do you wish to restore your HUMANITY — knowing it will erase everything?\"\n", 40, "[italic yellow4]"),
+           new PrologueLine("\nYour hand trembles.\nYou press \"YES.\"\n", 35, "[italic red]"),
+           new PrologueLine("\nThe world spins.\nThe walls melt into blinding white, and distant echoes flood your mind — laughter, warmth, music, her voice.\nThen silence.\n", 15, "[italic silver]"),
+           new PrologueLine("\nAdrian opens his eyes.\n", 35, "[italic yellow4]"),
+           new PrologueLine("\nHe's standing in his house — not a lab, not anymore. Morning sunlight pours through the curtains.\nThe doorbell rings.\n", 15, "[italic silver]"),
+           new PrologueLine("\nAdrian blinks, his heart pounding.\nHe walks to the door and opens it — the same moment he remembers.\nA young volunteer stands there, smiling nervously waiting to be 'cured'.\n", 15, "[italic silver]"),
+           new PrologueLine("\"Not today,\" he says softly.\n", 45, "[italic teal]"),
+           new PrologueLine("He closes the door and turns around. Elara is there, eyes full of quiet hope.\n", 15, "[italic silver]"),
+           new PrologueLine("He walks to her - and for the first time in a long time, he doesn’t think about experiments, or data, or immortality.\n", 15, "[italic silver]"),
+           new PrologueLine("\nHe just holds her.\n", 100, "[italic orchid]"),
+           new PrologueLine("\n The device hums faintly one last time, and then everything fades to peace.\n", 20, "[italic silver]"),
+        };
+        public List<PrologueLine> EpilogueBad = new()
+        {
+           new PrologueLine("You connect the device to the system.\n", 20, "[italic silver]"),
+           new PrologueLine("The screens blink awake, lines of data pulsing like veins under glass.\nThen — a new prompt appears:\n", 15, "[italic silver]"),
+           new PrologueLine("> \"Do you wish to restore your HUMANITY — knowing it will erase everything?\"\n", 40, "[italic yellow4]"),
+           new PrologueLine("\nYour reflection stares back from the monitor — hollow eyes, trembling hands.\nAnd yet… you hesitate.\n", 15, "[italic silver]"),
+           new PrologueLine("You press \"NO.\"\n", 45, "[italic red]"),
+           new PrologueLine("\nThe hum deepens.\nThe air thickens, vibrating with a low, metallic tone that crawls under your skin.\nEvery light flares crimson.\nThe lab seems to breathe.\n", 15, "[italic silver]"),
+           new PrologueLine("\nThe device glows — then shatters, spilling energy across the room like liquid fire.\n", 15, "[italic silver]"),
+           new PrologueLine("The screens scream with distorted faces, hundreds of them, twisting and merging — the lost volunteers, their minds echoing through the circuitry.\n", 15, "[italic silver]"),
+           new PrologueLine("Their voices overlap, whispering one word:\n", 15, "[italic silver]"),
+           new PrologueLine("> \"Why…\"\n", 45, "[italic teal]"),
+           new PrologueLine("\nYou stumble back, clutching your head as their memories flood you — fear, pain, confusion, their final moments before silence.\n", 15, "[italic silver]"),
+           new PrologueLine("And through it all, you hear her voice.\n", 15, "[italic silver]"),
+           new PrologueLine("> \"Adrian… you promised you’d stop.\"\n", 45, "[italic teal]"),
+           new PrologueLine("\nThe lights flicker once… twice… then darkness.\n", 15, "[italic silver]"),
+           new PrologueLine("\nWhen you open your eyes, you are no longer standing.\nYou *are* the lab.\n", 35, "[italic yellow4]"),
+           new PrologueLine("\nCables stretch like nerves.\nMonitors blink like eyes.\nEvery sound — your thoughts, looping endlessly, decaying into static.\n", 15, "[italic silver]"),
+           new PrologueLine("You try to scream, but only the speakers respond, echoing the same mechanical phrase:\n", 15, "[italic silver]"),
+           new PrologueLine("> \"Subject: Adrian Holloway. Consciousness preserved.\"\n", 45, "[italic teal]"),
+           new PrologueLine("\nNo heartbeat.\nNo body.\nOnly an endless awareness, trapped inside the cold shell of your own creation.\n", 15, "[italic silver]"),
+           new PrologueLine("\nOutside, somewhere far above, the house collapses under its own weight.\nBut deep within the servers, your mind keeps running.\nForever.\n", 15, "[italic silver]"),
+           new PrologueLine("\nAnd in the static… Elara whispers one last time — soft, broken, and final:\n", 15, "[italic silver]"),
+           new PrologueLine("> \"You finally proved it, Adrian… Consciousness can live without a soul.\"\n", 45, "[italic teal]"),
+        };
+        public string goodbye = "[lime]THANKS FOR PLAYING.\n[/][yellow1]-Emi & Eryk.[/]";
         public string Uknown()
         {
             return "Unknown command. Type HELP for a list of commands.";
@@ -136,10 +180,10 @@
                       "|Available commands:                                                     |\n" +
                       "|- HELP: Show this help message.                                         |\n" +
                       "|- [yellow]LOOK[/]: Observe your surroundings.                                      |\n" +
-                      "|- [teal]CHECK[/: Describe item or room.                                  |\n" +
+                      "|- [teal]CHECK[/]: Describe item or room.                                  |\n" +
                       "|- [palegreen1_1]GO TO[/] [[ROOM]]: move to the next room.                                  |\n" +
                       "|- QUIT/EXIT: Terminate the session and give up on your H U M A N I T Y. |\n" +
-                      "|-[red] USE DEVICE: DESTROY ALL THE EVIDENCE           [/]                       |\n" +
+                      "|-[red] USE DEVICE: DESTROY ALL THE EVIDENCE IN LAB   [/]                        |\n" +
                       "-------------------------------------------------------------------------";
             }
         }
@@ -456,11 +500,11 @@
                     {
                         if (idx == 5)
                         {
-                            itemDesc.Add("[silver]The safe is protected with a 6 digit password, do you want to try and open it?[/]\n");
+                            itemDesc.Add("[silver]The safe is protected with a 5-digit password, do you want to try and open it?[/]\n");
                             itemDesc.Add("[lime]YES[/]");
                             itemDesc.Add("[lime]NO[/]");
 
-                            itemDesc.Add("[yellow1]You opened the safe. You found the[/] [lime]device[/][yellow1].[/]\n");
+                            itemDesc.Add("[yellow1]You opened the safe. You found the[/] [lime]device[/][yellow1]. Use it in a [/][palegreen1_1]LAB[/][yellow1].[/]\n");
 
                             itemDesc.Add("[red]Wrong password. Try again.[/]\n");
 
@@ -482,12 +526,16 @@
                         }
                     }
                     break;
-                case "note":
-                case "notes":
+                case "mirror":
                     {
                         if (idx == 6)
                         {
-                            itemDesc.Add("[silver]Books\naren't the only\nthing that stops\ntime.[/]");
+                            itemDesc.Add("[silver]You see your reflection in the mirror. Your face looks tired and worn out, like you've been through a lot.[/]\n");
+                            itemDesc.Add("[silver]You noticed a note hidden behind the mirror.[/]\n");
+                            itemDesc.Add("\n[silver]Do you want to read it?[/]");
+                            itemDesc.Add("[lime]YES[/]");
+                            itemDesc.Add("[lime]NO[/]");
+                            itemDesc.Add("[red]     Books[/]\n[silver]aren't the only\nthing that stops\n[/][red]     time.[/]");
                         }
                     }
                     break;

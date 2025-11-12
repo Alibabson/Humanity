@@ -265,6 +265,18 @@ namespace Humanity.View
             image.MaxWidth(90);
             AnsiConsole.Write(image);
         }
-
+        public void box(string x)
+        {
+            var panel = new Panel(x)
+            {
+                Border = BoxBorder.Square,
+                Padding = new Padding(left: 3, top: 3, right: 3, bottom: 3),
+            };
+            AnsiConsole.Write(new Align(
+                panel,
+                HorizontalAlignment.Center,
+                VerticalAlignment.Middle
+                ));
+        }
     }
 }

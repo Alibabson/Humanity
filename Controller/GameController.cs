@@ -28,7 +28,7 @@ namespace Humanity.Controller
         }
         public async Task Run()
         {
-            //  _model.IntroPlayed = true; //to skasować albo zakomentować
+            _model.IntroPlayed = false; //to skasować albo zakomentować
             _view.Clear();
             if (!_model.IntroPlayed)
             {
@@ -90,8 +90,8 @@ namespace Humanity.Controller
                     _view.Type("...and now you’re buried inside it.", 24);
                 */
                 ////////////////////////////////////////////////////////////////////////////////////
-
-                _view.TypeText(_model.Help(), 2, "[fuchsia]");  //albo kolor usunąć albo powolne pojawianie bo średnie
+                _view.Clear();
+                _view.Spectre_Text(_model.Help());
                 _model.IntroPlayed = true;
             }
             else // jak nie gramy intro i sprawdzamy program to niech cokolwiek się pokazuje - w grze to się nigdy chyba nie pojawi
@@ -145,7 +145,7 @@ namespace Humanity.Controller
             switch (command) //sprawdzanie co wpisaliśmy
             {
                 case "use":
-                    if (_model.hasDevice == false)
+                    if (_model.hasDevice == false && idx != 0)
                     {
                         return false;
                     }
@@ -315,12 +315,10 @@ namespace Humanity.Controller
                             }
                             return true;
 
-
-                        case "note":
-                        case "notes":
+                        case "mirror":
                             if (idx == 6)
                             {
-                                _itemController.Note(desc);
+                                _itemController.Mirror(desc);
                                 _view.Clear();
                                 LookFunction("");
                             }

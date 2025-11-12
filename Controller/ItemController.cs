@@ -1,6 +1,7 @@
 using Humanity.Model;
 using Humanity.View;
 using Spectre.Console;
+using Spectre.Console.Cli;
 namespace Humanity.Controller
 {
     public class ItemController
@@ -65,10 +66,38 @@ namespace Humanity.Controller
                     _View.AwaitKey();
                 }
             }
-            else if (command == text[3])
+            else if (command == text[3])    //// KONIEC GRY
             {
-                _View.Spectre_Text("\nTu damy zakoñczenie\n");
-                return;
+                _View.Clear();
+                command = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                    .Title(_itemModel.Epilog[0])
+                    .HighlightStyle(new Style(foreground: Color.Black, background: Color.Green))
+                    .PageSize(4)
+                    .AddChoices(_itemModel.Epilog[1], _itemModel.Epilog[2])
+                );
+                if (command == _itemModel.Epilog[1])
+                {
+                    foreach (var line in _Model.EpilogueGood)
+                    {
+                        _View.TypeText(line.Text, line.DelayMs, line.Color);
+                    }
+                }
+                if(command == _itemModel.Epilog[2])
+                {
+                    foreach (var line in _Model.EpilogueBad)
+                    {
+                        _View.TypeText(line.Text, line.DelayMs, line.Color);
+                    }
+                }
+                _View.Spectre_Text(_Model.pressAny[0]);
+                _View.AwaitKey();
+                _View.Clear();
+                _View.Spectre_Text(_Model.goodbye);
+                Task.Delay(5000).Wait();
+                //return;
+                Environment.Exit(0);
+
             }
             else if (command == text[4])
             {
@@ -448,25 +477,36 @@ namespace Humanity.Controller
             }
         }
 
-        
+
 
 
 
 
         ///// NOTE (HALLWAY - 5)
-        public void Note(List<string> text)
+        public void Note(string text)
         {
-            var panel = new Panel(text[0])
+            _View.box(text);
+        }
+        public void Mirror(List<string> text)
+        {
+            _View.Spectre_Text(text[0]);
+            _View.Spectre_Text(text[1]);
+            var command = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                    .Title(text[2])
+                    .HighlightStyle(new Style(foreground: Color.Black, background: Color.Green))
+                    .PageSize(4)
+                    .AddChoices(text[3], text[4])
+                );
+            if (command == text[3])
             {
-                Border = BoxBorder.Square,
-                Padding = new Padding(left: 3, top: 3, right: 3, bottom: 3),
-            };
-            AnsiConsole.Write(new Align(
-                panel,
-                HorizontalAlignment.Center,
-                VerticalAlignment.Middle
-                ));
-            _View.AwaitKey();
+                Note(text[5]);
+                _View.AwaitKey();
+            }
+            if (command == text[4])
+            {
+                return;
+            }
         }
 
         ////PHOTO (HALLWAY - 5)
