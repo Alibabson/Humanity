@@ -4,10 +4,7 @@
     {
         public string[] passwordFragments = new string[3];
         public string password = null;
-        public void JoinPassword() //łączyło hasła z odpowiedzi ze starego whiteboard
-        {
-            password = string.Join("", passwordFragments);
-        }
+
         public List<string> logLines = new List<string>();
 
         public List<string> GetKey = new List<string>();
@@ -15,6 +12,15 @@
 
 
         /////TERMINAL
+        public List<string> terminalAddons = new List<string>()
+        {
+            "[red bold slowblink]DATA CORRUPTED.[/]",
+            "[grey underline]You left the console. \n Press any button to continue[/]",
+            "\n[italic slowblink lime]\n PRESS ANY BUTTON TO GO BACK [/]  \n \n",
+            "\n[silver]You should probably check those[/] [teal]monitors[/] [silver]in the[/] [palegreen1_1]lab[/].\n"
+
+        };
+
         public void Logs(int page) //zależnie od strony w terminalu pokazuje odpowiedni tekst - czyści tablicę i wstawia na nowo
         {
             logLines.Clear();
@@ -83,7 +89,13 @@
         public List<string> whiteboardList = new List<string>() //
         {
             "REASON is its share of what they are —\nits very value equals its own part divided by the sum of all three.\n \nEMOTION is the same — its worth \nis measured by how it stands within the whole.\n \nMORALITY, too, holds the same truth — \nit exists in proportion to the total they form together.",
-            "R = R/(R+E+M)\n \n \nE = E/(R+E+M)\n \n \nM = M/(R+E+M)"
+            "R = R/(R+E+M)\n \n \nE = E/(R+E+M)\n \n \nM = M/(R+E+M)",
+            "\n[red bold]HUMANITY = R + E + M = ? [/]\n",
+            "\n[grey46 slowblink]Type 'hint' for additional information...[/]\n\n",
+            "[red]HUMANITY EQUALS: [/]",
+            "[grey underline]You left the whiteboard. \n Press any button to continue[/]",
+            "[grey underline]You have already passed this whiteboard. \n[/][blue italic]HUMANITY NEEDS[/] [green italic]REASON[/][blue italic],[/] [green italic]EMOTION [/][blue italic]and [/][green italic]MORALITY[/]"
+
         };
 
 
@@ -167,6 +179,12 @@
 
 
         /////DIARY 
+        public List<string> DiaryAddons = new List<string>()
+        {
+            "[grey underline]\nYou already read it. It's painful to look at\n[/]",
+            "[red]\n This diary is locked. You need a key.[/]\n"
+        };
+
         public List<string> DiaryLines = new List<string>();
         public void DiaryPages(int page)
         {
@@ -221,9 +239,17 @@
             }
         }
 
-
+        /////BOOKSHELF
+        public List<string> bookshelf = new List<string>()
+        {
+            "\n[grey]Type 'back' to exit.\n \n[/]",
+            "\n[grey]Please type coordinates in [/][lime]<row> <column>[/][grey] format.[/]\n",
+            "[grey]This bookshelf does not have that many books. Try again.[/]",
+            "\n[grey]Nothing interesting here.[/]\n"
+        };
 
         ////DEVICE
+        public string DeviceAddons = "[grey]You already used it.[/]";
         public List<string> DestroyList = new List<string>()
         {
             "[lightslateblue]Do you want to activate the device? Are you aware of the consequences?[/]\n",
@@ -249,7 +275,72 @@
            "[red]A choice without ________ is a road without direction.[/]\n"
         };
 
+        public string ShowNotes()
+        {
+            string asciiNotes = @"
+        _                                    
+       ( )                                   
+    ___|/___________________________________ 
+   |__/|/_)_|___________|\____________|\____|
+   |_(_|_/__|___________|______|\_____|_____|
+   |___|____|____|____(_)______|____(_)_____|
+   |________|____|___________(_)____________|
+               (_)                           
+                                              
+        ";
+            return asciiNotes;
+        }
+        public string ShowClock()
+        {
+            var asciiClock = @"
+        _____
+     _.'_____`._
+   .'.-'  12 `-.`.
+  /,' 11      1 `.\
+ // 10      /   2 \\
+;;         /       ::
+|| 9  ----O      3 ||
+::                 ;;
+ \\ 8           4 //
+  \`. 7       5 ,'/
+   '.`-.__6__.-'.'
+    ((-._____.-))
+    _))       ((_
+   '--'       '--'
 
+";
+            return asciiClock;
+        }
+        public string ShowPiano()
+        {
+            string asciiPiano = @"
+  _________________________________________
+ | | || || | | | || | | | || || | | | || | |
+ | |_||_||_| | |_||_| | |_||_||_| | |_||_| |
+ |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+ |__|__|__|__|__|__|__|__|__|__|__|__|__|__|";
+            return asciiPiano;
+        }
+        public string ShowPhoto()
+        {
+            string asciiPhoto = @"
+        ____________________________
+        +--------------------------+
+        ||                        ||
+        ||               _        ||
+        ||        {@}  _|=|_      ||
+        ||       /( )\  ( )       ||
+        ||      /((~))\/\ /\      ||
+        ||      ~~/@\~~\|_|/      ||
+        ||       /   \  |||       ||
+        ||      /~@~@~\ |||       ||
+        ||     /_______\|||       ||
+        ||                        ||
+        ||                        ||
+        +--------------------------+";
+            return asciiPhoto;
+
+        }
     }
 }
 

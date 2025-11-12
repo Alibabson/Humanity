@@ -5,7 +5,10 @@
         public bool Reason { get; set; } = false;
         public bool Emotion { get; set; } = false;
         public bool Morality { get; set; } = false;
+        public string wrong = "[red]W R O N G[/]\n";
+
         public bool hasKey { get; set; } = false;
+        public string gotKey = "[green]You used the key.[/]";
         public bool hasMusicBoxKey { get; set; } = false;
         public bool hasDiaryKey { get; set; } = true; //false
         public bool hasRing { get; set; } = false;
@@ -21,6 +24,28 @@
         public string SafePassword { get; set; } = "41070";
         public bool SafeOpened { get; set; } = false;
         public int room_idx { get; set; } = 7;
+
+        //// STARTER
+        public List<string> startGameList = new List<string>()
+        {
+            "WARNING: Consciousness integrity compromised.",
+            "> Consciousness fragmentation detected.",
+            "> REASON... lost.",
+            "> EMOTION... lost.",
+            "> MORALITY... lost.",
+            "> Awaiting system reboot...",
+            "----- SYSTEM REBOOT -----",
+            "\r----- SYSTEM REBOOT ----- PARTIAL",
+            "\nSession terminated."
+        };
+
+        ////NacisnijAbyKontynuować
+        public List<string> pressAny = new List<string>()
+        {
+            "[olive slowblink]\nPress any button to continue...[/]"
+        };
+        public string continuee = "[grey underline]\nPress any button to continue...[/]\n";
+
 
 
         // Prosty dziennik wspomnień (do komendy RECALL)

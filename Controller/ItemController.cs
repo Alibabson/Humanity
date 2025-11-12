@@ -1,15 +1,16 @@
 using Humanity.Model;
+using Humanity.View;
 using Spectre.Console;
-namespace Humanity.View
+namespace Humanity.Controller
 {
-    public class ItemView
+    public class ItemController
     {
         private readonly ConsoleView _View;
         private readonly GameModel _Model;
         private readonly ItemModel _itemModel;
 
 
-        public ItemView(ConsoleView view, GameModel g_model, ItemModel itemModel)
+        public ItemController(ConsoleView view, GameModel g_model, ItemModel itemModel)
         {
             _View = view;
             _Model = g_model;
@@ -60,7 +61,7 @@ namespace Humanity.View
                 else
                 {
                     _View.Clear();
-                    _View.Spectre_Text("[red bold slowblink]DATA CORRUPTED.[/]");
+                    _View.Spectre_Text(_itemModel.terminalAddons[0]);
                     _View.AwaitKey();
                 }
             }
@@ -71,14 +72,14 @@ namespace Humanity.View
             }
             else if (command == text[4])
             {
-                _View.Spectre_Text("[grey underline]You left the console. \n Press any button to continue[/]");
+                _View.Spectre_Text(_itemModel.terminalAddons[1]);
                 return;
             }
                 return;
         }
         private void BackPrompt(List<string> text)
         {
-            _View.Spectre_Text("\n[italic slowblink lime]\n PRESS ANY BUTTON TO GO BACK [/]  \n \n");
+            _View.Spectre_Text(_itemModel.terminalAddons[2]);
             _View.AwaitKey();
             _View.Clear();
             Monitor(text);
@@ -140,23 +141,23 @@ namespace Humanity.View
                         if (hint == true)
                         {
                             AnsiConsole.Write(new Columns(
-                                    new Spectre.Console.Text(_itemModel.whiteboardList[0], new Style(Color.DodgerBlue3)),
-                                    new Spectre.Console.Text(_itemModel.whiteboardList[1], new Style(Color.Purple3))
+                                    new Text(_itemModel.whiteboardList[0], new Style(Color.DodgerBlue3)),
+                                    new Text(_itemModel.whiteboardList[1], new Style(Color.Purple3))
 
                                 ));
                         }
                         else
                         {
                             AnsiConsole.Write(new Columns(
-                                     new Spectre.Console.Text(_itemModel.whiteboardList[0], new Style(Color.DodgerBlue3))
+                                     new Text(_itemModel.whiteboardList[0], new Style(Color.DodgerBlue3))
                                  //new Spectre.Console.Text(_itemModel.whiteboardList[1], new Style(Color.Pink3))
 
                                  ));
                         }
 
-                        _View.Spectre_Text("\n[red bold]HUMANITY = R + E + M = ? [/]\n");
-                        if (guesses >= 3) _View.Spectre_Text("\n[grey46 slowblink]Type 'hint' for additional information...[/]\n\n");
-                        _View.Spectre_Text("[red]HUMANITY EQUALS: [/]");
+                        _View.Spectre_Text(_itemModel.whiteboardList[2]);
+                        if (guesses >= 3) _View.Spectre_Text(_itemModel.whiteboardList[3]);
+                        _View.Spectre_Text(_itemModel.whiteboardList[4]);
 
                         string ans = _View.ReadLine();
                         if (guesses >= 3)
@@ -186,14 +187,14 @@ namespace Humanity.View
                 }
                 else if (command == text[3])
                 {
-                    _View.Spectre_Text("[grey underline]You left the whiteboard. \n Press any button to continue[/]");
+                    _View.Spectre_Text(_itemModel.whiteboardList[5]);
                     return false;
                 }
                 return false;
             }
             else
             {
-                _View.Spectre_Text("[grey underline]You have already passed this whiteboard. \n[/][blue italic]HUMANITY NEEDS[/] [green italic]REASON[/][blue italic],[/] [green italic]EMOTION [/][blue italic]and [/][green italic]MORALITY[/]");
+                _View.Spectre_Text(_itemModel.whiteboardList[6]);
                 _View.AwaitKey();
                 return true;
             }
@@ -203,7 +204,7 @@ namespace Humanity.View
         {
             passed = true;
             //_itemModel.JoinPassword();
-            _View.Spectre_Text("[grey underline]You answered correctly. Press any key to exit[/]");
+            _View.Spectre_Text(_itemModel.whiteboardList[7]);
             _View.AwaitKey();
         }
 
@@ -244,7 +245,7 @@ namespace Humanity.View
             {
                 _View.Spectre_Text(x);
             }
-            _View.Spectre_Text("[grey underline]\nPress any button to continue...[/]\n");
+            _View.Spectre_Text(_Model.continuee);
             _View.AwaitKey();
             //}
         }
@@ -258,7 +259,7 @@ namespace Humanity.View
             bool quitted = false;
             _View.Clear();
 
-            _View.Spectre_Text("\n[grey]Type 'back' to exit.\n \n[/]");
+            _View.Spectre_Text(_itemModel.bookshelf[0]);
             while (!quitted)
             {
                 var input = _View.Narrator2("-> ");
@@ -271,7 +272,7 @@ namespace Humanity.View
                 var parts = input.Split(' ', 2);
                 if (parts.Length < 2)
                 {
-                    _View.Spectre_Text("\n[grey]Please type coordinates in [/][lime]<row> <column>[/][grey] format.[/]\n");
+                    _View.Spectre_Text(_itemModel.bookshelf[1]);
                     continue;
                 }
                 int.TryParse(parts[0], out int row);
@@ -280,7 +281,7 @@ namespace Humanity.View
                 if (parts[1] == "") { quitted = !quitted; break; }
                 if (row <= 0 || col <= 0 || row > 12 || col > 60)
                 {
-                    _View.Spectre_Text("[grey]This bookshelf does not have that many books. Try again.[/]");
+                    _View.Spectre_Text(_itemModel.bookshelf[2]);
                 }
                 if (row == 9 && col == 5)
                 {
@@ -305,35 +306,21 @@ namespace Humanity.View
                 else if (row == 4 && col == 20)
                 {
                     _View.Clear();
-                    _View.Spectre_Text("\n[black on white]" + ShowNotes() + "[/]\n");
+                    _View.Spectre_Text("\n[black on white]" + _itemModel.ShowNotes() + "[/]\n");
                     _View.AwaitKey();
                     //Bookshelf(tmp);
                 }
                 else
                 {
                     _View.Clear();
-                    _View.Spectre_Text("\n[grey]Nothing interesting here.[/]\n");
+                    _View.Spectre_Text(_itemModel.bookshelf[3]);
                     _View.AwaitKey();
                     //Bookshelf(tmp);
                 }
             }
         }
 
-        public string ShowNotes()
-        {
-            string asciiNotes = @"
-        _                                    
-       ( )                                   
-    ___|/___________________________________ 
-   |__/|/_)_|___________|\____________|\____|
-   |_(_|_/__|___________|______|\_____|_____|
-   |___|____|____|____(_)______|____(_)_____|
-   |________|____|___________(_)____________|
-               (_)                           
-                                              
-        ";
-            return asciiNotes;
-        }
+        
         private bool PoemOpened = false;
         public void Poem(List<string> text)
         {
@@ -351,7 +338,7 @@ namespace Humanity.View
                 }
                 else
                 {
-                    _View.Spectre_Text("[red]W R O N G[/]\n");
+                    _View.Spectre_Text(_Model.wrong);
                     _View.AwaitKey();
                     Bookshelf(text);
                     return;
@@ -381,32 +368,12 @@ namespace Humanity.View
 
 
         /////CLOCK (LIVING ROOM - 2)
-        public void ShowClock()
-        {
-            var asciiClock = @"
-        _____
-     _.'_____`._
-   .'.-'  12 `-.`.
-  /,' 11      1 `.\
- // 10      /   2 \\
-;;         /       ::
-|| 9  ----O      3 ||
-::                 ;;
- \\ 8           4 //
-  \`. 7       5 ,'/
-   '.`-.__6__.-'.'
-    ((-._____.-))
-    _))       ((_
-   '--'       '--'
-
-";
-            _View.Line(asciiClock);
-        }
+       
 
         public void Clock(List<string> text)
         {
             _View.Spectre_Text(text[0] + "\n");
-            _View.Spectre_Text("[grey46 underline]Press any button to continue[/]\n");
+            _View.Spectre_Text(_Model.continuee);
         }
 
         ///// PIANO (LIVING ROOM - 4)
@@ -417,13 +384,13 @@ namespace Humanity.View
             {
                 _View.Spectre_Text(text[0]);
                 _View.Spectre_Text(text[1]);
-                _View.Spectre_Text("\n[silver]" + ShowPiano() + "[/]\n");
+                _View.Spectre_Text("\n[silver]" + _itemModel.ShowPiano() + "[/]\n");
             }
             else
             {
                 order = 0;
                 _View.Spectre_Text(text[2]);
-                _View.Spectre_Text("\n[silver]" + ShowPiano() + "[/]\n");
+                _View.Spectre_Text("\n[silver]" + _itemModel.ShowPiano() + "[/]\n");
 
             }
             while (order < 4)
@@ -481,16 +448,7 @@ namespace Humanity.View
             }
         }
 
-        public string ShowPiano()
-        {
-            string asciiPiano = @"
-  _________________________________________
- | | || || | | | || | | | || || | | | || | |
- | |_||_||_| | |_||_| | |_||_||_| | |_||_| |
- |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
- |__|__|__|__|__|__|__|__|__|__|__|__|__|__|";
-            return asciiPiano;
-        }
+        
 
 
 
@@ -520,7 +478,7 @@ namespace Humanity.View
             { 
                 _View.Spectre_Text(lines[i]); 
             }
-            _View.Spectre_Text(ShowPhoto() + "\n");
+            _View.Spectre_Text(_itemModel.ShowPhoto() + "\n");
 
             if (_Model.KnowsSafeLocation && !_Model.SafeOpened)
             {
@@ -550,26 +508,7 @@ namespace Humanity.View
             }
             _View.AwaitKey();
         }
-        public string ShowPhoto()
-        {
-            string asciiPhoto = @"
-        ____________________________
-        +--------------------------+
-        ||                        ||
-        ||               _        ||
-        ||        {@}  _|=|_      ||
-        ||       /( )\  ( )       ||
-        ||      /((~))\/\ /\      ||
-        ||      ~~/@\~~\|_|/      ||
-        ||       /   \  |||       ||
-        ||      /~@~@~\ |||       ||
-        ||     /_______\|||       ||
-        ||                        ||
-        ||                        ||
-        +--------------------------+";
-            return asciiPhoto;
-
-        }
+       
 
         ////SAFE
         public void Safe(List<string> text)
@@ -696,13 +635,13 @@ namespace Humanity.View
             
             if (openedDiary)
             {
-                _View.Spectre_Text("[grey underline]\nYou already read it. It's painful to look at\n[/]");
+                _View.Spectre_Text(_itemModel.DiaryAddons[0]);
                 _View.AwaitKey();
                 return;
             }
             if(!_Model.hasDiaryKey)
             {
-                _View.Spectre_Text("[red]\n This diary is locked. You need a key.[/]\n");
+                _View.Spectre_Text(_itemModel.DiaryAddons[1]);
                 _View.AwaitKey();
                     return;
             }
@@ -737,7 +676,7 @@ namespace Humanity.View
                     }
                     else
                     {
-                        _View.Spectre_Text("\n[red]W R O N G[/]\n");
+                        _View.Spectre_Text(_Model.wrong);
                         Diary(text);
                     }
                 }
@@ -834,7 +773,7 @@ namespace Humanity.View
                             }
                             else
                             {
-                                _View.Spectre_Text("\n[red]W R O N G[/]\n");
+                                _View.Spectre_Text(_Model.wrong);
                                 _View.AwaitKey();
                                 return;
                             }
@@ -854,7 +793,7 @@ namespace Humanity.View
             }
             else
             {
-                _View.Spectre_Text("[grey]You already used it.[/]");
+                _View.Spectre_Text(_itemModel.DeviceAddons);
                 _View.AwaitKey();
                 return;
             }
@@ -930,8 +869,8 @@ namespace Humanity.View
             else if (rem == "e") _Model.Emotion = true;
             else if (rem == "m") _Model.Morality = true;
 
-            if(_Model.Reason && _Model.Emotion && _Model.Morality) { _View.Spectre_Text("\n[silver]You should probably check those[/] [teal]monitors[/] [silver]in the[/] [palegreen1_1]lab[/].\n"); }
-            _View.Spectre_Text("\n\n[grey slowblink](Press any button to proceed)[/]\n");
+            if(_Model.Reason && _Model.Emotion && _Model.Morality) { _View.Spectre_Text(_itemModel.terminalAddons[3]); }
+            _View.Spectre_Text(_Model.continuee);
             _View.AwaitKey();
             return;
         }

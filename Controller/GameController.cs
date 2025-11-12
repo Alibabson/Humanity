@@ -7,7 +7,8 @@ namespace Humanity.Controller
     {
         private readonly GameModel _model;
         private readonly ConsoleView _view;
-        private readonly ItemView _itemView;
+        private readonly ItemController _itemController;
+        private readonly ItemModel _itemModel;
         private bool _running = true;
         public int idx;
         public int nextRoomIdx;
@@ -16,7 +17,8 @@ namespace Humanity.Controller
         {
             _model = model;
             _view = view;
-            _itemView = new ItemView(view, model, itemModel);
+            _itemController = new ItemController(view, model, itemModel);
+            _itemModel = itemModel;
         }
 
         public void FakeLoad()
@@ -55,18 +57,18 @@ namespace Humanity.Controller
 
 
                 Thread.Sleep(10);
-                _view.Red("WARNING: Consciousness integrity compromised.");
-                _view.Type("> Consciousness fragmentation detected.", 10, true);
-                _view.Type("> REASON... lost.", 14, true);
-                _view.Type("> EMOTION... lost.", 14, true);
-                _view.Type("> MORALITY... lost.", 14, true);
+                _view.Red(_model.startGameList[0]);
+                _view.Type(_model.startGameList[1], 10, true);
+                _view.Type(_model.startGameList[2], 14, true);
+                _view.Type(_model.startGameList[3], 14, true);
+                _view.Type(_model.startGameList[4], 14, true);
 
                 Thread.Sleep(500);
 
                 Thread.Sleep(500);
-                _view.Type("> Awaiting system reboot...", 14, true);
-                _view.Pulse("----- SYSTEM REBOOT -----");
-                _view.Type("\r----- SYSTEM REBOOT ----- PARTIAL", 14, true);
+                _view.Type(_model.startGameList[5], 14, true);
+                _view.Pulse(_model.startGameList[6]);
+                _view.Type(_model.startGameList[7], 14, true);
                 Thread.Sleep(2000);
                 _view.Clear();
                 _view.Line();
@@ -76,7 +78,7 @@ namespace Humanity.Controller
                 {
                     _view.TypeText(line.Text, line.DelayMs, line.Color);
                 }
-                _view.Spectre_Text("[olive slowblink]\nPress any button to continue...[/]");
+                _view.Spectre_Text(_model.pressAny[0]);
                 _view.AwaitKey();  //sprawdzmy kolory później
 
                 ///////////////////////////////////////////////////////////////////////////// ruiny jakieś nie pamiętam co to
@@ -110,7 +112,7 @@ namespace Humanity.Controller
                 }
             }
 
-            _view.Line("\nSession terminated.");
+            _view.Line(_model.startGameList[8]);
             success = !success;
         }
         public bool HandleInput(string s)       // bierze od nas komendę (LOOKI HELPY i tak dalej), a jak trzeba to drugi element jak przedmiot i pokój
@@ -151,7 +153,7 @@ namespace Humanity.Controller
                     {
                         if (argument == "device")
                         {
-                            _itemView.Destroy();
+                            _itemController.Destroy();
                             _view.Clear();
                             LookFunction("");
                         }
@@ -191,7 +193,7 @@ namespace Humanity.Controller
                         case "terminal":
                             if (idx == 0)
                             {
-                                _itemView.Monitor(desc);  //dajemy ItemView się tym bawić i wrzuca opis z _model CheckItem   
+                                _itemController.Monitor(desc);  //dajemy ItemView się tym bawić i wrzuca opis z _model CheckItem   
                                                           // _view.AwaitKey();
                                 _view.Clear();
                                 //HUD();
@@ -207,7 +209,7 @@ namespace Humanity.Controller
                         case "whiteboard":
                             if (idx == 0)
                             {
-                                _itemView.Whiteboard(desc);
+                                _itemController.Whiteboard(desc);
                                 _view.Clear();
                                 //HUD();
                                 LookFunction("");
@@ -221,7 +223,7 @@ namespace Humanity.Controller
                         case "floor":
                             if (idx == 1)
                             {
-                                _itemView.Key(desc);
+                                _itemController.Key(desc);
                                 _view.Clear();
                                 //HUD();
                                 LookFunction("");
@@ -236,7 +238,7 @@ namespace Humanity.Controller
                             {
                                 if (idx == 2)
                                 {
-                                    _itemView.Piano(desc);
+                                    _itemController.Piano(desc);
                                     _view.AwaitKey();
                                     _view.Clear();
                                     LookFunction("");
@@ -246,8 +248,8 @@ namespace Humanity.Controller
                         case "clock":
                             if (idx == 2)
                             {
-                                _itemView.Clock(desc);
-                                _itemView.ShowClock();
+                                _itemController.Clock(desc);
+                                _view.Line(_itemModel.ShowClock());
                                 _view.AwaitKey();
                                 _view.Clear();
                                 LookFunction("");
@@ -261,7 +263,7 @@ namespace Humanity.Controller
                         case "bookshelf":
                             if (idx == 3)
                             {
-                                _itemView.Bookshelf(desc);
+                                _itemController.Bookshelf(desc);
                                 _view.Clear();
                                 //HUD();
                                 LookFunction("");
@@ -275,7 +277,7 @@ namespace Humanity.Controller
                         case "table":     
                             if(idx==3)
                             {
-                                _itemView.Table(desc);
+                                _itemController.Table(desc);
                                 _view.Clear();
                                 LookFunction("");
                             }
@@ -288,7 +290,7 @@ namespace Humanity.Controller
                         case "newspaper":
                             if (idx == 4)
                             {
-                                _itemView.Newspaper(desc);
+                                _itemController.Newspaper(desc);
                                 _view.Clear();
                                 LookFunction("");
                             }
@@ -302,7 +304,7 @@ namespace Humanity.Controller
                         case "picture":
                             if (idx == 5)
                             {
-                                _itemView.Photo(desc);
+                                _itemController.Photo(desc);
                                 _view.Clear();
                                 LookFunction("");
                             }
@@ -318,7 +320,7 @@ namespace Humanity.Controller
                         case "notes":
                             if (idx == 6)
                             {
-                                _itemView.Note(desc);
+                                _itemController.Note(desc);
                                 _view.Clear();
                                 LookFunction("");
                             }
@@ -331,7 +333,7 @@ namespace Humanity.Controller
                         case "cabinet":
                             if (idx == 6)
                             {
-                                _itemView.Cabinet(desc);
+                                _itemController.Cabinet(desc);
                                 _view.Clear();
                                 LookFunction("");
                             }
@@ -346,7 +348,7 @@ namespace Humanity.Controller
                         case "music box":
                             if (idx == 7)
                             {
-                                _itemView.MusicBox(desc);
+                                _itemController.MusicBox(desc);
                                 _view.AwaitKey();
                                 _view.Clear();
                                 LookFunction("");
@@ -360,7 +362,7 @@ namespace Humanity.Controller
                         case "diary":
                             if (idx == 7)
                             {
-                                _itemView.Diary(desc);
+                                _itemController.Diary(desc);
                                 _view.Clear();
                                 LookFunction("");
                             }
@@ -384,7 +386,7 @@ namespace Humanity.Controller
                             {
                                 if (idx == 8)
                                 {
-                                    _itemView.Desk(desc);
+                                    _itemController.Desk(desc);
                                     _view.Clear();
                                     LookFunction("");
                                 }
@@ -480,7 +482,7 @@ namespace Humanity.Controller
                     {
                         if (_model.hasKey)
                         {
-                            _view.Spectre_Text("[green]You used the key.[/]");
+                            _view.Spectre_Text(_model.gotKey);
                             NextRoomProcess(nextRoomIdx);
                         }
                         else
