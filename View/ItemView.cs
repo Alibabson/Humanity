@@ -140,23 +140,23 @@ namespace Humanity.View
                         if (hint == true)
                         {
                             AnsiConsole.Write(new Columns(
-                                    new Spectre.Console.Text(_itemModel.whiteboardList[0], new Style(Color.Orange3)),
-                                    new Spectre.Console.Text(_itemModel.whiteboardList[1], new Style(Color.Pink3))
+                                    new Spectre.Console.Text(_itemModel.whiteboardList[0], new Style(Color.DodgerBlue3)),
+                                    new Spectre.Console.Text(_itemModel.whiteboardList[1], new Style(Color.Purple3))
 
                                 ));
                         }
                         else
                         {
                             AnsiConsole.Write(new Columns(
-                                     new Spectre.Console.Text(_itemModel.whiteboardList[0], new Style(Color.Orange3))
+                                     new Spectre.Console.Text(_itemModel.whiteboardList[0], new Style(Color.DodgerBlue3))
                                  //new Spectre.Console.Text(_itemModel.whiteboardList[1], new Style(Color.Pink3))
 
                                  ));
                         }
 
                         _View.Spectre_Text("\n[red bold]HUMANITY = R + E + M = ? [/]\n");
-                        if (guesses >= 3) _View.Spectre_Text("\n[grey slowblink]Type 'hint' for additional information...[/]\n");
-                        _View.Spectre_Text("[green italic]HUMANITY EQUALS: [/]");
+                        if (guesses >= 3) _View.Spectre_Text("\n[grey46 slowblink]Type 'hint' for additional information...[/]\n\n");
+                        _View.Spectre_Text("[red]HUMANITY EQUALS: [/]");
 
                         string ans = _View.ReadLine();
                         if (guesses >= 3)
@@ -400,15 +400,13 @@ namespace Humanity.View
    '--'       '--'
 
 ";
-            _View.Spectre_Text("[silver]The clock seems broken, clock hands are frozen in place.[/]\n \n");
             _View.Line(asciiClock);
         }
 
         public void Clock(List<string> text)
         {
             _View.Spectre_Text(text[0] + "\n");
-            _View.Spectre_Text("\n\n[grey underline]Press any button to continue[/]");
-            _View.AwaitKey();
+            _View.Spectre_Text("[grey46 underline]Press any button to continue[/]\n");
         }
 
         ///// PIANO (LIVING ROOM - 4)
@@ -555,19 +553,20 @@ namespace Humanity.View
         public string ShowPhoto()
         {
             string asciiPhoto = @"
-        ??????????????????????????
-        ?                        |
-        ?               _        |
-        ?        {@}  _|=|_      |
-        ?       /( )\  ( )       |
-        ?      /((~))\/\ /\      |
-        ?      ~~/@\~~\|_|/      ?
-        ?       /   \  |||       ?
-        ?      /~@~@~\ |||       ?
-        ?     /_______\|||       ?
-        ?                        ?
-        ?                        ?
-        ??????????????????????????";
+        ____________________________
+        +--------------------------+
+        ||                        ||
+        ||               _        ||
+        ||        {@}  _|=|_      ||
+        ||       /( )\  ( )       ||
+        ||      /((~))\/\ /\      ||
+        ||      ~~/@\~~\|_|/      ||
+        ||       /   \  |||       ||
+        ||      /~@~@~\ |||       ||
+        ||     /_______\|||       ||
+        ||                        ||
+        ||                        ||
+        +--------------------------+";
             return asciiPhoto;
 
         }

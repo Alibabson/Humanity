@@ -18,7 +18,7 @@
         public void Logs(int page) //zależnie od strony w terminalu pokazuje odpowiedni tekst - czyści tablicę i wstawia na nowo
         {
             logLines.Clear();
-            logLines.Add("[olive underline]use LEFT and RIGHT arrows to navigate & ENTER to go back \n[/]");
+            logLines.Add("[grey46 underline]use LEFT and RIGHT arrows to navigate & ENTER to go back \n[/]");
             logLines.Add($"[lime]--- PAGE {page} / 5 ---[/]");
             switch (page)
             {
@@ -92,12 +92,12 @@
         public void Newspaper() //wypełnia listę co napisać w gazecie
         {
             GetNewspaper.Clear();
-            GetNewspaper.Add("[darkgoldenrod]Date: April 9th, 1983 \n[/]");
-            GetNewspaper.Add("\n[darkgoldenrod underline]BREAKING NEWS[/]\n");
-            GetNewspaper.Add("[grey italic]Police still haven't found Amanda Claude. It's been three weeks since she's gone missing. Please report the local authorities if you have any information about a person matching these descriptions below:[/]\n");
-            GetNewspaper.Add("[steelblue italic]Name: Amanda Claude\nAge: 18\nHeight: 5'7\"\nWeight: 135 lbs\nHair Color: Brown\nEye Color: Blue\nLast Seen Wearing: Black leather jacket, blue jeans, white sneakers[/]\n");
+            GetNewspaper.Add("[salmon1]Date: April 9th, 1983 \n[/]");
+            GetNewspaper.Add("\n[indianred1 bold]BREAKING NEWS[/]\n");
+            GetNewspaper.Add("[grey66 italic]Police still haven't found Amanda Claude. It's been three weeks since she's gone missing. Please report the local authorities if you have any information about a person matching these descriptions below:[/]\n");
+            GetNewspaper.Add("[steelblue italic]Name: Amanda Claude\nAge: 27\nHeight: 5'7\"\nWeight: 135 lbs\nHair Color: Brown\nEye Color: Blue\nLast Seen Wearing: Black leather jacket, blue jeans, white sneakers[/]\n");
             GetNewspaper.Add("\n \n[steelblue italic]Additional info: Medicated depression, but due to lack of supplies she might seem traumatized or confused, please have patience and speak to her with kindness if you find her.[/]\n");
-            GetNewspaper.Add("\n \n[grey italic]If you have any information, please contact the local police department at (555) 161-4559.[/]\n");
+            GetNewspaper.Add("\n \n[grey66 italic]If you have any information, please contact the local police department at (555) 161-4559.[/]\n");
 
         }
 
