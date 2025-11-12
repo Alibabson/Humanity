@@ -682,23 +682,68 @@ namespace Humanity.View
         private bool openedDiary = false;
         public void Diary(List<string> text)
         {
-            foreach (var x in text)
+            foreach (var l in text)
             {
-                _View.Spectre_Text(x);
+                _View.Spectre_Text(l);
             }
-            _View.AwaitKey();
-            if (KeyFragment("EMOTION") && !openedDiary)
-            {
-                openedDiary = true;
-            }
-            else
-            {
-                _View.Spectre_Text("\n[red]W R O N G[/]\n");
-                Diary(text);
-            }
-            //_View.AwaitKey();
+            DiaryPage(1, text);
+            return;
+            //_View.AwaitKey()
         }
-
+        private void DiaryPage(int page, List<string> text)
+        {
+            //int page = 1;
+            _itemModel.DiaryPages(page);
+            
+            if (openedDiary)
+            {
+                _View.Spectre_Text("[grey underline]\nYou already read it. It's painful to look at\n[/]");
+                _View.AwaitKey();
+                return;
+            }
+            if(!_Model.hasDiaryKey)
+            {
+                _View.Spectre_Text("[red]\n This diary is locked. You need a key.[/]\n");
+                _View.AwaitKey();
+                    return;
+            }
+            foreach (var l in _itemModel.DiaryLines)
+            {
+                _View.Spectre_Text(l);
+            }
+            while (!openedDiary && _Model.hasDiaryKey)
+            {
+                var k = _View.CheckKey();
+                if (k == ConsoleKey.RightArrow)
+                {
+                    page++;
+                    if (page > 5) page = 5;
+                    _View.Clear();
+                    DiaryPage(page, text);
+                }
+                else if (k == ConsoleKey.LeftArrow)
+                {
+                    page--;
+                    if (page < 1) page = 1;
+                    _View.Clear();
+                    DiaryPage(page, text);
+                }
+                else if (k == ConsoleKey.Enter)
+                {
+                    _View.Clear();
+                    //_View.AwaitKey();
+                    if (KeyFragment("EMOTION") && !openedDiary)
+                    {
+                        openedDiary = true;
+                    }
+                    else
+                    {
+                        _View.Spectre_Text("\n[red]W R O N G[/]\n");
+                        Diary(text);
+                    }
+                }
+            }
+        }
 
 
 

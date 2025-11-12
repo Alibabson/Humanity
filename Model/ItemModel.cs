@@ -165,6 +165,64 @@
             "[grey63]My love,\n\nI’ve decided to lock it away.\nYou begged me to use it,\nbut you never understood how much depends on this work.\nIt can change the world…\nand you tried to stop me from what you called madness.\n\nI couldn’t let that happen.\nSo I protected myself — and in doing so, I hurt you.\n\nI hid your solution,\nthe one thing you believed could save us.\nMy work is the greatest idea of my life, and you knew that…\n\nWe kept our best memories there.\nThat [/][gold1]safe is our entire marriage [/][grey63]—\nand now it holds our deepest pain as well.\n\nI never wanted things to end like this.\n\nYou were always the [/][gold1]key[/][grey63].\nEven now.\n\n— A.[/]"
         };
 
+
+        /////DIARY 
+        public List<string> DiaryLines = new List<string>();
+        public void DiaryPages(int page)
+        {
+            DiaryLines.Clear();
+            DiaryLines.Add("[olive underline]use LEFT and RIGHT arrows to navigate & ENTER to go back \n[/]");
+            DiaryLines.Add($"[lime]--- PAGE {page} / 5 ---[/]");
+            switch (page)
+            {
+                case 1:
+                    DiaryLines.Add("\n\n[yellow1]DATE: 11/13/1964[/]\n");
+                    DiaryLines.Add("\n[grey63]Dear Diary,[/]\n");
+                    DiaryLines.Add("\n[grey63]I can't believe i'm going on a date tommorow! Adrian finally asked me on a date, after all \nthese years. We've known each other for years now.\n[/]");
+                    DiaryLines.Add("[grey63]If I remember correctly, we met on a campus. He was on the same university, and passion to science connected us,\nalthough he seemed a lot more passionate in human psychology than me.\n[/]");
+                    DiaryLines.Add("[grey63]\nAdrian inspired me to study more, now we are both one of the most dedicated students in the entire college.[/]\n");
+                    DiaryLines.Add("[grey63]\nI can't wait, i really hope it works out. I like him so much...[/]");
+                    return;
+                case 2:
+                    DiaryLines.Add("\n\n[yellow1]DATE: 07/15/1966[/]\n");
+                    DiaryLines.Add("\n[grey63]Dear Diary,[/]\n");
+                    DiaryLines.Add("[grey63]I know I rarely write here now, but I really need to talk to someone, or to myself at least.\n[/]");
+                    DiaryLines.Add("[grey63]ADRIAN JUST HAVE PROPOSED TO ME! I'm so happy I want to cry, my dreams came true.\n [/]");
+                    DiaryLines.Add("\n[grey63]Since our first date, we already knew we have similiar paths in our lifes, and we both want each other in them. We complement each other\nin every part and every day. I really think we are the perfect couple.[/]");
+                    DiaryLines.Add("[grey63]\n\nWe're planning our wedding next year, i hope everything works out fine. \n\nI love him.[/]");
+                    return;
+                case 3:
+                    DiaryLines.Add("\n\n[yellow1]DATE: 04/20/1967[/]\n");
+                    DiaryLines.Add("\n[grey63]Dear Diary,[/]\n");
+                    DiaryLines.Add("[grey63]Today, we got married.\n[/]");
+                    DiaryLines.Add("\n[grey63]I can't exactly describe my emotions, it's just pure joy. This day was magical!\n [/]");
+                    DiaryLines.Add("\n[grey63]We both think it was [/][red]the best day in our lifes[/][grey63]. Everything went perfect, we invited our family and friends, everyone was so nice to us.\nI'll never forget this moment.[/]");
+                    DiaryLines.Add("\n[grey63]\nI love him.[/]");
+                    return;
+                case 4:
+                    DiaryLines.Add("\n\n[yellow1]DATE: 02/04/1983[/]\n");
+                    DiaryLines.Add("\n[grey63]Dear Diary,[/]\n");
+                    DiaryLines.Add("[grey63]Adrian went insane. His experiments started getting too dangerous even for his own good.\n[/]");
+                    DiaryLines.Add("\n[grey63]He always liked to take risks, but innocents die, and he doesn't seem to care.\nI doubt i can change him, I tried countless times. He's too far gone. \n[/]");
+                    DiaryLines.Add("\n[grey63]I've created a device that could help us - A remote that automatically deletes all of stored data that Adrian collected.\nHe must choose - Science or Love.\n[/]");
+                    DiaryLines.Add("[grey63]\nI will wait for him, I know he'll use it one day...[/]");
+                    return;
+                case 5:
+                    DiaryLines.Add("\n\n[yellow1]DATE: 04/09/1983[/]\n");
+                    DiaryLines.Add("\n[grey63]Dear Diary,[/]\n");
+                    DiaryLines.Add("[grey63]I'm leaving tonight.\n[/]");
+                    DiaryLines.Add("\n[grey63]Adrian refused to take my help, he hid my device and he kept torturing people - there's no other worth \nfor his actions. I saw a newspaper, people dissapear and they end up in\nhis lab, most of the times they never leave it...[/]");
+                    DiaryLines.Add("\n[grey63]He made his decision, and i can't stand this cruelty. We wanted to change the world,but not like this. I hope he'll achieve his goal, and then he'll understand what he truly lost - his emotions, his morality, his reason.\n[/]");
+                    DiaryLines.Add("[red]\nHis humanity.[/]");
+                    return;
+                default:
+                    DiaryLines.Add("");
+                    return;
+            }
+        }
+
+
+
         ////DEVICE
         public List<string> DestroyList = new List<string>()
         {

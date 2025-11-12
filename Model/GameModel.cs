@@ -7,7 +7,7 @@
         public bool Morality { get; set; } = false;
         public bool hasKey { get; set; } = false;
         public bool hasMusicBoxKey { get; set; } = false;
-        public bool hasDiaryKey { get; set; } = false;
+        public bool hasDiaryKey { get; set; } = true; //false
         public bool hasRing { get; set; } = false;
 
         public bool KnowsSafeLocation { get; set; } = false;
@@ -20,7 +20,7 @@
         public bool IntroPlayed { get; set; } = true;  /// ZMIENIĆ NA false;
         public string SafePassword { get; set; } = "41070";
         public bool SafeOpened { get; set; } = false;
-        public int room_idx { get; set; } = 0;
+        public int room_idx { get; set; } = 7;
 
 
         // Prosty dziennik wspomnień (do komendy RECALL)
@@ -475,7 +475,7 @@
                     {
                         if (idx == 7)
                         {
-                            itemDesc.Add("[yellow1]DIARY[/]");
+                            itemDesc.Add("\n");
                         }
                     }
                     break;
