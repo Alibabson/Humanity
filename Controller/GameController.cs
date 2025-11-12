@@ -246,10 +246,10 @@ namespace Humanity.Controller
                         case "clock":
                             if (idx == 2)
                             {
-                                _itemView.ShowClock();
                                 _itemView.Clock(desc);
+                                _itemView.ShowClock();
+                                _view.AwaitKey();
                                 _view.Clear();
-                                //HUD();
                                 LookFunction("");
                             }
                             else

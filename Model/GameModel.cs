@@ -20,7 +20,7 @@
         public bool IntroPlayed { get; set; } = true;  /// ZMIENIĆ NA false;
         public string SafePassword { get; set; } = "41070";
         public bool SafeOpened { get; set; } = false;
-        public int room_idx { get; set; } = 0;
+        public int room_idx { get; set; } = 2;
 
 
         // Prosty dziennik wspomnień (do komendy RECALL)
@@ -335,7 +335,7 @@
                 case "whiteboard":
                     if (idx == 0)
                     {
-                        itemDesc.Add("The whiteboard is filled with confusing conclusions. Seems like someone figured out how Human brain functions on the emotional and spiritual level");
+                        itemDesc.Add("The whiteboard is filled with confusing conclusions. Seems like someone was trying to figure out how human brain functions on the emotional and spiritual level.");
                         itemDesc.Add("\nYou can try solving this scientific riddle... \nDo you want to try?\n");
                         itemDesc.Add("[lime]YES[/]");
                         itemDesc.Add("[lime]NO[/]");
@@ -350,7 +350,7 @@
                     {
                         if (!hasKey)
                         {
-                            itemDesc.Add("[silver]You found a [/][lime]key[/][silver] on the floor. It looks old and rusty.[/]");
+                            itemDesc.Add("[silver]You found a [/][deepskyblue2]key[/][silver] on the floor. It looks old and rusty. What does it open?[/]");
                             hasKey = true;
                         }
                         else
@@ -365,9 +365,7 @@
                 case "newspaper":
                     if (idx == 4)
                     {
-                        itemDesc.Add("The newspaper is old and blacked out, but the text is still fully readable. Do you want to read it?\n");
-                        itemDesc.Add("[lime]YES[/]");
-                        itemDesc.Add("[lime]NO[/]");
+                        itemDesc.Add("The newspaper is old and blacked out, but the text is still fully readable.\n");
                     }
                     break;
                 //////////////////////////
