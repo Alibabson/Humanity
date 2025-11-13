@@ -472,7 +472,7 @@ namespace Humanity.Controller
             if (order == 4 && !_Model.hasDiaryKey)
             {
                 _View.Spectre_Text(text[3]);
-                //_View.AwaitKey();
+                _View.AwaitKey();
                 _Model.hasDiaryKey = true;
                 return;
             }

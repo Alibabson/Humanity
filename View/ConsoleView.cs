@@ -169,7 +169,7 @@ namespace Humanity.View
         }
         public void Loading()
         {
-            PlaySound("comp.wav");
+           
             Line("Loading");
             Thread.Sleep(500);
             Line("\rLoading.");
@@ -244,7 +244,7 @@ namespace Humanity.View
         public void FakeLoad() //Sztuczne ładowanie ekranu dla fajnego efektu (.Status to taki pasek ładowania)
         {
             AnsiConsole.MarkupLine("[bold green]Loading...[/]");
-
+            PlaySound("comp.wav");
             AnsiConsole.Status()
                 .Start("Initializing...", ctx =>
                 {
