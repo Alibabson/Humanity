@@ -108,7 +108,8 @@ namespace Humanity.Controller
                 var handled = HandleInput(input);  //handleinput obsługuje nam wszystkie komendy
                 if (!handled)
                 {
-                    _view.Line(_model.Uknown());
+                    LookFunction("");
+                    _view.Line("\n"+_model.Uknown());
                 }
             }
 
@@ -128,6 +129,7 @@ namespace Humanity.Controller
                 nextRoomIdx = _model.NextRoomIdx(room);  //sprawdzamy jaki numer ma pokój co wpisaliśmy...
                 if (nextRoomIdx == -1)
                 {
+
                     _view.Red("Error: Unknown room '" + room + "'. Try again.\n");
                     success = !success;
                     return false;
@@ -239,7 +241,7 @@ namespace Humanity.Controller
                                 if (idx == 2)
                                 {
                                     _itemController.Piano(desc);
-                                    _view.AwaitKey();
+                                    //_view.AwaitKey();
                                     _view.Clear();
                                     LookFunction("");
                                 }
@@ -396,6 +398,7 @@ namespace Humanity.Controller
                             }
                             return true;
                         default:
+                            LookFunction("");
                             _view.Red("Error: There is no item named '" + argument + "' in this room. Try again.\n");
                             success = !success;
                             return false;

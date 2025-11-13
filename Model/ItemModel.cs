@@ -94,8 +94,8 @@
             "\n[grey46 slowblink]Type 'hint' for additional information...[/]\n\n",
             "[red]HUMANITY EQUALS: [/]",
             "[grey underline]You left the whiteboard. \n Press any button to continue[/]",
-            "[grey underline]You have already passed this whiteboard. \n[/][blue italic]HUMANITY NEEDS[/] [green italic]REASON[/][blue italic],[/] [green italic]EMOTION [/][blue italic]and [/][green italic]MORALITY[/]"
-
+            "[grey underline]You have already passed this whiteboard. \n[/][blue italic]HUMANITY NEEDS[/] [green italic]REASON[/][blue italic],[/] [green italic]EMOTION [/][blue italic]and [/][green italic]MORALITY[/]",
+            "[grey46 slowblink]You answered correctly.[/]"
         };
 
 

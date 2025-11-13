@@ -234,6 +234,7 @@ namespace Humanity.Controller
             passed = true;
             //_itemModel.JoinPassword();
             _View.Spectre_Text(_itemModel.whiteboardList[7]);
+            _View.Spectre_Text(_Model.continuee);
             _View.AwaitKey();
         }
 
