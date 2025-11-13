@@ -169,6 +169,7 @@ namespace Humanity.View
         }
         public void Loading()
         {
+            PlaySound("comp.wav");
             Line("Loading");
             Thread.Sleep(500);
             Line("\rLoading.");
