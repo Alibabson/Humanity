@@ -476,7 +476,7 @@
                     if (idx == 2)
                     {
                         itemDesc.Add("[silver]The piano is old, but it still works. You can play it however you want.[/]\n");
-                        itemDesc.Add("[grey underline]Use buttons C, D, E, F, G and H to play, press ENTER to leave[/]");
+                        itemDesc.Add("[grey underline]Use buttons C, D, E, F, G, A, H to play, press ENTER to leave[/]");
 
                         itemDesc.Add("[silver]You already got the [/][yellow1]Diary key[/][silver], but you can still play the piano.[/]");
                         itemDesc.Add("\n[lightslateblue]You hear something switched. The piano opened and you found[/] [yellow1]Diary key[/][lightslateblue]![/]\n");
