@@ -64,8 +64,18 @@ namespace Humanity.View
             foreach (char c in text)
             {
                 // każda litera idzie przez markup i dany kolor.
-
-                AnsiConsole.Markup($"{color}{Markup.Escape(c.ToString())}[/]");
+                if (Console.KeyAvailable)
+                {
+                    var key = Console.ReadKey(true);
+                    if (key.Key == ConsoleKey.Escape)
+                    {
+                        // Wypisz natychmiast resztę tekstu z markupem i przerwij animację
+                        var rest = text.Substring(count);
+                        AnsiConsole.Markup($"{color}{Markup.Escape(rest)}[/]");
+                        break;
+                    }
+                }
+                    AnsiConsole.Markup($"{color}{Markup.Escape(c.ToString())}[/]");
                 if (beep)
                 {
                     

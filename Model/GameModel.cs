@@ -80,9 +80,9 @@
         {
             "Y O U\nS H O U L D\nK E E P\nR O T T I N G",
             "O N C E\nH U M A N\n\nN E V E R\nH U M A N",
-            "Y O U\nT O O K\nH U M A N I T Y\n\nY O U\nL O S T\nH U M A N I T Y",
+            "\nT A K E\nH U M A N I T Y\n\nL O S E\nH U M A N I T Y",
             "F A L S E\nH U M A N\n\nT R U E\nM O N S T E R",
-            "L I E S\n\nY O U\nC A L L E D\nT H E M\nP R O M I S E S",
+            "L I E S\n\nC A L L E D\\nP R O M I S E S",
         };
         public class PrologueLine
         {
@@ -169,7 +169,7 @@
                        "|Available commands:                                                     |\n" +
                        "|- HELP: Show this help message.                                         |\n" +
                        "|- [yellow]LOOK[/]: Observe your surroundings.                                      |\n" +
-                       "|- [teal]CHECK[/] [[ITEM]]: Describe item or room.                                  |\n" +
+                       "|- [teal]CHECK[/] [[ITEM]]: Describe item.                                          |\n" +
                        "|- [palegreen1_1]GO TO[/] [[ROOM]]: move to the next room.                                  |\n" +
                        "|- QUIT/EXIT: Terminate the session and give up on your H U M A N I T Y. |\n" +
                        "-------------------------------------------------------------------------";
@@ -180,7 +180,7 @@
                       "|Available commands:                                                     |\n" +
                       "|- HELP: Show this help message.                                         |\n" +
                       "|- [yellow]LOOK[/]: Observe your surroundings.                                      |\n" +
-                      "|- [teal]CHECK[/]: Describe item or room.                                  |\n" +
+                      "|- [teal]CHECK[/]: Describe item.                                                   |\n" +
                       "|- [palegreen1_1]GO TO[/] [[ROOM]]: move to the next room.                                  |\n" +
                       "|- QUIT/EXIT: Terminate the session and give up on your H U M A N I T Y. |\n" +
                       "|-[red] USE DEVICE: DESTROY ALL THE EVIDENCE IN LAB   [/]                        |\n" +
@@ -586,8 +586,6 @@
                     }
                     break;
                     ////////////////////////
-
-
 
             }
             return itemDesc;
